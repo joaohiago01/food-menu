@@ -3,6 +3,7 @@
 	<name>food_menuWeb</name>
 	<comment></comment>
 	<projects>
+		<project>food_menuEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -28,11 +29,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>food_menuEJB</name>
-			<type>2</type>
-			<location>C:/Users/hiago/eclipse-workspace/food_menuEJB</location>
-		</link>
-	</linkedResources>
 </projectDescription>
