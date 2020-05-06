@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="food_menu">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="food_menuEJB.jar" deploy-path="/" handle="module:/resource/food_menuEJB/food_menuEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="food_menuConnector.rar" deploy-path="/" handle="module:/resource/food_menuConnector/food_menuConnector">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="food_menuClient.jar" deploy-path="/" handle="module:/resource/food_menuClient/food_menuClient">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="food_menuWeb.war" deploy-path="/" handle="module:/resource/food_menuWeb/food_menuWeb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

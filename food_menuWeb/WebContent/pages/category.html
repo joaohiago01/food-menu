@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<script src="https://unpkg.com/feather-icons"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<title>Food Menu - Categorias</title>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
+		<a class="navbar-brand text-light font-weight-bold" href="main.html">Food
+			Menu</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+			aria-expanded="false">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold" href="profile.html">Perfil</a></li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold" href="restaurant.html">Restaurante</a></li>
+				<li class="nav-item dropdown text-light"><a
+					class="nav-link dropdown-toggle text-light font-weight-bold"
+					href="#" id="navbarDropdownMenuLink" role="button"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Cardápio </a>
+					<div class="dropdown-menu bg-danger"
+						aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item text-light font-weight-bold"
+							href="category.html">Categorias</a> <a
+							class="dropdown-item text-light font-weight-bold"
+							href="product.html">Produtos</a>
+					</div></li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold" href="login.html">Sair</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="card-body">
+		<div class="form-row col-sm-6 font-weight-bold">
+			<button type="button" data-toggle="tooltip" data-placement="bottom"
+				title="Cadastrar nova categoria">
+				<i data-feather="plus"></i>
+			</button>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Nome Categoria</h5>
+						<button type="button" data-toggle="tooltip"
+							data-placement="bottom" title="Edite esta categoria">
+							<i data-feather="edit"></i>
+						</button>
+						<button type="button" data-toggle="tooltip"
+							data-placement="bottom" title="Remova esta categoria">
+							<i data-feather="delete"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+		feather.replace()
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("[rel='tooltip']").tooltip('show');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<title>Food Menu - Produtos</title>
+
+</head>
+
+<body>
+
+	<div class="card card bg-danger">
+
+		<div class="card-header card bg-danger mb-3">
+			<ul class="nav justify-content-end">
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="product.html">Voltar</a></li>
+			</ul>
+		</div>
+
+		<div class="card card-group bg-danger">
+			<div class="card">
+				<div class="card-body">
+					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
+					<br />
+					<form>
+						<div class="form-group">
+							<div class="form-group col-md-15 font-weight-bold">
+								<label for="inputNameProduct">Nome</label> <input type="text"
+									class="form-control" id="inputNameProduct"
+									placeholder="Qual o nome deste produto?" />
+							</div>
+							<div class="form-group col-md-15 font-weight-bold">
+								<label for="inputPriceProduct">Preço</label> <input type="text"
+									class="form-control" id="inputPriceProduct"
+									placeholder="Qual o preço deste produto?" />
+							</div>
+							<div class="form-group col-md-15 font-weight-bold">
+								<label for="inputDescription">Descrição (Opcional)</label> <input
+									type="text" class="form-control" id="inputDescription"
+									placeholder="Faça uma descrição deste produto" />
+							</div>
+
+							<div class="form-group col-md-15 font-weight-bold">
+								<label for="inputEspeciality">Qual a categoria deste
+									produto?</label> <select class="custom-select">
+									<option selected="selected">Categoria 1</option>
+									<option value="0">Categoria 2</option>
+								</select>
+							</div>
+						</div>
+
+						<button type="button"
+							class="btn btn-danger btn-lg btn-block font-weight-bold"
+							data-toggle="modal" data-target="#ModalConfirmacao">Cadastrar</button>
+
+						<!-- <div class="modal fade" id="ModalConfirmacao" tabindex="-1"
+							role="dialog" aria-labelledby="ConteudoModalConfirmacao"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="ConteudoModalConfirmacao">O
+											produto pertence mesmo a categoria selecionada?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Não</button>
+										<button type="submit" class="btn btn-danger">Sim</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <script type="text/javascript">
+		$(document).ready(function() {
+			$('#ModalConfirmacao').modal('show');
+		});
+	</script> -->
+
+</body>
+</html>
