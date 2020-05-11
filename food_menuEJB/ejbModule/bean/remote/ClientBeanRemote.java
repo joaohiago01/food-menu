@@ -3,11 +3,8 @@ package bean.remote;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import entity.Client;
 
-@Remote
 public interface ClientBeanRemote {
 
 	public void create (Client client) throws SQLException;

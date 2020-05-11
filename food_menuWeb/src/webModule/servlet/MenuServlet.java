@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.remote.MenuBeanRemote;
-import bean.remote.ProductBeanRemote;
-import bean.remote.RestaurantBeanRemote;
+import bean.MenuBean;
+import bean.ProductBean;
+import bean.RestaurantBean;
 import entity.Menu;
 import entity.Product;
 import entity.Restaurant;
@@ -28,27 +28,27 @@ public class MenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	MenuBeanRemote menuEJB;
+	MenuBean menuEJB;
 	
 	@EJB
-	RestaurantBeanRemote restaurantEJB;
+	RestaurantBean restaurantEJB;
 	
 	@EJB
-	ProductBeanRemote productEJB;
+	ProductBean productEJB;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public MenuServlet() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		try {
 			String action = request.getServletPath();
 			switch (action) {
@@ -60,20 +60,20 @@ public class MenuServlet extends HttpServlet {
 			request.setAttribute("listMenus", menus);
 			request.getRequestDispatcher("/MenuList.xhtml").forward(request, response);
 		} catch (SQLException e) {
-			// TODO: handle exception
+			
 			throw new ServletException(e);
 		}
 	}
 
 	private void doGetAllProducts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		try {
 			Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("id")));
 			List<Product> products = menuEJB.readAllProducts(menu);
 			request.setAttribute("listProductsByMenu", products);
 			request.getRequestDispatcher("/ProductsByMenuList.xhtml").forward(request, response);
 		} catch (SQLException e) {
-			// TODO: handle exception
+			
 			throw new ServletException(e);
 		}
 	}
@@ -82,7 +82,7 @@ public class MenuServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		try {
 			Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("id")));
 			String[] idProducts = request.getParameterValues("products");
@@ -98,7 +98,7 @@ public class MenuServlet extends HttpServlet {
 			
 			menuEJB.create(menu);
 		} catch (SQLException e) {
-			// TODO: handle exception
+			
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());
@@ -109,7 +109,7 @@ public class MenuServlet extends HttpServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		try {
 			Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("restaurant_id")));
 			String[] idProducts = request.getParameterValues("products");
@@ -126,7 +126,7 @@ public class MenuServlet extends HttpServlet {
 			
 			menuEJB.update(menu);
 		} catch (SQLException e) {
-			// TODO: handle exception
+			
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());
@@ -137,14 +137,14 @@ public class MenuServlet extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		try {
 			Menu menu;
 			menu = menuEJB.readById(Integer.parseInt(request.getParameter("id")));
 			
 			menuEJB.delete(menu);
 		} catch (SQLException e) {
-			// TODO: handle exception
+			
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());

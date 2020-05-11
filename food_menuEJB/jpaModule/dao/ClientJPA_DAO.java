@@ -13,7 +13,7 @@ import entity.Client;
 public class ClientJPA_DAO {
 
 	private static ClientJPA_DAO instance;
-	@PersistenceContext(name = "FoodMenu")
+	@PersistenceContext(unitName = "FoodMenu")
 	protected EntityManager entityManager;
 
 	public static ClientJPA_DAO getInstance(){

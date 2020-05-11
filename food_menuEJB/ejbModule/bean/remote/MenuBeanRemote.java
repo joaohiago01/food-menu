@@ -3,12 +3,9 @@ package bean.remote;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import entity.Menu;
 import entity.Product;
 
-@Remote
 public interface MenuBeanRemote {
 
 	public void create (Menu menu) throws SQLException;

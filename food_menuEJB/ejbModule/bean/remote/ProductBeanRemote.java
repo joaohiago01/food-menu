@@ -3,12 +3,9 @@ package bean.remote;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import entity.CategoryProduct;
 import entity.Product;
 
-@Remote
 public interface ProductBeanRemote {
 
 	public void create (Product product) throws SQLException;

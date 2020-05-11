@@ -1,15 +1,12 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -33,11 +30,23 @@ public class Restaurant implements Serializable {
 	
 	private String description;
 	
-	@Temporal(TemporalType.TIME)
-	private Date time_open;
+	private String time_open;
 	
-	@Temporal(TemporalType.TIME)
-	private Date time_close;
+	private String time_close;
+	
+	private boolean sunday_open;
+	
+	private boolean monday_open;
+	
+	private boolean tuesday_open;
+	
+	private boolean wednesday_open;
+	
+	private boolean thursday_open;
+	
+	private boolean friday_open;
+	
+	private boolean saturday_open;
 	
 	private String phone;
 	
@@ -96,19 +105,19 @@ public class Restaurant implements Serializable {
 		this.description = description;
 	}
 
-	public Date getTime_open() {
+	public String getTime_open() {
 		return time_open;
 	}
 
-	public void setTime_open(Date time_open) {
+	public void setTime_open(String time_open) {
 		this.time_open = time_open;
 	}
 
-	public Date getTime_close() {
+	public String getTime_close() {
 		return time_close;
 	}
 
-	public void setTime_close(Date time_close) {
+	public void setTime_close(String time_close) {
 		this.time_close = time_close;
 	}
 
@@ -198,6 +207,63 @@ public class Restaurant implements Serializable {
 	public void setRating_number(int rating_number) {
 		this.rating_number = rating_number;
 	}
+
+	public boolean isSunday_open() {
+		return sunday_open;
+	}
+
+	public void setSunday_open(boolean sunday_open) {
+		this.sunday_open = sunday_open;
+	}
+
+	public boolean isMonday_open() {
+		return monday_open;
+	}
+
+	public void setMonday_open(boolean monday_open) {
+		this.monday_open = monday_open;
+	}
+
+	public boolean isTuesday_open() {
+		return tuesday_open;
+	}
+
+	public void setTuesday_open(boolean tuesday_open) {
+		this.tuesday_open = tuesday_open;
+	}
+
+	public boolean isWednesday_open() {
+		return wednesday_open;
+	}
+
+	public void setWednesday_open(boolean wednesday_open) {
+		this.wednesday_open = wednesday_open;
+	}
+
+	public boolean isThursday_open() {
+		return thursday_open;
+	}
+
+	public void setThursday_open(boolean thursday_open) {
+		this.thursday_open = thursday_open;
+	}
+
+	public boolean isFriday_open() {
+		return friday_open;
+	}
+
+	public void setFriday_open(boolean friday_open) {
+		this.friday_open = friday_open;
+	}
+
+	public boolean isSaturday_open() {
+		return saturday_open;
+	}
+
+	public void setSaturday_open(boolean saturday_open) {
+		this.saturday_open = saturday_open;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -210,15 +276,22 @@ public class Restaurant implements Serializable {
 		result = prime * result + (delivery ? 1231 : 1237);
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((district == null) ? 0 : district.hashCode());
+		result = prime * result + (friday_open ? 1231 : 1237);
 		result = prime * result + id;
+		result = prime * result + (monday_open ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + rating;
 		result = prime * result + rating_number;
+		result = prime * result + (saturday_open ? 1231 : 1237);
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + (sunday_open ? 1231 : 1237);
+		result = prime * result + (thursday_open ? 1231 : 1237);
 		result = prime * result + ((time_close == null) ? 0 : time_close.hashCode());
 		result = prime * result + ((time_open == null) ? 0 : time_open.hashCode());
+		result = prime * result + (tuesday_open ? 1231 : 1237);
+		result = prime * result + (wednesday_open ? 1231 : 1237);
 		return result;
 	}
 
@@ -268,7 +341,11 @@ public class Restaurant implements Serializable {
 				return false;
 		} else if (!district.equals(other.district))
 			return false;
+		if (friday_open != other.friday_open)
+			return false;
 		if (id != other.id)
+			return false;
+		if (monday_open != other.monday_open)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -289,10 +366,16 @@ public class Restaurant implements Serializable {
 			return false;
 		if (rating_number != other.rating_number)
 			return false;
+		if (saturday_open != other.saturday_open)
+			return false;
 		if (state == null) {
 			if (other.state != null)
 				return false;
 		} else if (!state.equals(other.state))
+			return false;
+		if (sunday_open != other.sunday_open)
+			return false;
+		if (thursday_open != other.thursday_open)
 			return false;
 		if (time_close == null) {
 			if (other.time_close != null)
@@ -303,6 +386,10 @@ public class Restaurant implements Serializable {
 			if (other.time_open != null)
 				return false;
 		} else if (!time_open.equals(other.time_open))
+			return false;
+		if (tuesday_open != other.tuesday_open)
+			return false;
+		if (wednesday_open != other.wednesday_open)
 			return false;
 		return true;
 	}
