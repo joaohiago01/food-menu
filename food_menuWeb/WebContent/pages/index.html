@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 
 <link rel="stylesheet"
@@ -9,6 +10,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <title>Food Menu</title>
+
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 <body>
@@ -40,11 +44,14 @@
 			<div class="col-sm-6">
 				<a href="#"></a>
 				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">Nome Restaurante</h5>
-						<p class="card-text">Descrição...</p>
-						<p class="card-text">Especialidade</p>
-					</div>
+					<form class="card-body" method="get" action="../RestaurantServlet"
+						th:each="restaurant : ${listRestaurants}">
+						<h5 class="card-title" th:text="${restaurant.name}"></h5>
+						<p class="card-text" th:text="${restaurant.description}"></p>
+						<p class="card-text" th:text="${restaurant.especiality}"></p>
+						<h5 th:if="${#lists.isEmpty(listRestaurants)}">Nenhum
+							restaurante encontrado</h5>
+					</form>
 				</div>
 			</div>
 
