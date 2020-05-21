@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,8 @@
 
 <title>Food Menu</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
@@ -51,12 +54,14 @@
 	</nav>
 
 	<div class="card-body">
-		<form class="needs-validation" novalidate>
+		<form class="needs-validation" novalidate method="post"
+			action="../ClientSevlet">
 			<div class="form-group">
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputName">Nome Completo</label> <input type="text"
 						class="form-control" id="inputName"
-						placeholder="Qual o nome do dono do restaurante?" required="required" value="<%= request.getAttribute('client') %>"/>
+						placeholder="Qual o nome do dono do restaurante?"
+						required="required" value="<%=request.getAttribute("name")%>" />
 					<div class="invalid-feedback">Por favor, informe o nome do
 						dono do restaurante.</div>
 				</div>
@@ -64,7 +69,7 @@
 					<label for="inputEmail">E-mail</label> <input type="email"
 						class="form-control" id="inputEmail"
 						placeholder="Qual o e-mail do dono do restaurante?"
-						required="required" />
+						required="required" value="<%=request.getAttribute("email")%>" />
 					<div class="invalid-feedback">Por favor, informe o e-mail do
 						dono do restaurante.</div>
 				</div>
@@ -72,14 +77,15 @@
 					<label for="inputCpf">CPF</label> <input type="text"
 						class="form-control" id="inputCpf"
 						placeholder="Qual o CPF do dono do restaurante?"
-						required="required" />
+						required="required" value="<%=request.getAttribute("cpf")%>" />
 					<div class="invalid-feedback">Por favor, informe o cpf do
 						dono do restaurante.</div>
 				</div>
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputPassword">Senha</label> <input type="password"
 						class="form-control" id="inputPassword"
-						placeholder="Digite uma senha" required="required" />
+						placeholder="Digite uma senha" required="required"
+						value="<%=request.getAttribute("password")%>" />
 					<div class="invalid-feedback">Por favor, informe a senha do
 						dono do restaurante.</div>
 				</div>

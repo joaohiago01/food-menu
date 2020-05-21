@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Restaurant", uniqueConstraints = @UniqueConstraint(columnNames = {"cnpj"}))
@@ -60,7 +61,7 @@ public class Restaurant implements Serializable {
 	
 	private String district;
 	
-	@Min(1)
+	@Size(min = 1)
 	private String number;
 	
 	private String addition;

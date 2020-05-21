@@ -45,8 +45,8 @@
 				<a href="#"></a>
 				<div class="card">
 					<form class="card-body" method="get" action="../RestaurantServlet"
-						th:each="restaurant : ${listRestaurants}">
-						<h5 class="card-title" th:text="${restaurant.name}"></h5>
+						th:each="restaurant : ${listRestaurants}" th:object="${restaurant}">
+						<h5 class="card-title" th:field="*{name}"></h5>
 						<p class="card-text" th:text="${restaurant.description}"></p>
 						<p class="card-text" th:text="${restaurant.especiality}"></p>
 						<h5 th:if="${#lists.isEmpty(listRestaurants)}">Nenhum

@@ -2,6 +2,7 @@
     <wb-module deploy-name="food_menuWeb">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/src/webModule/servlet"/>
         <dependent-module archiveName="food_menuEJB.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/food_menuEJB/food_menuEJB">
             <dependency-type>uses</dependency-type>
         </dependent-module>

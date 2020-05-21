@@ -17,33 +17,38 @@ import entity.CategoryProduct;
 /**
  * Servlet implementation class CategoryProductServlet
  */
-@WebServlet("/CategoryProductServlet")
+@WebServlet(name = "CategoryProductServlet", urlPatterns = "/CategoryProductServlet")
 public class CategoryProductServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	CategoryProductBean categoryProductEJB;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CategoryProductServlet() {
-        super();
-        
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CategoryProductServlet() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
-			List<CategoryProduct> categoryProducts = categoryProductEJB.read();
-			request.setAttribute("listCategoryProducts", categoryProducts);
-			request.getRequestDispatcher("/CategoryProductList.xhtml").forward(request, response);
+			if (!request.getParameter("id").isEmpty()) {
+				CategoryProduct categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
+				request.setAttribute("category", categoryProduct.getName());
+				request.getRequestDispatcher("./pages/category_edit").forward(request, response);
+			} else {
+				List<CategoryProduct> categoryProducts = categoryProductEJB.read();
+				request.setAttribute("listCategoryProducts", categoryProducts);
+				request.getRequestDispatcher("./pages/categories.jsp").forward(request, response);
+			}
 		} catch (SQLException e) {
-			
+
 			throw new ServletException(e);
 		}
 	}
@@ -52,55 +57,55 @@ public class CategoryProductServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
 			CategoryProduct categoryProduct = new CategoryProduct();
 			categoryProduct.setName(request.getParameter("name"));
-			
+
 			categoryProductEJB.create(categoryProduct);
 		} catch (SQLException e) {
-			
+
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("/Main.xhtml").forward(request, response);
+		response.sendRedirect("./pages/categories.jsp");
 	}
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
 			CategoryProduct categoryProduct;
 			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
 			categoryProduct.setName(request.getParameter("name"));
-			
+
 			categoryProductEJB.update(categoryProduct);
 		} catch (SQLException e) {
-			
+
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("/Main.xhtml").forward(request, response);
+		response.sendRedirect("./pages/categories.jsp");
 	}
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
 			CategoryProduct categoryProduct;
 			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
-			
+
 			categoryProductEJB.delete(categoryProduct);
 		} catch (SQLException e) {
-			
+
 			throw new ServletException(e);
 		}
 		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("/Main.xhtml").forward(request, response);
+		response.sendRedirect("./pages/categories.jsp");
 	}
 
 }

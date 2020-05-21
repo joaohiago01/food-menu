@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +15,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	
+
 <title>Food Menu - Categoria</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
@@ -26,8 +29,12 @@
 
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="category.html">Voltar</a></li>
+				<li class="nav-item">
+					<form action="../CategoryProductServlet" method="get">
+						<input class="nav-link btn btn-danger btn-lg" value="Voltar"
+							type="submit" />
+					</form>
+				</li>
 			</ul>
 		</div>
 
@@ -36,12 +43,19 @@
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre a categoria:</h2>
 					<br />
-					<form class="needs-validation" novalidate>
+					<%@page import="entity.CategoryProduct"%>
+					<%
+						CategoryProduct categoryProduct = (CategoryProduct) request.getAttribute("category");
+					%>
+					<form class="needs-validation" novalidate
+						action="../CategoryProductServlet" method="post">
+						<input type="hidden" name="_method" value="PUT" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
 									class="form-control" id="inputNameProduct"
-									placeholder="Qual o nome desta categoria?" required="required" />
+									placeholder="Qual o nome desta categoria?" required="required"
+									value="<%categoryProduct.getName();%>" />
 								<div class="invalid-feedback">Por favor, informe o nome da
 									categoria.</div>
 							</div>

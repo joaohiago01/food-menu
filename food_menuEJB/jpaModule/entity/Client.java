@@ -12,8 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Client", uniqueConstraints = @UniqueConstraint(columnNames = {"cpf", "email"}))
@@ -30,14 +29,12 @@ public class Client implements Serializable {
 	
 	private String cpf;
 	
-	@Max(value = 60)
-	@Min(value = 5)
+	@Size(min = 5, max = 60)
 	private String name;
 	
 	private String email;
 	
-	@Max(value = 20)
-	@Min(value = 5)
+	@Size(min = 5, max = 60)
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL)
