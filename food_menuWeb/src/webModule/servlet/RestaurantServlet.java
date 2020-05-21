@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
 import bean.ClientBean;
@@ -124,15 +125,16 @@ public class RestaurantServlet extends HttpServlet {
 			restaurant.setTime_open(request.getParameter("time_open"));
 			restaurant.setTime_close(request.getParameter("time_close"));
 
-			Client client = (Client) request.getAttribute("client");
+			HttpSession httpSession = request.getSession();
+			Client client = (Client) httpSession.getAttribute("client");
 			clientEJB.create(client);
 			restaurantEJB.create(restaurant);
+			request.setCharacterEncoding(getServletInfo());
+			response.sendRedirect("../pages/main.html");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
 		}
-		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("../pages/main.html").forward(request, response);
 	}
 
 	/**

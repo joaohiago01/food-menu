@@ -45,7 +45,7 @@
 					<br />
 					<%@page import="entity.CategoryProduct"%>
 					<%
-						CategoryProduct categoryProduct = (CategoryProduct) request.getAttribute("category");
+						CategoryProduct categoryProduct = (CategoryProduct) request.getSession().getAttribute("category");
 					%>
 					<form class="needs-validation" novalidate
 						action="../CategoryProductServlet" method="post">

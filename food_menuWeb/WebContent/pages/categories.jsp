@@ -79,7 +79,7 @@
 				language="java"%>
 			<%
 				@SuppressWarnings("unchecked")
-			List<CategoryProduct> listCategoryProducts = (List<CategoryProduct>) request.getAttribute("listCategoryProducts");
+			List<CategoryProduct> listCategoryProducts = (List<CategoryProduct>) request.getSession().getAttribute("listCategoryProducts");
 			if (listCategoryProducts == null || listCategoryProducts.isEmpty()) {
 			%>
 			<div class="col-sm-6">

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
 import entity.CategoryProduct;
@@ -38,14 +39,15 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 			if (!request.getParameter("id").isEmpty()) {
 				CategoryProduct categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
-				request.setAttribute("category", categoryProduct.getName());
-				request.getRequestDispatcher("./pages/category_edit").forward(request, response);
+				httpSession.setAttribute("category", categoryProduct.getName());
+				response.sendRedirect("./pages/category_edit");
 			} else {
 				List<CategoryProduct> categoryProducts = categoryProductEJB.read();
-				request.setAttribute("listCategoryProducts", categoryProducts);
-				request.getRequestDispatcher("./pages/categories.jsp").forward(request, response);
+				httpSession.setAttribute("listCategoryProducts", categoryProducts);
+				response.sendRedirect("./pages/categories.jsp");
 			}
 		} catch (SQLException e) {
 

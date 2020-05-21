@@ -34,7 +34,7 @@ public class Client implements Serializable {
 	
 	private String email;
 	
-	@Size(min = 5, max = 60)
+	@Size(min = 5, max = 20)
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL)

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.ClientBean;
 import entity.Client;
@@ -85,6 +86,9 @@ public class ClientServlet extends HttpServlet {
 		client.setName(request.getParameter("name"));
 		client.setEmail(request.getParameter("email"));
 		client.setPassword(request.getParameter("password"));
+		
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("client", client);
 		response.sendRedirect("./pages/restaurant_register.jsp");
 	}
 
