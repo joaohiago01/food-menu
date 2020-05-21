@@ -89,7 +89,7 @@ public class ClientServlet extends HttpServlet {
 		
 		HttpSession httpSession = request.getSession();
 		httpSession.setAttribute("client", client);
-		response.sendRedirect("./pages/restaurant_register.jsp");
+		response.sendRedirect("./pages/restaurant_register.html");
 	}
 
 	/**
