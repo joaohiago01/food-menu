@@ -49,10 +49,16 @@ public class ProductJPA_DAO {
 				" WHERE CATEGORY_ID = " + category.getId()).getResultList();
 	}
 	
+	public Product findOneByCategory(Product product, CategoryProduct category) throws SQLException{
+		return (Product) entityManager.createQuery("FROM " + 
+				Product.class.getName() + 
+				" WHERE CATEGORY_ID = " + category.getId() + " AND ID = " + product.getId()).getSingleResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
-				Product.class.getName()).getResultList();
+				Product.class.getName() + " AS P INNER JOIN CATEGORY_PRODUCT AS C ON (P.CATEGORY_ID = C.ID) ORDER BY C.NAME ASC").getResultList();
 	}
 
 	public void persist(Product product) throws SQLException{

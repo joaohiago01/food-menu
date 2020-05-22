@@ -48,7 +48,7 @@
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
-									class="form-control" id="inputNameProduct"
+									class="form-control" id="inputNameProduct" name="name"
 									placeholder="Qual o nome desta categoria?" required="required" />
 								<div class="invalid-feedback">Por favor, informe o nome da
 									categoria.</div>

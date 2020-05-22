@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.faces.annotation.RequestMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +31,6 @@ public class ClientServlet extends HttpServlet {
 	 */
 	public ClientServlet() {
 		super();
-
 	}
 
 	/**
@@ -41,20 +39,25 @@ public class ClientServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try { 
-			String action = request.getServletPath();
-			if (action.equalsIgnoreCase("/signIn")) {
-				signIn(request, response);
-			} else if (action.equalsIgnoreCase("/client")) {
+			HttpSession httpSession = request.getSession();
+			if (!request.getParameter("signIn").isEmpty()) {
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
+				Client client = clientEJB.signIn(email, password);
+				if (client != null) {
+					httpSession.setAttribute("clientLogged", client);
+					response.sendRedirect("./pages/main.jsp");
+				} else {
+					response.sendRedirect("./pages/login.jsp");
+				}
+			} else if (!request.getParameter("id").isEmpty()) {
 				Client client = clientEJB.readById(Integer.parseInt(request.getParameter("id")));
-				request.setAttribute("name", client.getName());
-				request.setAttribute("email", client.getEmail());
-				request.setAttribute("cpf", client.getCpf());
-				request.setAttribute("password", client.getPassword());
-				request.getRequestDispatcher("/profile.jsp").forward(request, response);
+				httpSession.setAttribute("client", client);
+				response.sendRedirect("./pages/profile.jsp");
 			} else {
 				List<Client> clients = clientEJB.read();
 				request.setAttribute("listClients", clients);
-				//request.getRequestDispatcher("/.jsp").forward(request, response);
+				response.sendRedirect("./pages/index.jsp");
 			}
 		} catch (SQLException e) {
 
@@ -62,34 +65,26 @@ public class ClientServlet extends HttpServlet {
 		}
 	}
 
-	protected void signIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			Client client = clientEJB.signIn(email, password);
-			request.setAttribute("client", client);
-			request.getRequestDispatcher("../pages/main.jsp").forward(request, response);
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@RequestMap
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Client client = new Client();
-		client.setCpf(request.getParameter("cpf"));
-		client.setName(request.getParameter("name"));
-		client.setEmail(request.getParameter("email"));
-		client.setPassword(request.getParameter("password"));
-		
-		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("client", client);
-		response.sendRedirect("./pages/restaurant_register.html");
+		try {
+			Client client = new Client();
+			client.setCpf(request.getParameter("cpf"));
+			client.setName(request.getParameter("name"));
+			client.setEmail(request.getParameter("email"));
+			client.setPassword(request.getParameter("password"));
+			
+			clientEJB.create(client);
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("client", client);
+			response.sendRedirect("./pages/restaurant_register.jsp");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -105,7 +100,7 @@ public class ClientServlet extends HttpServlet {
 			client.setEmail(request.getParameter("email"));
 			client.setPassword(request.getParameter("password"));
 			clientEJB.update(client);
-			response.sendRedirect("./pages/profile.jsp");
+			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -121,7 +116,7 @@ public class ClientServlet extends HttpServlet {
 			Client client;
 			client = clientEJB.readById(Integer.parseInt(request.getParameter("id")));
 			clientEJB.delete(client);
-			response.sendRedirect("./pages/profile.jsp");
+			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

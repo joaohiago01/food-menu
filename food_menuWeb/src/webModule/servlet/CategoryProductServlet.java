@@ -65,12 +65,11 @@ public class CategoryProductServlet extends HttpServlet {
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.create(categoryProduct);
+			response.sendRedirect("./pages/categories.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
 		}
-		request.setCharacterEncoding(getServletInfo());
-		response.sendRedirect("./pages/categories.jsp");
 	}
 
 	/**
@@ -84,12 +83,11 @@ public class CategoryProductServlet extends HttpServlet {
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.update(categoryProduct);
+			response.sendRedirect("./pages/categories.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
 		}
-		request.setCharacterEncoding(getServletInfo());
-		response.sendRedirect("./pages/categories.jsp");
 	}
 
 	/**
@@ -102,12 +100,11 @@ public class CategoryProductServlet extends HttpServlet {
 			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
 
 			categoryProductEJB.delete(categoryProduct);
+			response.sendRedirect("./pages/categories.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
 		}
-		request.setCharacterEncoding(getServletInfo());
-		response.sendRedirect("./pages/categories.jsp");
 	}
 
 }

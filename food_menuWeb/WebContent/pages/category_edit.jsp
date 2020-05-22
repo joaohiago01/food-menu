@@ -53,7 +53,7 @@
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
-									class="form-control" id="inputNameProduct"
+									class="form-control" id="inputNameProduct" name="name"
 									placeholder="Qual o nome desta categoria?" required="required"
 									value="<%categoryProduct.getName();%>" />
 								<div class="invalid-feedback">Por favor, informe o nome da
@@ -62,7 +62,7 @@
 						</div>
 
 						<button type="submit"
-							class="btn btn-danger btn-lg btn-block font-weight-bold">Cadastrar</button>
+							class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar Mudanças</button>
 					</form>
 				</div>
 			</div>

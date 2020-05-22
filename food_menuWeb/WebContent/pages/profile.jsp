@@ -21,7 +21,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold" href="main.html">Food
+		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -31,10 +31,9 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="profile.html">Perfil</a></li>
+					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
-					href="restaurant_register.html">Restaurante</a></li>
+					class="nav-link text-light font-weight-bold" href="restaurant_edit.jsp">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -42,58 +41,63 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold"
-							href="category.html">Categorias</a> <a
-							class="dropdown-item text-light font-weight-bold"
-							href="product.html">Produtos</a>
+						<form action="../CategoryProductServlet" method="get">
+							<input class="dropdown-item text-light font-weight-bold"
+								type="submit" value="Categorias" />
+						</form>
+						<form action="../ProductServlet" method="get">
+							<input class="dropdown-item text-light font-weight-bold"
+								type="submit" value="Produtos" />
+						</form>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="login.html">Sair</a></li>
+					class="nav-link text-light font-weight-bold" href="login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="card-body">
+		<%@page import="entity.Client" language="java"%>
+
+		<%
+				Client client = (Client) request.getSession().getAttribute("client");
+			%>
 		<form class="needs-validation" novalidate method="post"
 			action="../ClientSevlet">
+			<input type="hidden" name="_method" value="PUT" />
 			<div class="form-group">
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputName">Nome Completo</label> <input type="text"
-						class="form-control" id="inputName"
+						class="form-control" id="inputName" name="name"
 						placeholder="Qual o nome do dono do restaurante?"
-						required="required" value="<%=request.getAttribute("name")%>" />
+						required="required" value="<%client.getName();%>" />
 					<div class="invalid-feedback">Por favor, informe o nome do
 						dono do restaurante.</div>
 				</div>
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputEmail">E-mail</label> <input type="email"
-						class="form-control" id="inputEmail"
+						class="form-control" id="inputEmail" name="email"
 						placeholder="Qual o e-mail do dono do restaurante?"
-						required="required" value="<%=request.getAttribute("email")%>" />
+						required="required" value="<%client.getEmail();%>" />
 					<div class="invalid-feedback">Por favor, informe o e-mail do
 						dono do restaurante.</div>
 				</div>
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputCpf">CPF</label> <input type="text"
-						class="form-control" id="inputCpf"
+						class="form-control" id="inputCpf" name="cpf"
 						placeholder="Qual o CPF do dono do restaurante?"
-						required="required" value="<%=request.getAttribute("cpf")%>" />
+						required="required" value="<%client.getCpf();%>" />
 					<div class="invalid-feedback">Por favor, informe o cpf do
 						dono do restaurante.</div>
 				</div>
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputPassword">Senha</label> <input type="password"
-						class="form-control" id="inputPassword"
+						class="form-control" id="inputPassword" name="password"
 						placeholder="Digite uma senha" required="required"
-						value="<%=request.getAttribute("password")%>" />
+						value="<%client.getPassword();%>" />
 					<div class="invalid-feedback">Por favor, informe a senha do
 						dono do restaurante.</div>
 				</div>
-				<!-- <div class="form-group col-md-15 font-weight-bold">
-					<label for="inputPasswordConfirm">Confirmar Senha</label> <input
-						type="password" class="form-control" id="inputPasswordConfirm"
-						placeholder="Confirme sua senha" />
-				</div>  -->
 			</div>
 
 			<button type="submit"

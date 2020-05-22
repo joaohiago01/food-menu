@@ -49,22 +49,17 @@ public class RestaurantServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			String action = request.getServletPath();
-			switch (action) {
-			case "/restaurantsByUser":
-				doGetByUser(request, response);
-				break;
-
-			case "/restaurantsByCategory":
-				doGetByCategory(request, response);
-				break;
-
-			default:
+			if (!request.getParameter("id").isEmpty()) {
+				Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("id")));
+				HttpSession httpSession = request.getSession();
+				httpSession.setAttribute("food_menu", restaurant);
+				//httpSession.setAttribute("listProducts", products);
+				response.sendRedirect("./pages/food_menu.jsp");
+			} else { 
 				List<Restaurant> restaurants = restaurantEJB.read();
 				request.setAttribute("listRestaurants", restaurants);
 				request.getRequestDispatcher("../pages/index.html").forward(request, response);					
 			}
-
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -129,8 +124,7 @@ public class RestaurantServlet extends HttpServlet {
 			Client client = (Client) httpSession.getAttribute("client");
 			clientEJB.create(client);
 			restaurantEJB.create(restaurant);
-			request.setCharacterEncoding(getServletInfo());
-			response.sendRedirect("../pages/main.html");
+			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -168,28 +162,10 @@ public class RestaurantServlet extends HttpServlet {
 			restaurant.setTime_close(request.getParameter("time_close"));
 
 			restaurantEJB.update(restaurant);
+			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
 		}
-		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("../pages/restaurant.html").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			Restaurant restaurant;
-			restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("id")));
-			restaurantEJB.delete(restaurant);
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-		request.setCharacterEncoding(getServletInfo());
-		request.getRequestDispatcher("../pages/restaurant.html").forward(request, response);
 	}
 }

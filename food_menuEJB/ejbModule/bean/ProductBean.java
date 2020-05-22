@@ -15,39 +15,44 @@ import entity.Product;
 public class ProductBean {
 
 	private ProductJPA_DAO productJPA_DAO = ProductJPA_DAO.getInstance();
-	
+
 	public void create(Product product) throws SQLException{
-		
+
 		productJPA_DAO.persist(product);
 	}
 
 	public void delete(Product product) throws SQLException{
-		
+
 		productJPA_DAO.remove(product);
 	}
 
 	public void deleteById(int id) throws SQLException{
-		
+
 		productJPA_DAO.removeById(id);
 	}
 
-	public List<Product> read() throws SQLException{
-		
+	public List<Product> readAll() throws SQLException{
+
 		return productJPA_DAO.findAll();
 	}
 
-	public List<Product> readByCategory(CategoryProduct categoryProduct) throws SQLException{
-		
+	public List<Product> readAllByCategory(CategoryProduct categoryProduct) throws SQLException{
+
 		return productJPA_DAO.findAllByCategory(categoryProduct);
 	}
 
+	public Product readByCategory(Product product, CategoryProduct categoryProduct) throws SQLException{
+
+		return productJPA_DAO.findOneByCategory(product, categoryProduct);
+	}
+
 	public Product readById(int id) throws SQLException{
-		
+
 		return productJPA_DAO.getById(id);
 	}
 
 	public void update(Product product) throws SQLException{
-		
+
 		productJPA_DAO.merge(product);
 	}
 }
