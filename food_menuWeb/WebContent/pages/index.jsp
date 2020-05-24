@@ -17,14 +17,18 @@
 
 </head>
 <body>
-
+	<%@page import="java.util.List, entity.Restaurant"%>
+	<%
+		@SuppressWarnings("unchecked")
+	List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaurants");
+	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="user_register.jsp">Restaurante</a></li>
+					href="./pages/user_register.jsp">Restaurante</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="login.jsp">Entrar</a></li>
+					href="./pages/login.jsp">Entrar</a></li>
 			</ul>
 		</div>
 	</div>
@@ -42,14 +46,8 @@
 		<br />
 
 		<div class="row">
-			<%@page import="entity.Restaurant, java.util.List"%>
 			<%
-			if (request.getSession().getAttribute("listRestaurants") == null) {
-				response.sendRedirect("../RestaurantServlet");
-			}
-				@SuppressWarnings("unchecked")
-			List<Restaurant> restaurants = (List<Restaurant>) request.getSession().getAttribute("listRestaurants");
-			if (restaurants == null || restaurants.isEmpty()) {
+				if (restaurants == null || restaurants.isEmpty()) {
 			%>
 			<div class="col-sm-6">
 				<div class="card">
@@ -66,19 +64,15 @@
 				<a href="#"></a>
 				<div class="card">
 					<form class="card-body" method="get"
-						action="../RestaurantServlet?id=${restaurant.getId()}">
+						action="../RestaurantServlet?restaurantID=${restaurant.getId()}">
 						<h5 class="card-title">
-							<%
-								restaurant.getName();
-							%>
+							<%=restaurant.getName()%>
 						</h5>
 						<p class="card-text">
-							<%
-								restaurant.getDescription();
-							%>
+							<%=restaurant.getDescription()%>
 						</p>
 						<p class="card-text">
-							<%%>
+							<%=%>
 						</p>
 						<button type="submit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
@@ -89,7 +83,6 @@
 				}
 			}
 			%>
-
 		</div>
 	</div>
 

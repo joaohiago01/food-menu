@@ -24,9 +24,9 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="index.jsp">Início</a></li>
+					href="./RestaurantServlet?pageURL=index.jsp">Início</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="login.jsp">Entrar</a></li>
+					href="./pages/login.jsp">Entrar</a></li>
 			</ul>
 		</div>
 

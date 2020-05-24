@@ -22,7 +22,7 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="index.jsp">Voltar</a></li>
+					href="./RestaurantServlet?pageURL=index.jsp">Voltar</a></li>
 			</ul>
 			<br />
 			<div class="card col-sm-12 form-group-lg">

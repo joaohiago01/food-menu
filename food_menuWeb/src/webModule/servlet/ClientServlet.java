@@ -42,7 +42,7 @@ public class ClientServlet extends HttpServlet {
 
 	@EJB
 	CategoryProductBean categoryProductEJB;
-	
+
 	@EJB
 	ProductBean productEJB;
 
@@ -58,36 +58,33 @@ public class ClientServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		try { 
-			HttpSession httpSession = request.getSession();
+		try {
 			String email = (String) request.getParameter("email");
 			String password = (String) request.getParameter("password");
-			
+
 			if (email != null && password != null) {//AUTHENTICATION
 				System.out.println(email);
 				Client client = clientEJB.signIn(email, password);
 				if (client != null) {
-					httpSession.setAttribute("clientLogged", client);
 					Restaurant restaurant = restaurantEJB.readByUser(client);
 					Menu menu = menuEJB.findByRestaurant(restaurant.getId());
 					List<Product> products = productEJB.readAllProducts(menu);
 					menu.setProducts(products);
 					List<Category> categoryProducts = categoryProductEJB.readByMenu(menu);
-					
-					String logged = "logged";
 
-					httpSession.setAttribute("restaurant", restaurant);
-					httpSession.setAttribute("menu", menu);
-					httpSession.setAttribute("categories", categoryProducts);
-					httpSession.setAttribute("logged", logged);
-					response.sendRedirect("./pages/main.jsp");
+					request.setAttribute("clientLogged", client);
+					request.setAttribute("restaurant", restaurant);
+					request.setAttribute("menu", menu);
+					request.setAttribute("categories", categoryProducts);
+					request.getRequestDispatcher("./pages/main.jsp").forward(request, response);
 				} else {
 					response.sendRedirect("./pages/login.jsp");
 				}
 			} else {//AUTHORIZATION
-				if(httpSession.getAttribute("clientLogged") != null) {
-					Client clientLogged = (Client) request.getAttribute("clientLogged");
-					String pageURL = (String) request.getSession().getAttribute("page");
+				Client clientLogged = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
+				if(clientLogged != null) {
+
+					String pageURL = request.getParameter("pageURL");
 
 					Restaurant restaurant = restaurantEJB.readByUser(clientLogged);
 					Menu menu = menuEJB.findByRestaurant(restaurant.getId());
@@ -95,20 +92,16 @@ public class ClientServlet extends HttpServlet {
 					menu.setProducts(products);
 					List<Category> categoryProducts = categoryProductEJB.readByMenu(menu);
 
-					httpSession.setAttribute("clientLogged", clientLogged);
-					httpSession.setAttribute("restaurant", restaurant);
-					httpSession.setAttribute("menu", menu);
-					httpSession.setAttribute("categories", categoryProducts);
-					response.sendRedirect(pageURL);
+					request.setAttribute("clientLogged", clientLogged);
+					request.setAttribute("restaurant", restaurant);
+					request.setAttribute("menu", menu);
+					request.setAttribute("categories", categoryProducts);
+					request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);
+
 				} else {
 					response.sendRedirect("./pages/login.jsp");
 				}
 			}
-			/*else if (!request.getParameter("id").isEmpty()) {
-				Client client = clientEJB.readById(Integer.parseInt(request.getParameter("id")));
-				httpSession.setAttribute("client", client);
-				response.sendRedirect("./pages/profile.jsp");
-			}*/ 
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -120,15 +113,20 @@ public class ClientServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		Client client = new Client();
-		client.setCpf(request.getParameter("cpf"));
-		client.setName(request.getParameter("name"));
-		client.setEmail(request.getParameter("email"));
-		client.setPassword(request.getParameter("password"));
+		if (request.getParameter("_method") != null && request.getParameter("_method").equalsIgnoreCase("put")) {
+			doPut(request, response);
+		} else {
 
-		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("client", client);
-		response.sendRedirect("./pages/restaurant_register.jsp");
+			Client client = new Client();
+			client.setCpf(request.getParameter("cpf"));
+			client.setName(request.getParameter("name"));
+			client.setEmail(request.getParameter("email"));
+			client.setPassword(request.getParameter("password"));
+
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("client", client);
+			response.sendRedirect("./pages/restaurant_register.jsp");
+		}
 	}
 
 	/**
@@ -137,27 +135,14 @@ public class ClientServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			Client client;
-			client = (Client) request.getSession().getAttribute("client");
+			Client client = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
 			client.setCpf(request.getParameter("cpf"));
 			client.setName(request.getParameter("name"));
 			client.setEmail(request.getParameter("email"));
 			client.setPassword(request.getParameter("password"));
-			clientEJB.update(client);
+			client = clientEJB.update(client);
 
-			/*HttpSession httpSession = request.getSession();
-			client = clientEJB.signIn(client.getEmail(), client.getPassword());
-			Restaurant restaurant = restaurantEJB.readByUser(client);
-			Menu menu = menuEJB.findByRestaurant(restaurant.getId());
-			List<Product> products = menuEJB.readAllProducts(menu);
-			menu.setProducts(products);
-			List<CategoryProduct> categoryProducts = categoryProductEJB.readByMenu(menu);
-
-			httpSession.setAttribute("clientLogged", client);
-			httpSession.setAttribute("restaurant", restaurant);
-			httpSession.setAttribute("menu", menu);
-			httpSession.setAttribute("categories", categoryProducts);*/
-			response.sendRedirect("./pages/main.jsp");
+			request.getRequestDispatcher("./ClientServlet?pageURL=main.jsp&clientID=${client.getId()}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

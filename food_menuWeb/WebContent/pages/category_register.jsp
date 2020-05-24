@@ -24,16 +24,18 @@
 </head>
 
 <body>
-
+	<%@page import="java.util.List, entity.Client"%>
+	<%
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<div class="card card bg-danger">
-
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<form action="../CategoryProductServlet" method="get">
-						<input class="nav-link btn btn-danger btn-lg" value="Voltar"
-							type="submit" />
-					</form>
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
@@ -45,6 +47,8 @@
 					<br />
 					<form class="needs-validation" novalidate
 						action="../CategoryProductServlet" method="post">
+						<input type="hidden" name="clientID"
+							value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"

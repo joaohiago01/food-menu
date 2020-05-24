@@ -27,30 +27,34 @@
 </head>
 
 <body>
-
+	<%@page import="java.util.List, entity.Client, entity.Category"%>
+	<%
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	@SuppressWarnings("unchecked")
+	List<Category> categories = (List<Category>) request.getAttribute("categories");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<div class="card card bg-danger">
 
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<form action="../ProductServlet" method="get">
-						<input class="nav-link btn btn-danger btn-lg" value="Voltar"
-							type="submit" />
-					</form>
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
 
 		<div class="card card-group bg-danger">
-			<%@page import="entity.Category,java.util.List"
-				language="java"%>
-
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
 					<form class="needs-validation" novalidate
 						action="../ProductServlet" method="post">
+						<input type="hidden" name="clientID"
+							value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
@@ -78,13 +82,10 @@
 									produto?</label> <select class="custom-select" required="required"
 									name="category">
 									<%
-										@SuppressWarnings("unchecked")
-																List<Category> listCategoryProducts = (List<Category>) request.getSession()
-																		.getAttribute("listCategoryProducts");
-																if (listCategoryProducts != null) {
-																	for (Category categoryProduct : listCategoryProducts) {
+										if (categories != null) {
+										for (Category categoryProduct : categories) {
 									%>
-									<option value="<%categoryProduct.getName();%>"></option>
+									<option value="<%categoryProduct.getId();%>"><%=categoryProduct.getName()%></option>
 									<%
 										}
 									} else {

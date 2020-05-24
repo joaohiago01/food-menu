@@ -13,7 +13,7 @@ import entity.Client;
 public class ClientJPA_DAO {
 
 	private static ClientJPA_DAO instance;
-	@PersistenceContext(unitName = "FoodMenu")
+	@PersistenceContext
 	protected EntityManager entityManager;
 
 	public static ClientJPA_DAO getInstance(){
@@ -65,15 +65,16 @@ public class ClientJPA_DAO {
 		}
 	}
 
-	public void merge(Client user) throws SQLException{
+	public Client merge(Client user) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(user);
+			user = entityManager.merge(user);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
+		return user;
 	}
 
 	public void remove(Client user) throws SQLException{

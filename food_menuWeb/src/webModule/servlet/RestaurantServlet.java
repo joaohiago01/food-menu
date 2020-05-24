@@ -18,7 +18,6 @@ import bean.ProductBean;
 import bean.RestaurantBean;
 import entity.Client;
 import entity.Menu;
-import entity.Product;
 import entity.Restaurant;
 
 /**
@@ -34,10 +33,10 @@ public class RestaurantServlet extends HttpServlet {
 
 	@EJB
 	ClientBean clientEJB;
-	
+
 	@EJB
 	MenuBean menuEJB;
-	
+
 	@EJB
 	ProductBean productEJB;
 
@@ -54,23 +53,17 @@ public class RestaurantServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			HttpSession httpSession = request.getSession();
-			if (!request.getParameter("id").isEmpty()) {
-				Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("id")));
+			Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("rstaurantID")));
+			String pageURL = request.getParameter("pageURL");
+			if (restaurant != null) {
 				Menu menu = menuEJB.findByRestaurant(restaurant.getId());
-				httpSession.setAttribute("food_menu", restaurant);
-				httpSession.setAttribute("listProducts", menu.getProducts());
-				response.sendRedirect("./pages/food_menu.jsp");
-			} /*else if (!request.getParameter("client_id").isEmpty()) {
-				Client client = clientEJB.readById(Integer.parseInt(request.getParameter("client_id")));
-				Restaurant restaurant = restaurantEJB.readByUser(client);
-				httpSession.setAttribute("client", client);
-				httpSession.setAttribute("restaurant", restaurant);
-				response.sendRedirect("./pages/restaurant_edit.jsp");
-			} */else { 
+				request.setAttribute("menu", menu);
+				request.setAttribute("restaurant", restaurant);
+				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);	
+			} else {
 				List<Restaurant> restaurants = restaurantEJB.read();
-				httpSession.setAttribute("listRestaurants", restaurants);
-				response.sendRedirect("../pages/index.jsp");
+				request.setAttribute("restaurants", restaurants);
+				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);				
 			}
 		} catch (SQLException e) {
 
@@ -104,21 +97,21 @@ public class RestaurantServlet extends HttpServlet {
 			}
 			restaurant.setDelivery(delivery);
 			boolean sunday = false, monday = false, tuesday = false, wednesday = false, thursday = false, friday = false, saturday = false;
-			/*if (request.getParameter("sunday").equals("checked")) {
+			if (request.getParameter("sunday").equals("on")) {
 				sunday = true;
-			} if (request.getParameter("monday").equals("checked")) {
+			} if (request.getParameter("monday").equals("on")) {
 				monday = true;
-			} if (request.getParameter("tuesday").equals("checked")) {
+			} if (request.getParameter("tuesday").equals("on")) {
 				tuesday = true;
-			} if (request.getParameter("thurday").equals("checked")) {
+			} if (request.getParameter("thurday").equals("on")) {
 				thursday = true;
-			} if (request.getParameter("wednesday").equals("checked")) {
+			} if (request.getParameter("wednesday").equals("on")) {
 				wednesday = true;
-			} if (request.getParameter("friday").equals("checked")) {
+			} if (request.getParameter("friday").equals("on")) {
 				friday = true;
-			} if (request.getParameter("saturday").equals("checked")) {
+			} if (request.getParameter("saturday").equals("on")) {
 				saturday = true;
-			}*/
+			}
 			restaurant.setSunday_open(sunday);
 			restaurant.setMonday_open(monday);
 			restaurant.setTuesday_open(tuesday);
@@ -135,20 +128,8 @@ public class RestaurantServlet extends HttpServlet {
 			Menu menu = new Menu();
 			menu.setRestaurant(restaurant);
 			menuEJB.create(menu);
-			
-			/*client = clientEJB.signIn(client.getEmail(), client.getPassword());
-			restaurant = restaurantEJB.readByUser(client);
-			menu = menuEJB.findByRestaurant(restaurant.getId());
-			List<Product> products = menuEJB.readAllProducts(menu);
-			menu.setProducts(products);
-			
-			System.out.println("id client " + client.getId());
-			System.out.println("id restaurant " + restaurant.getId());
-			System.out.println("id menu " + menu.getId());
-			httpSession.setAttribute("restaurant", restaurant);
-			httpSession.setAttribute("menu", menu);*/
-			httpSession.setAttribute("clientLogged", client);
-			response.sendRedirect("./pages/main.jsp");
+
+			request.getRequestDispatcher("./ClientServlet?pageURL=main.jsp&clientID=${client.getId()}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -182,19 +163,19 @@ public class RestaurantServlet extends HttpServlet {
 			}
 			restaurant.setDelivery(delivery);
 			boolean sunday = false, monday = false, tuesday = false, wednesday = false, thursday = false, friday = false, saturday = false;
-			if (request.getParameter("sunday").equals("checked")) {
+			if (request.getParameter("sunday").equals("on")) {
 				sunday = true;
-			} if (request.getParameter("monday").equals("checked")) {
+			} if (request.getParameter("monday").equals("on")) {
 				monday = true;
-			} if (request.getParameter("tuesday").equals("checked")) {
+			} if (request.getParameter("tuesday").equals("on")) {
 				tuesday = true;
-			} if (request.getParameter("thurday").equals("checked")) {
+			} if (request.getParameter("thurday").equals("on")) {
 				thursday = true;
-			} if (request.getParameter("wednesday").equals("checked")) {
+			} if (request.getParameter("wednesday").equals("on")) {
 				wednesday = true;
-			} if (request.getParameter("friday").equals("checked")) {
+			} if (request.getParameter("friday").equals("on")) {
 				friday = true;
-			} if (request.getParameter("saturday").equals("checked")) {
+			} if (request.getParameter("saturday").equals("on")) {
 				saturday = true;
 			}
 			restaurant.setSunday_open(sunday);
@@ -206,20 +187,12 @@ public class RestaurantServlet extends HttpServlet {
 			restaurant.setSaturday_open(saturday);
 			restaurant.setTime_open(request.getParameter("time_open"));
 			restaurant.setTime_close(request.getParameter("time_close"));
-			
 
 			restaurantEJB.update(restaurant);
-			HttpSession httpSession = request.getSession();
-			Client client = clientEJB.readById(Integer.parseInt(request.getParameter("client_id")));
-			restaurant = restaurantEJB.readByUser(client);
-			Menu menu = menuEJB.findByRestaurant(restaurant.getId());
-			List<Product> products = productEJB.readAllProducts(menu);
-			menu.setProducts(products);
-			
-			httpSession.setAttribute("clientLogged", client);
-			httpSession.setAttribute("restaurant", restaurant);
-			httpSession.setAttribute("menu", menu);
-			response.sendRedirect("./pages/main.jsp");
+			@SuppressWarnings("unused")
+			int clientID = Integer.parseInt(request.getParameter("clientID"));
+
+			request.getRequestDispatcher("./ClientServlet?pageURL=main.jsp?&clientID=${clientID}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

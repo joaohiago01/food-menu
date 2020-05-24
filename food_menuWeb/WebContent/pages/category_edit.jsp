@@ -24,16 +24,20 @@
 </head>
 
 <body>
-
+	<%@page import="java.util.List, entity.Client, entity.Category"%>
+	<%
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	Category categoryProduct = (Category) request.getAttribute("category");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<div class="card card bg-danger">
 
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<form action="../CategoryProductServlet" method="get">
-						<input class="nav-link btn btn-danger btn-lg" value="Voltar"
-							type="submit" />
-					</form>
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
@@ -43,26 +47,24 @@
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre a categoria:</h2>
 					<br />
-					<%@page import="entity.Category"%>
-					<%
-						Category categoryProduct = (Category) request.getSession().getAttribute("category");
-					%>
 					<form class="needs-validation" novalidate
-						action="../CategoryProductServlet" method="post">
-						<input type="hidden" name="_method" value="PUT" />
+						action="../CategoryProductServlet?categoryID=${categoryProduct.getId()}?&pageURL=category_edit.jsp" method="post">
+						<input type="hidden" name="_method" value="PUT" /> <input
+							type="hidden" name="clientID" value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
 									class="form-control" id="inputNameProduct" name="name"
 									placeholder="Qual o nome desta categoria?" required="required"
-									value="<%categoryProduct.getName();%>" />
+									value="<%=categoryProduct.getName()%>" />
 								<div class="invalid-feedback">Por favor, informe o nome da
 									categoria.</div>
 							</div>
 						</div>
 
 						<button type="submit"
-							class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar Mudanças</button>
+							class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar
+							Mudanças</button>
 					</form>
 				</div>
 			</div>

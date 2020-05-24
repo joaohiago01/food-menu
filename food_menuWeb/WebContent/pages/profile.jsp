@@ -9,7 +9,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <title>Food Menu</title>
 
@@ -19,17 +23,17 @@
 </head>
 
 <body>
-	<%@page import="entity.Client, javax.servlet.http.HttpSession"
-		language="java"%>
+	<%@page import="entity.Client" language="java"%>
 	<%
-		HttpSession httpSession = request.getSession();
-	httpSession.setAttribute("clientLogged", request.getSession().getAttribute("clientLogged"));
-	httpSession.setAttribute("page", "./pages/profile.jsp");
-	response.sendRedirect("../ClientServlet");
-	Client client = (Client) request.getSession().getAttribute("clientLogged");
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	request.setAttribute("clientLogged", request.getAttribute("clientLogged"));
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
+		<a class="navbar-brand text-light font-weight-bold"
+			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -39,10 +43,12 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+				</a></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="restaurant_edit.jsp">Restaurante</a></li>
+					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -50,17 +56,13 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<form action="../CategoryProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Categorias" />
-						</form>
-						<form action="../ProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Produtos" />
-						</form>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold" href="./pages/login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -68,13 +70,14 @@
 	<div class="card-body">
 		<form class="needs-validation" novalidate method="post"
 			action="../ClientSevlet">
-			<input type="hidden" name="_method" value="PUT" />
+			<input type="hidden" name="_method" value="PUT" /> <input
+				type="hidden" name="clientID" value="${clientLogged.getId()}" />
 			<div class="form-group">
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputName">Nome Completo</label> <input type="text"
 						class="form-control" id="inputName" name="name"
 						placeholder="Qual o nome do dono do restaurante?"
-						required="required" value="<%client.getName();%>" />
+						required="required" value="<%=clientLogged.getName()%>" />
 					<div class="invalid-feedback">Por favor, informe o nome do
 						dono do restaurante.</div>
 				</div>
@@ -82,7 +85,7 @@
 					<label for="inputEmail">E-mail</label> <input type="email"
 						class="form-control" id="inputEmail" name="email"
 						placeholder="Qual o e-mail do dono do restaurante?"
-						required="required" value="<%client.getEmail();%>" />
+						required="required" value="<%=clientLogged.getEmail()%>" />
 					<div class="invalid-feedback">Por favor, informe o e-mail do
 						dono do restaurante.</div>
 				</div>
@@ -90,7 +93,7 @@
 					<label for="inputCpf">CPF</label> <input type="text"
 						class="form-control" id="inputCpf" name="cpf"
 						placeholder="Qual o CPF do dono do restaurante?"
-						required="required" value="<%client.getCpf();%>" />
+						required="required" value="<%=clientLogged.getCpf()%>" />
 					<div class="invalid-feedback">Por favor, informe o cpf do
 						dono do restaurante.</div>
 				</div>
@@ -98,7 +101,7 @@
 					<label for="inputPassword">Senha</label> <input type="password"
 						class="form-control" id="inputPassword" name="password"
 						placeholder="Digite uma senha" required="required"
-						value="<%client.getPassword();%>" />
+						value="<%=clientLogged.getPassword()%>" />
 					<div class="invalid-feedback">Por favor, informe a senha do
 						dono do restaurante.</div>
 				</div>

@@ -45,8 +45,8 @@ public class ClientBean {
 		return clientJPA_DAO.getById(id);
 	}
 
-	public void update(Client client) throws SQLException{
+	public Client update(Client client) throws SQLException{
 		
-		clientJPA_DAO.merge(client);
+		return clientJPA_DAO.merge(client);
 	}
 }

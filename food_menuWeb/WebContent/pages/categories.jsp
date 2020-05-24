@@ -26,9 +26,18 @@
 </head>
 
 <body>
-
+	<%@page import="java.util.List, entity.Client, entity.Category"%>
+	<%
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	@SuppressWarnings("unchecked")
+	List<Category> categories = (List<Category>) request.getAttribute("categories");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
+		<a class="navbar-brand text-light font-weight-bold"
+			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -38,9 +47,12 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="restaurant.jsp">Restaurante</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -48,24 +60,22 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<form action="../CategoryProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Categorias" />
-						</form>
-						<form action="../ProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Produtos" />
-						</form>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./pages/login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="card-body">
 		<div class="form-row col-sm-6 font-weight-bold">
-			<a href="category_register.jsp">
+			<a
+				href="./ClientServlet?pageURL=category_register.jsp?&clientID=${clientLogged.getId()}">
 				<button type="button" data-toggle="tooltip" data-placement="bottom"
 					title="Cadastrar nova categoria">
 					<i data-feather="plus"></i>
@@ -75,12 +85,8 @@
 		<br />
 
 		<div class="row">
-			<%@page import="entity.Category,java.util.List"
-				language="java"%>
 			<%
-				@SuppressWarnings("unchecked")
-				List<Category> listCategoryProducts = (List<Category>) request.getSession().getAttribute("listCategoryProducts");
-				if (listCategoryProducts == null || listCategoryProducts.isEmpty()) {
+				if (categories == null || categories.isEmpty()) {
 			%>
 			<div class="col-sm-6">
 				<div class="card">
@@ -91,7 +97,7 @@
 			</div>
 			<%
 				} else {
-					for (Category categoryProduct : listCategoryProducts) {
+				for (Category categoryProduct : categories) {
 			%>
 
 			<div class="col-sm-6">
@@ -102,11 +108,13 @@
 								categoryProduct.getName();
 							%>
 						</h5>
-						<form method="get" action="../CategoryProductServlet?id=${categoryProduct.getId()}">
-								<button type="button" data-toggle="tooltip"
-									data-placement="bottom" title="Edite esta categoria">
-									<i data-feather="edit"></i>
-								</button> <input type="submit" />
+						<form method="get"
+							action="../CategoryProductServlet?categoryID=${categoryProduct.getId()}?&clientID=${clientLogged.getId()}?&pageURL=category_edit.jsp">
+							<button type="button" data-toggle="tooltip"
+								data-placement="bottom" title="Edite esta categoria">
+								<i data-feather="edit"></i>
+							</button>
+							<input type="submit" />
 						</form>
 						<button type="button" data-toggle="tooltip"
 							onclick="popup();return false;" data-placement="bottom"
@@ -118,20 +126,21 @@
 				</div>
 			</div>
 
-			<%
-				}
-			}
-			%>
+
 
 			<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog"
 				aria-labelledby="ModalExcluir" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
-					<form action="../CategoryProductSevlet?id=${categoryProduct.getId()}" method="post">
+					<form
+						action="../CategoryProductSevlet?categoryID=${categoryProduct.getId()}?&clientID=${clientLogged.getId()}"
+						method="post">
 						<input type="hidden" name="_method" value="DELETE" />
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="ModalExcluir">Deseja realmente
-									excluir a categoria ?</h5>
+								<h5 class="modal-title" id="ModalExcluir">
+									Deseja realmente excluir a categoria
+									<%=categoryProduct.getName()%>?
+								</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Fechar">
 									<span aria-hidden="true">&times;</span>
@@ -148,7 +157,10 @@
 					</form>
 				</div>
 			</div>
-
+			<%
+				}
+			}
+			%>
 		</div>
 
 	</div>

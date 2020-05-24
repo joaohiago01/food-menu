@@ -27,43 +27,44 @@
 </head>
 
 <body>
+	<%@page import="entity.Product, entity.Category, entity.Client, entity.Category, java.util.List"
+		language="java"%>
 
+	<%
+	Client clientLogged = (Client) request.getAttribute("clientLogged");
+	@SuppressWarnings("unchecked")
+	List<Category> categories = (List<Category>) request.getAttribute("categories");
+		Product product = (Product) request.getAttribute("product");
+	Category categoryProduct = (Category) request.getAttribute("category");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<div class="card card bg-danger">
-
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
-				<li class="nav-item">
-					<form action="../ProductServlet" method="get">
-						<input class="nav-link btn btn-danger btn-lg" value="Voltar"
-							type="submit" />
-					</form>
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
 
 		<div class="card card-group bg-danger">
-			<%@page
-				import="entity.Product,entity.Category,java.util.List"
-				language="java"%>
-
-			<%
-				Product product = (Product) request.getSession().getAttribute("product");
-				Category categoryProduct = (Category) request.getSession().getAttribute("category");
-			%>
-
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
 					<form class="needs-validation" novalidate
-						action="../ProductServlet" method="post">
+						action="../ProductServlet?productID=${product.getId()}" method="post">
 						<input type="hidden" name="_method" value="PUT" />
+						<input type="hidden" name="clientID"
+							value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
 									class="form-control" id="inputNameProduct" name="name"
 									placeholder="Qual o nome deste produto?" required="required"
-									value="<%product.getName();%>" />
+									value="<%=product.getName()%>" />
 								<div class="invalid-feedback">Por favor, informe o nome do
 									produto.</div>
 							</div>
@@ -71,7 +72,7 @@
 								<label for="inputPriceProduct">Preço</label> <input type="text"
 									class="form-control" id="inputPriceProduct" name="price"
 									placeholder="Qual o preço deste produto?" required="required"
-									value="<%product.getPrice();%>" />
+									value="<%=product.getPrice()%>" />
 								<div class="invalid-feedback">Por favor, informe o preço
 									do produto.</div>
 							</div>
@@ -80,21 +81,19 @@
 									type="text" class="form-control" id="inputDescription"
 									name="description"
 									placeholder="Faça uma descrição deste produto"
-									value="<%product.getDescription();%>" />
+									value="<%=product.getDescription()%>" />
 							</div>
 
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputEspeciality">Qual a categoria deste
 									produto?</label> <select class="custom-select" required="required"
 									name="category">
-									<option selected="selected"><%=categoryProduct.getName()%></option>
+									<option selected="selected" value="<%categoryProduct.getId();%>"><%=categoryProduct.getName()%></option>
 									<%
-										@SuppressWarnings("unchecked")
-																List<Category> listCategoryProducts = (List<Category>) request.getSession().getAttribute("categories");
-																if (listCategoryProducts != null) {
-																	for (Category category : listCategoryProducts) {
+									if (categories != null) {
+										for (Category category : categories) {
 									%>
-									<option value="<%category.getName();%>"></option>
+									<option value="<%category.getId();%>"><%=category.getName()%></option>
 									<%
 										}
 									}

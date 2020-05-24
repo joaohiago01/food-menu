@@ -2,7 +2,6 @@ package webModule.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
+import bean.ClientBean;
 import entity.Category;
+import entity.Client;
 
 /**
  * Servlet implementation class CategoryProductServlet
@@ -25,6 +25,9 @@ public class CategoryProductServlet extends HttpServlet {
 
 	@EJB
 	CategoryProductBean categoryProductEJB;
+	
+	@EJB
+	ClientBean clientEJB;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,15 +42,17 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			HttpSession httpSession = request.getSession();
-			if (!request.getParameter("id").isEmpty()) {
-				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
-				httpSession.setAttribute("category", categoryProduct.getName());
-				response.sendRedirect("./pages/category_edit");
+			Client clientLogged = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
+			if (clientLogged != null) {
+				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
+				String pageURL = request.getParameter("pageURL");
+				
+				request.setAttribute("clientLogged", clientLogged);
+				request.setAttribute("category", categoryProduct);
+				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);
+				
 			} else {
-				List<Category> categoryProducts = categoryProductEJB.read();
-				httpSession.setAttribute("listCategoryProducts", categoryProducts);
-				response.sendRedirect("./pages/categories.jsp");
+				response.sendRedirect("./pages/login.jsp");
 			}
 		} catch (SQLException e) {
 
@@ -65,7 +70,9 @@ public class CategoryProductServlet extends HttpServlet {
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.create(categoryProduct);
-			response.sendRedirect("./pages/categories.jsp");
+			@SuppressWarnings("unused")
+			int clientID = Integer.parseInt(request.getParameter("clientID"));
+			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -79,11 +86,13 @@ public class CategoryProductServlet extends HttpServlet {
 
 		try {
 			Category categoryProduct;
-			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
+			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.update(categoryProduct);
-			response.sendRedirect("./pages/categories.jsp");
+			@SuppressWarnings("unused")
+			int clientID = Integer.parseInt(request.getParameter("clientID"));
+			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -97,10 +106,12 @@ public class CategoryProductServlet extends HttpServlet {
 
 		try {
 			Category categoryProduct;
-			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
+			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
 
 			categoryProductEJB.delete(categoryProduct);
-			response.sendRedirect("./pages/categories.jsp");
+			@SuppressWarnings("unused")
+			int clientID = Integer.parseInt(request.getParameter("clientID"));
+			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

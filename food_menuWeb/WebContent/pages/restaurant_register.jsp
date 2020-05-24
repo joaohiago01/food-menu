@@ -25,7 +25,7 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="user_register.jsp">Voltar</a></li>
+					href="./pages/user_register.jsp">Voltar</a></li>
 			</ul>
 		</div>
 
@@ -138,57 +138,64 @@
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck1" name="monday" > <label
-										class="custom-control-label" for="customCheck1">Segunda-Feira</label>
+										onclick="check('customCheck1')" id="customCheck1"
+										name="monday"> <label class="custom-control-label"
+										for="customCheck1">Segunda-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck2" name="tuesday"> <label
-										class="custom-control-label" for="customCheck2">Terça-Feira</label>
+										onclick="check('customCheck2')" id="customCheck2"
+										name="tuesday"> <label class="custom-control-label"
+										for="customCheck2">Terça-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck3" name="wednesday"> <label
-										class="custom-control-label" for="customCheck3">Quarta-Feira</label>
+										onclick="check('customCheck3')" id="customCheck3"
+										name="wednesday"> <label class="custom-control-label"
+										for="customCheck3">Quarta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck4" name="thursday"> <label
-										class="custom-control-label" for="customCheck4">Quinta-Feira</label>
+										onclick="check('customCheck4')" id="customCheck4"
+										name="thursday"> <label class="custom-control-label"
+										for="customCheck4">Quinta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck5" name="friday"> <label
-										class="custom-control-label" for="customCheck5">Sexta-Feira</label>
+										onclick="check('customCheck5')" id="customCheck5"
+										name="friday"> <label class="custom-control-label"
+										for="customCheck5">Sexta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck6" name="saturday"> <label
-										class="custom-control-label" for="customCheck6">Sabádo</label>
+										onclick="check('customCheck6')" id="customCheck6"
+										name="saturday"> <label class="custom-control-label"
+										for="customCheck6">Sabádo</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck7" name="sunday"> <label
-										class="custom-control-label" for="customCheck7">Domingo</label>
+										onclick="check('customCheck7')" id="customCheck7"
+										name="sunday"> <label class="custom-control-label"
+										for="customCheck7">Domingo</label>
 								</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputDelivery">O restaurante possui serviço
 									de entrega?</label>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryYes" name="delivery" value="SIM"
-										class="custom-control-input" /><label
+									<input type="radio" id="customRadioDeliveryYes" name="delivery"
+										value="SIM" class="custom-control-input" /><label
 										class="custom-control-label" for="customRadioDeliveryYes">Sim</label>
 								</div>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryNo" name="delivery" value="NAO"
-										class="custom-control-input" checked="checked" /><label
+									<input type="radio" id="customRadioDeliveryNo" name="delivery"
+										value="NAO" class="custom-control-input" checked="checked" /><label
 										class="custom-control-label" for="customRadioDeliveryNo">Não</label>
 								</div>
 							</div>
@@ -219,6 +226,15 @@
 		});
 		$("#inputTimeBegin").mask("00:00");
 		$("#inputTimeEnd").mask("00:00");
+
+		function check(checkID) {
+			var checkBox = document.getElementById(checkID);
+			if (checkBox.checked == true) {
+				checkBox.value = "on";
+			} else {
+				checkBox.value = "off";
+			}
+		}
 	</script>
 	<script>
 		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.

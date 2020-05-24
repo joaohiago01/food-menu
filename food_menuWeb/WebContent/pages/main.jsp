@@ -26,21 +26,18 @@
 <body>
 
 	<%@page
-		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu, javax.servlet.http.HttpSession"%>
+		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu"%>
 	<%
-		HttpSession httpSession = request.getSession();
-	Client client = (Client) request.getSession().getAttribute("clientLogged");
-	if (!request.getSession().getAttribute("logged").equals("logged")) {
-		httpSession.setAttribute("clientLogged", request.getSession().getAttribute("clientLogged"));
-		httpSession.setAttribute("page", "./pages/main.jsp");
-		response.sendRedirect("../ClientServlet");
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
+	Menu menu = (Menu) request.getAttribute("menu");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
 	}
-	Restaurant restaurant = (Restaurant) request.getSession().getAttribute("restaurant");
-	Menu menu = (Menu) request.getSession().getAttribute("menu");
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
-			Menu</a>
+		<a class="navbar-brand text-light font-weight-bold"
+			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false">
@@ -49,10 +46,12 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+				</a></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="restaurant_edit.jsp">Restaurante</a></li>
+					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -60,17 +59,13 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<form action="../CategoryProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Categorias" />
-						</form>
-						<form action="../ProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Produtos" />
-						</form>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold" href="./pages/login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -79,81 +74,127 @@
 		<br />
 		<div class="card-body">
 			<h1 class="card-title" id="restaurant">
-				<%=
-					restaurant.getName()
-				%>
+				<%=restaurant.getName()%>
 			</h1>
 
-			<label class="card-text" id="description"> <%=
- 	restaurant.getDescription()
- %>
+			<label class="card-text" id="description"> <%=restaurant.getDescription()%>
 			</label> <br />
 		</div>
 
 		<div class="card-body">
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Horário de
-					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=
- 	restaurant.getTime_open()
- %>
+					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
 				</label> <label class="form-col-1">às</label> <label id="time_close"
-					class="form-col-1"> <%=
- 	restaurant.getTime_close()
- %>
+					class="form-col-1"> <%=restaurant.getTime_close()%>
 				</label>
 			</div>
 
 			<div class="form-group col-md-15 font-weight-bold">
 				<label for="inputDays">Quais dias o restaurante funciona?</label>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isMonday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck1" name="monday"
-						<%if (restaurant.isMonday_open())%> checked="checked" /> <label
+						id="customCheck1" name="monday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck1" name="monday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck1">Segunda-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isTuesday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck2" name="tuesday"
-						<%if (restaurant.isTuesday_open())%> checked="checked" /> <label
+						id="customCheck2" name="tuesday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck2" name="tuesday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck2">Terça-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isWednesday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck3" name="wednesday"
-						<%if (restaurant.isWednesday_open())%> checked="checked" /> <label
+						id="customCheck3" name="wednesday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck3" name="wednesday" disabled="disabled"> <label
 						class="custom-control-label" for="customCheck3">Quarta-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isThursday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck4" name="thursday"
-						<%if (restaurant.isThursday_open())%> checked="checked" /> <label
+						id="customCheck4" name="thursday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck4" name="thursday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck4">Quinta-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isFriday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck5" name="friday"
-						<%if (restaurant.isFriday_open())%> checked="checked" /> <label
+						id="customCheck5" name="friday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck5" name="friday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck5">Sexta-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isSaturday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck6" name="saturday"
-						<%if (restaurant.isSaturday_open())%> checked="checked" /> <label
+						id="customCheck6" name="saturday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck6" name="saturday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck6">Sabádo</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
+					<%
+						if (restaurant.isSunday_open()) {
+					%>
 					<input type="checkbox" class="custom-control-input"
-						id="customCheck7" name="sunday"
-						<%if (restaurant.isSunday_open())%> checked="checked" /> <label
+						id="customCheck7" name="sunday" checked="checked"
+						disabled="disabled" />
+					<%
+						}
+					%>
+					<input type="checkbox" class="custom-control-input"
+						id="customCheck7" name="sunday" disabled="disabled" /> <label
 						class="custom-control-label" for="customCheck7">Domingo</label>
 				</div>
 			</div>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Contato: </label> <label
-					class="form-col-1" id="phone"> <%=
- 	restaurant.getPhone()
- %>
+					class="form-col-1" id="phone"> <%=restaurant.getPhone()%>
 				</label>
 			</div>
 		</div>
@@ -163,34 +204,24 @@
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
-					class="form-col-1" id="city"> <%=
- 	restaurant.getCity()
- %>
+					class="form-col-1" id="city"> <%=restaurant.getCity()%>
 				</label> <label class="form-col-1 font-weight-bold">Estado:</label> <label
-					class="form-col-1" id="state"> <%=
- 	restaurant.getState()
- %>
+					class="form-col-1" id="state"> <%=restaurant.getState()%>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
-					class="form-col-1" id="address"> <%=
- 	restaurant.getAddress()
- %>
+					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Bairro: </label> <label
-					class="form-col-1" id="disctrict"> <%=
- 	restaurant.getDistrict()
- %>
+					class="form-col-1" id="disctrict"> <%=restaurant.getDistrict()%>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Complemento: </label> <label
-					class="form-col-1" id="addition"> <%=
- 	restaurant.getAddition()
- %>
+					class="form-col-1" id="addition"> <%=restaurant.getAddition()%>
 				</label>
 			</div>
 

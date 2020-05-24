@@ -24,9 +24,18 @@
 </head>
 
 <body>
-
+	<%@page
+		import="java.util.List, entity.Client, entity.Menu, entity.Product"%>
+	<%
+		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	Menu menu = (Menu) request.getAttribute("menu");
+	if (clientLogged == null) {
+		response.sendRedirect("./pages/login.jsp");
+	}
+	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
+		<a class="navbar-brand text-light font-weight-bold"
+			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -36,9 +45,12 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="restaurant.jsp">Restaurante</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -46,24 +58,22 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<form action="../CategoryProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Categorias" />
-						</form>
-						<form action="../ProductServlet" method="get">
-							<input class="dropdown-item text-light font-weight-bold"
-								type="submit" value="Produtos" />
-						</form>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+						<a class="dropdown-item text-light font-weight-bold"
+							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./pages/login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="card-body">
 		<div class="form-row col-sm-6 font-weight-bold">
-			<a href="product_register.jsp?newProduct=newProduct">
+			<a
+				href="./ClientServlet?pageURL=product_register.jsp&?&clientID=${clientLogged.getId()}">
 				<button type="button" data-toggle="tooltip" data-placement="bottom"
 					title="Cadastrar novo produto">
 					<i data-feather="plus"></i>
@@ -71,12 +81,10 @@
 			</a>
 		</div>
 		<br />
-		
+
 		<div class="row">
-			<%@page import="entity.Product, java.util.List" language="java"%>
 			<%
-				@SuppressWarnings("unchecked")
-			List<Product> listProducts = (List<Product>) request.getSession().getAttribute("listProducts");
+				List<Product> listProducts = menu.getProducts();
 			if (listProducts == null || listProducts.isEmpty()) {
 			%>
 			<div class="col-sm-6">
@@ -109,7 +117,7 @@
 							%>
 						</p>
 						<form method="get"
-							action="../ProductServlet?id=${product.getId()}">
+							action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}?&pageURL=product_edit.jsp">
 							<button type="button" data-toggle="tooltip"
 								data-placement="bottom" title="Edite este produto">
 								<i data-feather="edit"></i>
@@ -132,7 +140,7 @@
 			<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog"
 				aria-labelledby="ModalExcluir" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
-					<form action="../ProductSevlet?id=${product.getId()}" method="post">
+					<form action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}" method="post">
 						<input type="hidden" name="_method" value="DELETE" />
 						<div class="modal-content">
 							<div class="modal-header">

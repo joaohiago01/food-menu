@@ -14,7 +14,7 @@ import entity.Menu;
 public class CategoryProductJPA_DAO {
 
 	private static CategoryProductJPA_DAO instance;
-	@PersistenceContext(unitName = "FoodMenu")
+	@PersistenceContext
 	protected EntityManager entityManager;
 
 	public static CategoryProductJPA_DAO getInstance(){
