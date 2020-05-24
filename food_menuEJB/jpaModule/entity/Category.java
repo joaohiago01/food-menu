@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "category_product")
-public class CategoryProduct implements Serializable {
+@Table(name = "category")
+public class Category implements Serializable {
 
 	/**
 	 * 
@@ -27,12 +27,20 @@ public class CategoryProduct implements Serializable {
 	private String name;
 	
 	@OneToMany
-	@JoinColumn(name = "specialty_id")
-	private List<Restaurant> specialty;
-	
-	@OneToMany
 	@JoinColumn(name = "category_id")
 	private List<Product> products;
+	
+	@OneToMany
+	@JoinColumn(name = "specialty_id", nullable = true)
+	private List<Restaurant> specialty;
+
+	public List<Restaurant> getSpecialty() {
+		return specialty;
+	}
+
+	public void setSpecialty(List<Restaurant> specialty) {
+		this.specialty = specialty;
+	}
 
 	public int getId() {
 		return id;
@@ -48,13 +56,6 @@ public class CategoryProduct implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-	public List<Restaurant> getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(List<Restaurant> specialty) {
-		this.specialty = specialty;
 	}
 	
 	public List<Product> getProducts() {
@@ -84,7 +85,7 @@ public class CategoryProduct implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoryProduct other = (CategoryProduct) obj;
+		Category other = (Category) obj;
 		if (id != other.id)
 			return false;
 		if (name == null) {

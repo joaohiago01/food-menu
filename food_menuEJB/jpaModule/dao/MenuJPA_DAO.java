@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import entity.Menu;
-import entity.Product;
 
 public class MenuJPA_DAO {
 
@@ -41,12 +40,10 @@ public class MenuJPA_DAO {
 	public Menu getById(final int id) throws SQLException{
 		return entityManager.find(Menu.class, id);
 	}
-
-	@SuppressWarnings("unchecked")
-	public List<Product> findAllProducts(Menu menu) throws SQLException{
-		return entityManager.createQuery("SELECT P.NAME, P.PRICE, P.DESCRIPTION"
-				+ " FROM MENU M JOIN M.PRODUCTS P" + 
-				" WHERE P.MENU_ID = :idMenu").setParameter("idMenu", menu.getId()).getResultList();
+	
+	public Menu findByRestaurant(int id) {
+		return (Menu) entityManager.createQuery("FROM " + 
+				Menu.class.getName() + " WHERE RESTAURANT_ID = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")

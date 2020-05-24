@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
+import bean.MenuBean;
 import bean.ProductBean;
-import entity.CategoryProduct;
+import entity.Category;
+import entity.Menu;
 import entity.Product;
 
 /**
@@ -30,6 +32,9 @@ public class ProductServlet extends HttpServlet {
 
 	@EJB
 	CategoryProductBean categoryProductEJB;
+	
+	@EJB
+	MenuBean menuEJB;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,21 +51,17 @@ public class ProductServlet extends HttpServlet {
 		try {
 			HttpSession httpSession = request.getSession();
 			if (!request.getParameter("category_id").isEmpty() && !request.getParameter("product_id").isEmpty()) {
-				CategoryProduct categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category_id")));
+				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category_id")));
 				Product product = productEJB.readById(Integer.parseInt(request.getParameter("product_id")));
-				List<CategoryProduct> list = categoryProductEJB.read();
+				List<Category> list = categoryProductEJB.read();
 				httpSession.setAttribute("category", categoryProduct);
 				httpSession.setAttribute("product", product);
 				httpSession.setAttribute("categories", list);
 				response.sendRedirect("./pages/category_edit.jsp");
 			} else if (!request.getParameter("newProduct").isEmpty()) {
-				List<CategoryProduct> categoryProducts = categoryProductEJB.read();
+				List<Category> categoryProducts = categoryProductEJB.read();
 				httpSession.setAttribute("listCategoryProducts", categoryProducts);
 				response.sendRedirect("./pages/product_register.jsp");
-			} else {
-				List<Product> products = productEJB.readAll();
-				httpSession.setAttribute("listProducts", products);
-				response.sendRedirect("./pages/products.jsp");
 			}
 		} catch (SQLException e) {
 
@@ -78,9 +79,10 @@ public class ProductServlet extends HttpServlet {
 			product.setName(request.getParameter("name"));
 			product.setDescription(request.getParameter("description"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
-			
-
-			productEJB.create(product);
+			Menu menu = (Menu) request.getAttribute("menu");
+			menu.getProducts().add(product);
+			menuEJB.update(menu);
+			//productEJB.create(product);
 			
 			response.sendRedirect("./pages/products.jsp");
 		} catch (SQLException e) {

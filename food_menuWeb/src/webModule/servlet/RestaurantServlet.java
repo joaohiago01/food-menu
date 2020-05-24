@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.CategoryProductBean;
 import bean.ClientBean;
+import bean.MenuBean;
+import bean.ProductBean;
 import bean.RestaurantBean;
-import entity.CategoryProduct;
 import entity.Client;
+import entity.Menu;
+import entity.Product;
 import entity.Restaurant;
 
 /**
@@ -32,9 +34,12 @@ public class RestaurantServlet extends HttpServlet {
 
 	@EJB
 	ClientBean clientEJB;
-
+	
 	@EJB
-	CategoryProductBean categoryProductEJB;
+	MenuBean menuEJB;
+	
+	@EJB
+	ProductBean productEJB;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -49,43 +54,24 @@ public class RestaurantServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 			if (!request.getParameter("id").isEmpty()) {
 				Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("id")));
-				HttpSession httpSession = request.getSession();
+				Menu menu = menuEJB.findByRestaurant(restaurant.getId());
 				httpSession.setAttribute("food_menu", restaurant);
-				//httpSession.setAttribute("listProducts", products);
+				httpSession.setAttribute("listProducts", menu.getProducts());
 				response.sendRedirect("./pages/food_menu.jsp");
-			} else { 
+			} /*else if (!request.getParameter("client_id").isEmpty()) {
+				Client client = clientEJB.readById(Integer.parseInt(request.getParameter("client_id")));
+				Restaurant restaurant = restaurantEJB.readByUser(client);
+				httpSession.setAttribute("client", client);
+				httpSession.setAttribute("restaurant", restaurant);
+				response.sendRedirect("./pages/restaurant_edit.jsp");
+			} */else { 
 				List<Restaurant> restaurants = restaurantEJB.read();
-				request.setAttribute("listRestaurants", restaurants);
-				request.getRequestDispatcher("../pages/index.html").forward(request, response);					
+				httpSession.setAttribute("listRestaurants", restaurants);
+				response.sendRedirect("../pages/index.jsp");
 			}
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-	}
-
-	protected void doGetByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			Client client = clientEJB.readById(Integer.parseInt(request.getParameter("id")));
-			List<Restaurant> restaurants = restaurantEJB.readByUser(client);
-			request.setAttribute("listRestaurants", restaurants);
-			request.getRequestDispatcher("../pages/main.html").forward(request, response);
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-	}
-
-	protected void doGetByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			CategoryProduct categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
-			List<Restaurant> restaurants = restaurantEJB.readByCategory(categoryProduct);
-			request.setAttribute("listRestaurants", restaurants);
-			request.getRequestDispatcher("../pages/index.html").forward(request, response);
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -117,13 +103,51 @@ public class RestaurantServlet extends HttpServlet {
 				delivery = false;
 			}
 			restaurant.setDelivery(delivery);
+			boolean sunday = false, monday = false, tuesday = false, wednesday = false, thursday = false, friday = false, saturday = false;
+			/*if (request.getParameter("sunday").equals("checked")) {
+				sunday = true;
+			} if (request.getParameter("monday").equals("checked")) {
+				monday = true;
+			} if (request.getParameter("tuesday").equals("checked")) {
+				tuesday = true;
+			} if (request.getParameter("thurday").equals("checked")) {
+				thursday = true;
+			} if (request.getParameter("wednesday").equals("checked")) {
+				wednesday = true;
+			} if (request.getParameter("friday").equals("checked")) {
+				friday = true;
+			} if (request.getParameter("saturday").equals("checked")) {
+				saturday = true;
+			}*/
+			restaurant.setSunday_open(sunday);
+			restaurant.setMonday_open(monday);
+			restaurant.setTuesday_open(tuesday);
+			restaurant.setThursday_open(thursday);
+			restaurant.setWednesday_open(wednesday);
+			restaurant.setFriday_open(friday);
+			restaurant.setSaturday_open(saturday);
 			restaurant.setTime_open(request.getParameter("time_open"));
 			restaurant.setTime_close(request.getParameter("time_close"));
 
 			HttpSession httpSession = request.getSession();
 			Client client = (Client) httpSession.getAttribute("client");
-			clientEJB.create(client);
-			restaurantEJB.create(restaurant);
+			restaurant.setClient(client);
+			Menu menu = new Menu();
+			menu.setRestaurant(restaurant);
+			menuEJB.create(menu);
+			
+			/*client = clientEJB.signIn(client.getEmail(), client.getPassword());
+			restaurant = restaurantEJB.readByUser(client);
+			menu = menuEJB.findByRestaurant(restaurant.getId());
+			List<Product> products = menuEJB.readAllProducts(menu);
+			menu.setProducts(products);
+			
+			System.out.println("id client " + client.getId());
+			System.out.println("id restaurant " + restaurant.getId());
+			System.out.println("id menu " + menu.getId());
+			httpSession.setAttribute("restaurant", restaurant);
+			httpSession.setAttribute("menu", menu);*/
+			httpSession.setAttribute("clientLogged", client);
 			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 
@@ -157,11 +181,44 @@ public class RestaurantServlet extends HttpServlet {
 				delivery = false;
 			}
 			restaurant.setDelivery(delivery);
-			restaurant.setDelivery(delivery);
+			boolean sunday = false, monday = false, tuesday = false, wednesday = false, thursday = false, friday = false, saturday = false;
+			if (request.getParameter("sunday").equals("checked")) {
+				sunday = true;
+			} if (request.getParameter("monday").equals("checked")) {
+				monday = true;
+			} if (request.getParameter("tuesday").equals("checked")) {
+				tuesday = true;
+			} if (request.getParameter("thurday").equals("checked")) {
+				thursday = true;
+			} if (request.getParameter("wednesday").equals("checked")) {
+				wednesday = true;
+			} if (request.getParameter("friday").equals("checked")) {
+				friday = true;
+			} if (request.getParameter("saturday").equals("checked")) {
+				saturday = true;
+			}
+			restaurant.setSunday_open(sunday);
+			restaurant.setMonday_open(monday);
+			restaurant.setTuesday_open(tuesday);
+			restaurant.setThursday_open(thursday);
+			restaurant.setWednesday_open(wednesday);
+			restaurant.setFriday_open(friday);
+			restaurant.setSaturday_open(saturday);
 			restaurant.setTime_open(request.getParameter("time_open"));
 			restaurant.setTime_close(request.getParameter("time_close"));
+			
 
 			restaurantEJB.update(restaurant);
+			HttpSession httpSession = request.getSession();
+			Client client = clientEJB.readById(Integer.parseInt(request.getParameter("client_id")));
+			restaurant = restaurantEJB.readByUser(client);
+			Menu menu = menuEJB.findByRestaurant(restaurant.getId());
+			List<Product> products = productEJB.readAllProducts(menu);
+			menu.setProducts(products);
+			
+			httpSession.setAttribute("clientLogged", client);
+			httpSession.setAttribute("restaurant", restaurant);
+			httpSession.setAttribute("menu", menu);
 			response.sendRedirect("./pages/main.jsp");
 		} catch (SQLException e) {
 

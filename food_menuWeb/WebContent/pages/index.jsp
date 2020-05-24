@@ -44,6 +44,9 @@
 		<div class="row">
 			<%@page import="entity.Restaurant, java.util.List"%>
 			<%
+			if (request.getSession().getAttribute("listRestaurants") == null) {
+				response.sendRedirect("../RestaurantServlet");
+			}
 				@SuppressWarnings("unchecked")
 			List<Restaurant> restaurants = (List<Restaurant>) request.getSession().getAttribute("listRestaurants");
 			if (restaurants == null || restaurants.isEmpty()) {

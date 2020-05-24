@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-import entity.CategoryProduct;
+import entity.Menu;
 import entity.Product;
 
 public class ProductJPA_DAO {
@@ -37,28 +37,15 @@ public class ProductJPA_DAO {
 
 		return entityManager;
 	}
-	
+
 	public Product getById(final int id) throws SQLException{
 		return entityManager.find(Product.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> findAllByCategory(CategoryProduct category) throws SQLException{
-		return entityManager.createQuery("FROM " + 
-				Product.class.getName() + 
-				" WHERE CATEGORY_ID = " + category.getId()).getResultList();
-	}
-	
-	public Product findOneByCategory(Product product, CategoryProduct category) throws SQLException{
-		return (Product) entityManager.createQuery("FROM " + 
-				Product.class.getName() + 
-				" WHERE CATEGORY_ID = " + category.getId() + " AND ID = " + product.getId()).getSingleResult();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Product> findAll() throws SQLException{
-		return entityManager.createQuery("FROM " + 
-				Product.class.getName() + " AS P INNER JOIN CATEGORY_PRODUCT AS C ON (P.CATEGORY_ID = C.ID) ORDER BY C.NAME ASC").getResultList();
+	public List<Product> findAllProducts(Menu menu) throws SQLException{
+		return entityManager.createQuery("FROM " + Product.class.getName() +
+				" P JOIN FETCH P.menu M WHERE M.id = :menu ORDER BY P.name ASC").setParameter("menu", menu.getId()).getResultList();
 	}
 
 	public void persist(Product product) throws SQLException{

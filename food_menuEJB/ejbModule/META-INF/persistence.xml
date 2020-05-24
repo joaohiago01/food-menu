@@ -19,7 +19,7 @@
 		<class>entity.Product</class>
 		<class>entity.Menu</class>
 		<class>entity.Client</class>
-		<class>food_menuEJB.jpaModule.entity.CategoryProduct</class>
+		<class>entity.Category</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver"

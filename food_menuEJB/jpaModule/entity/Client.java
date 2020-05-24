@@ -1,18 +1,13 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Client", uniqueConstraints = @UniqueConstraint(columnNames = {"cpf", "email"}))
@@ -29,17 +24,11 @@ public class Client implements Serializable {
 	
 	private String cpf;
 	
-	@Size(min = 5, max = 60)
 	private String name;
 	
 	private String email;
 	
-	@Size(min = 5, max = 20)
 	private String password;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "client_id")
-	private List<Restaurant> restaurants;
 	
 	public int getId() {
 		return id;
@@ -71,12 +60,6 @@ public class Client implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Restaurant> getRestaurants() {
-		return restaurants;
-	}
-	public void setRestaurants(List<Restaurant> restaurants) {
-		this.restaurants = restaurants;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,7 +69,6 @@ public class Client implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((restaurants == null) ? 0 : restaurants.hashCode());
 		return result;
 	}
 	@Override
@@ -119,11 +101,6 @@ public class Client implements Serializable {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
-			return false;
-		if (restaurants == null) {
-			if (other.restaurants != null)
-				return false;
-		} else if (!restaurants.equals(other.restaurants))
 			return false;
 		return true;
 	}

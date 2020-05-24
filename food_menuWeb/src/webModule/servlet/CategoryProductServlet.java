@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
-import entity.CategoryProduct;
+import entity.Category;
 
 /**
  * Servlet implementation class CategoryProductServlet
@@ -41,11 +41,11 @@ public class CategoryProductServlet extends HttpServlet {
 		try {
 			HttpSession httpSession = request.getSession();
 			if (!request.getParameter("id").isEmpty()) {
-				CategoryProduct categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
+				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
 				httpSession.setAttribute("category", categoryProduct.getName());
 				response.sendRedirect("./pages/category_edit");
 			} else {
-				List<CategoryProduct> categoryProducts = categoryProductEJB.read();
+				List<Category> categoryProducts = categoryProductEJB.read();
 				httpSession.setAttribute("listCategoryProducts", categoryProducts);
 				response.sendRedirect("./pages/categories.jsp");
 			}
@@ -61,7 +61,7 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			CategoryProduct categoryProduct = new CategoryProduct();
+			Category categoryProduct = new Category();
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.create(categoryProduct);
@@ -78,7 +78,7 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			CategoryProduct categoryProduct;
+			Category categoryProduct;
 			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
 			categoryProduct.setName(request.getParameter("name"));
 
@@ -96,7 +96,7 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			CategoryProduct categoryProduct;
+			Category categoryProduct;
 			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("id")));
 
 			categoryProductEJB.delete(categoryProduct);

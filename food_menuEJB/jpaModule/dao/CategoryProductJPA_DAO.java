@@ -8,7 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-import entity.CategoryProduct;
+import entity.Category;
+import entity.Menu;
 
 public class CategoryProductJPA_DAO {
 
@@ -37,17 +38,24 @@ public class CategoryProductJPA_DAO {
 		return entityManager;
 	}
 	
-	public CategoryProduct getById(final int id) throws SQLException{
-		return entityManager.find(CategoryProduct.class, id);
+	public Category getById(final int id) throws SQLException{
+		return entityManager.find(Category.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<CategoryProduct> findAll() throws SQLException{
+	public List<Category> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
-				CategoryProduct.class.getName()).getResultList();
+				Category.class.getName()).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Category> findAllByMenu(Menu menu) throws SQLException{
+		return entityManager.createQuery("FROM " + Category.class.getName()
+				+ " CP JOIN CP.products P JOIN P.menu M WHERE M.id = :menu").setParameter("menu", menu.getId())
+				.getResultList();
 	}
 
-	public void persist(CategoryProduct categoryProduct) throws SQLException{
+	public void persist(Category categoryProduct) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(categoryProduct);
@@ -58,7 +66,7 @@ public class CategoryProductJPA_DAO {
 		}
 	}
 
-	public void merge(CategoryProduct categoryProduct) throws SQLException{
+	public void merge(Category categoryProduct) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(categoryProduct);
@@ -69,10 +77,10 @@ public class CategoryProductJPA_DAO {
 		}
 	}
 
-	public void remove(CategoryProduct categoryProduct) throws SQLException{
+	public void remove(Category categoryProduct) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			categoryProduct = entityManager.find(CategoryProduct.class, categoryProduct.getId());
+			categoryProduct = entityManager.find(Category.class, categoryProduct.getId());
 			entityManager.remove(categoryProduct);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
@@ -83,7 +91,7 @@ public class CategoryProductJPA_DAO {
 
 	public void removeById(final int id) throws SQLException{
 		try {
-			CategoryProduct categoryProduct = getById(id);
+			Category categoryProduct = getById(id);
 			remove(categoryProduct);
 		} catch (Exception ex) {
 			ex.printStackTrace();

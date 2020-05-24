@@ -31,9 +31,9 @@ public class Product implements Serializable {
 	
 	@ManyToMany(targetEntity = Menu.class)
 	@JoinTable(name = "Products_Menu", 
-			joinColumns={@JoinColumn(name = "menu_id")},
-            inverseJoinColumns={@JoinColumn(name = "product_id")})
-	private List<Menu> menus;
+			joinColumns={@JoinColumn(name = "product_id")},
+            inverseJoinColumns={@JoinColumn(name = "menu_id")})
+	private List<Menu> menu;
 
 	public int getId() {
 		return id;
@@ -68,11 +68,11 @@ public class Product implements Serializable {
 	}
 	
 	public List<Menu> getMenus() {
-		return menus;
+		return menu;
 	}
 
-	public void setMenus(List<Menu> menus) {
-		this.menus = menus;
+	public void setMenus(List<Menu> menu) {
+		this.menu = menu;
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class Product implements Serializable {
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((menus == null) ? 0 : menus.hashCode());
+		result = prime * result + ((menu == null) ? 0 : menu.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
@@ -105,10 +105,10 @@ public class Product implements Serializable {
 			return false;
 		if (id != other.id)
 			return false;
-		if (menus == null) {
-			if (other.menus != null)
+		if (menu == null) {
+			if (other.menu != null)
 				return false;
-		} else if (!menus.equals(other.menus))
+		} else if (!menu.equals(other.menu))
 			return false;
 		if (name == null) {
 			if (other.name != null)

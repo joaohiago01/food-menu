@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-import entity.CategoryProduct;
 import entity.Client;
 import entity.Restaurant;
 
@@ -46,21 +45,18 @@ public class RestaurantJPA_DAO {
 	@SuppressWarnings("unchecked")
 	public List<Restaurant> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
-				Restaurant.class.getName()).getResultList();
+				Restaurant.class.getName() + " R JOIN FETCH R.category C ORDER BY C.name, C.id ASC").getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Restaurant> findAllByUser(Client user) throws SQLException{
-		return entityManager.createQuery("FROM " + 
+	public Restaurant findByUser(Client client) throws SQLException{
+		return (Restaurant) entityManager.createQuery("FROM " + 
 				Restaurant.class.getName() + 
-				" WHERE USER_ID = " + user.getId()).getResultList();
+				" WHERE CLIENT_ID = :id").setParameter("id", client.getId()).getSingleResult();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Restaurant> findAllByCategory(CategoryProduct categoryProduct) throws SQLException{
-		return entityManager.createQuery("FROM " + 
-				Restaurant.class.getName() + 
-				" WHERE SPECIALTY_ID = " + categoryProduct.getId()).getResultList();
+	public Restaurant findByCnpj(String cnpj) {
+		return (Restaurant) entityManager.createQuery("FROM " + 
+				Restaurant.class.getName() + " WHERE CNPJ = :cnpj").setParameter("cnpj", cnpj).getSingleResult();
 	}
 
 	public void persist(Restaurant restaurant) throws SQLException{

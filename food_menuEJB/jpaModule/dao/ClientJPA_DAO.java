@@ -40,8 +40,8 @@ public class ClientJPA_DAO {
 	public Client signIn(String email, String password) throws SQLException{
 		return (Client) entityManager.createQuery("FROM " + 
 				Client.class.getName() + 
-				" WHERE EMAIL = " + email + " AND PASSWORD = " + password)
-				.getResultList().get(0);
+				" WHERE EMAIL = :email AND PASSWORD = :password").setParameter("email", email).setParameter("password", password)
+				.getSingleResult();
 	}
 	
 	public Client getById(final int id) throws SQLException{

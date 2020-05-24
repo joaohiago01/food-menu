@@ -43,9 +43,9 @@
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre a categoria:</h2>
 					<br />
-					<%@page import="entity.CategoryProduct"%>
+					<%@page import="entity.Category"%>
 					<%
-						CategoryProduct categoryProduct = (CategoryProduct) request.getSession().getAttribute("category");
+						Category categoryProduct = (Category) request.getSession().getAttribute("category");
 					%>
 					<form class="needs-validation" novalidate
 						action="../CategoryProductServlet" method="post">

@@ -27,12 +27,12 @@
 			<br />
 			<div class="card col-sm-12 form-group-lg">
 				<br />
-				<form class="needs-validation" novalidate method="get" action="../ClientServlet?signIn=auth">
+				<form class="needs-validation" novalidate method="get" action="../ClientServlet">
 					<div class="form-group row">
 						<label for="inputEmail"
 							class="col-sm-2 col-form-label font-weight-bold"> E-mail:</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail"
+							<input type="email" class="form-control" id="inputEmail" name="email"
 								placeholder="Seu E-mail" required="required" />
 							<div class="invalid-feedback">Por favor, informe seu
 								e-mail.</div>
@@ -42,7 +42,7 @@
 						<label for="inputPassword"
 							class="col-sm-2 col-form-label font-weight-bold"> Senha:</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword"
+							<input type="password" class="form-control" id="inputPassword" name="password"
 								placeholder="Sua Senha" required="required" />
 							<div class="invalid-feedback">Por favor, informe sua senha.</div>
 						</div>

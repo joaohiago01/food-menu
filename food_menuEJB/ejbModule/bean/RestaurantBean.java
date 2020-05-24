@@ -7,7 +7,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import dao.RestaurantJPA_DAO;
-import entity.CategoryProduct;
 import entity.Client;
 import entity.Restaurant;
 
@@ -37,14 +36,9 @@ public class RestaurantBean {
 		return restaurantJPA_DAO.findAll();
 	}
 
-	public List<Restaurant> readByUser(Client client) throws SQLException{
+	public Restaurant readByUser(Client client) throws SQLException{
 		
-		return restaurantJPA_DAO.findAllByUser(client);
-	}
-
-	public List<Restaurant> readByCategory(CategoryProduct categoryProduct) throws SQLException{
-		
-		return restaurantJPA_DAO.findAllByCategory(categoryProduct);
+		return restaurantJPA_DAO.findByUser(client);
 	}
 
 	public Restaurant readById(int id) throws SQLException{
@@ -55,5 +49,10 @@ public class RestaurantBean {
 	public void update(Restaurant restaurant) throws SQLException{
 		
 		restaurantJPA_DAO.merge(restaurant);
+	}
+
+	public Restaurant findByCnpj(String cnpj) {
+		
+		return restaurantJPA_DAO.findByCnpj(cnpj);
 	}
 }

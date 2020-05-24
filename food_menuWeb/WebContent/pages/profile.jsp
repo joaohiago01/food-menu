@@ -19,7 +19,15 @@
 </head>
 
 <body>
-
+	<%@page import="entity.Client, javax.servlet.http.HttpSession"
+		language="java"%>
+	<%
+		HttpSession httpSession = request.getSession();
+	httpSession.setAttribute("clientLogged", request.getSession().getAttribute("clientLogged"));
+	httpSession.setAttribute("page", "./pages/profile.jsp");
+	response.sendRedirect("../ClientServlet");
+	Client client = (Client) request.getSession().getAttribute("clientLogged");
+	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
 			Menu</a>
@@ -33,7 +41,8 @@
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold" href="profile.jsp">Perfil</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="restaurant_edit.jsp">Restaurante</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="restaurant_edit.jsp">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -57,11 +66,6 @@
 	</nav>
 
 	<div class="card-body">
-		<%@page import="entity.Client" language="java"%>
-
-		<%
-				Client client = (Client) request.getSession().getAttribute("client");
-			%>
 		<form class="needs-validation" novalidate method="post"
 			action="../ClientSevlet">
 			<input type="hidden" name="_method" value="PUT" />

@@ -2,15 +2,16 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Restaurant", uniqueConstraints = @UniqueConstraint(columnNames = {"cnpj"}))
@@ -61,18 +62,23 @@ public class Restaurant implements Serializable {
 	
 	private String district;
 	
-	@Size(min = 1)
 	private String number;
 	
 	private String addition;
 	
 	private boolean delivery;
 	
-	@Min(1)
-	@Max(5)
-	private int rating;
-	
-	private int rating_number;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "client_id")
+	private Client client;
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public int getId() {
 		return id;
@@ -194,21 +200,6 @@ public class Restaurant implements Serializable {
 		this.delivery = delivery;
 	}
 
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-	public int getRating_number() {
-		return rating_number;
-	}
-
-	public void setRating_number(int rating_number) {
-		this.rating_number = rating_number;
-	}
-
 	public boolean isSunday_open() {
 		return sunday_open;
 	}
@@ -273,6 +264,7 @@ public class Restaurant implements Serializable {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((client == null) ? 0 : client.hashCode());
 		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
 		result = prime * result + (delivery ? 1231 : 1237);
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
@@ -283,8 +275,6 @@ public class Restaurant implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + rating;
-		result = prime * result + rating_number;
 		result = prime * result + (saturday_open ? 1231 : 1237);
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + (sunday_open ? 1231 : 1237);
@@ -325,6 +315,11 @@ public class Restaurant implements Serializable {
 				return false;
 		} else if (!city.equals(other.city))
 			return false;
+		if (client == null) {
+			if (other.client != null)
+				return false;
+		} else if (!client.equals(other.client))
+			return false;
 		if (cnpj == null) {
 			if (other.cnpj != null)
 				return false;
@@ -362,10 +357,6 @@ public class Restaurant implements Serializable {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
-			return false;
-		if (rating != other.rating)
-			return false;
-		if (rating_number != other.rating_number)
 			return false;
 		if (saturday_open != other.saturday_open)
 			return false;

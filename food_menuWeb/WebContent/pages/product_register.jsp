@@ -42,7 +42,7 @@
 		</div>
 
 		<div class="card card-group bg-danger">
-			<%@page import="entity.CategoryProduct, java.util.List"
+			<%@page import="entity.Category,java.util.List"
 				language="java"%>
 
 			<div class="card">
@@ -79,10 +79,10 @@
 									name="category">
 									<%
 										@SuppressWarnings("unchecked")
-									List<CategoryProduct> listCategoryProducts = (List<CategoryProduct>) request.getSession()
-											.getAttribute("listCategoryProducts");
-									if (listCategoryProducts != null) {
-										for (CategoryProduct categoryProduct : listCategoryProducts) {
+																List<Category> listCategoryProducts = (List<Category>) request.getSession()
+																		.getAttribute("listCategoryProducts");
+																if (listCategoryProducts != null) {
+																	for (Category categoryProduct : listCategoryProducts) {
 									%>
 									<option value="<%categoryProduct.getName();%>"></option>
 									<%

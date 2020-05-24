@@ -1,5 +1,8 @@
 package entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-
-import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Menu implements Serializable {
@@ -25,7 +25,7 @@ public class Menu implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(mappedBy = "menus", targetEntity = Product.class)
+	@ManyToMany(mappedBy = "menu", targetEntity = Product.class)
 	private List<Product> products;
 	
 	@OneToOne(cascade = CascadeType.ALL,
@@ -34,6 +34,22 @@ public class Menu implements Serializable {
 			optional = false)
 	@JoinColumn(unique = true)
 	private Restaurant restaurant;
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
 	public int getId() {
 		return id;
@@ -51,21 +67,12 @@ public class Menu implements Serializable {
 		this.products = menu;
 	}
 
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((products == null) ? 0 : products.hashCode());
-		result = prime * result + ((restaurant == null) ? 0 : restaurant.hashCode());
 		return result;
 	}
 
@@ -84,11 +91,6 @@ public class Menu implements Serializable {
 			if (other.products != null)
 				return false;
 		} else if (!products.equals(other.products))
-			return false;
-		if (restaurant == null) {
-			if (other.restaurant != null)
-				return false;
-		} else if (!restaurant.equals(other.restaurant))
 			return false;
 		return true;
 	}

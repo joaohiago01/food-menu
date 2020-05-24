@@ -1,3 +1,4 @@
+<%@page import="entity.Client"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -24,6 +25,19 @@
 
 <body>
 
+	<%@page
+		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu, javax.servlet.http.HttpSession"%>
+	<%
+		HttpSession httpSession = request.getSession();
+	Client client = (Client) request.getSession().getAttribute("clientLogged");
+	if (!request.getSession().getAttribute("logged").equals("logged")) {
+		httpSession.setAttribute("clientLogged", request.getSession().getAttribute("clientLogged"));
+		httpSession.setAttribute("page", "./pages/main.jsp");
+		response.sendRedirect("../ClientServlet");
+	}
+	Restaurant restaurant = (Restaurant) request.getSession().getAttribute("restaurant");
+	Menu menu = (Menu) request.getSession().getAttribute("menu");
+	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold" href="main.jsp">Food
 			Menu</a>
@@ -62,20 +76,16 @@
 	</nav>
 
 	<div class="card-body">
-		<%@page import="entity.Restaurant, java.util.List"%>
-		<%
-			Restaurant restaurant = (Restaurant) request.getSession().getAttribute("food_menu");
-		%>
 		<br />
 		<div class="card-body">
 			<h1 class="card-title" id="restaurant">
-				<%
-					restaurant.getName();
+				<%=
+					restaurant.getName()
 				%>
 			</h1>
 
-			<label class="card-text" id="description"> <%
- 	restaurant.getDescription();
+			<label class="card-text" id="description"> <%=
+ 	restaurant.getDescription()
  %>
 			</label> <br />
 		</div>
@@ -83,12 +93,12 @@
 		<div class="card-body">
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Horário de
-					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%
- 	restaurant.getTime_open();
+					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=
+ 	restaurant.getTime_open()
  %>
 				</label> <label class="form-col-1">às</label> <label id="time_close"
-					class="form-col-1"> <%
- 	restaurant.getTime_close();
+					class="form-col-1"> <%=
+ 	restaurant.getTime_close()
  %>
 				</label>
 			</div>
@@ -141,8 +151,8 @@
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Contato: </label> <label
-					class="form-col-1" id="phone"> <%
- 	restaurant.getPhone();
+					class="form-col-1" id="phone"> <%=
+ 	restaurant.getPhone()
  %>
 				</label>
 			</div>
@@ -153,33 +163,33 @@
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
-					class="form-col-1" id="city"> <%
- 	restaurant.getCity();
+					class="form-col-1" id="city"> <%=
+ 	restaurant.getCity()
  %>
 				</label> <label class="form-col-1 font-weight-bold">Estado:</label> <label
-					class="form-col-1" id="state"> <%
- 	restaurant.getState();
+					class="form-col-1" id="state"> <%=
+ 	restaurant.getState()
  %>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
-					class="form-col-1" id="address"> <%
- 	restaurant.getAddress();
+					class="form-col-1" id="address"> <%=
+ 	restaurant.getAddress()
  %>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Bairro: </label> <label
-					class="form-col-1" id="disctrict"> <%
- 	restaurant.getDistrict();
+					class="form-col-1" id="disctrict"> <%=
+ 	restaurant.getDistrict()
  %>
 				</label>
 			</div>
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Complemento: </label> <label
-					class="form-col-1" id="addition"> <%
- 	restaurant.getAddition();
+					class="form-col-1" id="addition"> <%=
+ 	restaurant.getAddition()
  %>
 				</label>
 			</div>
@@ -206,19 +216,11 @@
 		<div class="card-body">
 			<h4 class="card-title font-weight-bold">Cardápio</h4>
 			<br />
-			<div class="form-group col-md-15 font-weight-bold">
-				<select class="custom-select">
-					<option selected="selected">Categoria 1</option>
-					<option value="0">Categoria 2</option>
-				</select>
-			</div>
-			<br />
 
 			<div class="row">
 				<%@page import="entity.Product, java.util.List" language="java"%>
 				<%
-					@SuppressWarnings("unchecked")
-				List<Product> listProducts = (List<Product>) request.getSession().getAttribute("listProducts");
+					List<Product> listProducts = menu.getProducts();
 				if (listProducts == null || listProducts.isEmpty()) {
 				%>
 				<div class="col-sm-6">
@@ -250,19 +252,6 @@
 									product.getPrice();
 								%>
 							</p>
-							<form method="get"
-								action="../ProductServlet?id=${product.getId()}">
-								<button type="button" data-toggle="tooltip"
-									data-placement="bottom" title="Edite este produto">
-									<i data-feather="edit"></i>
-								</button>
-								<input type="submit" />
-							</form>
-							<button type="button" data-toggle="tooltip"
-								onclick="popup();return false;" data-placement="bottom"
-								title="Remova este produto" data-target="#modalExcluir">
-								<i data-feather="delete"></i>
-							</button>
 						</div>
 					</div>
 				</div>

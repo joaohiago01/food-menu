@@ -138,7 +138,7 @@
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										id="customCheck1" name="monday"> <label
+										id="customCheck1" name="monday" > <label
 										class="custom-control-label" for="customCheck1">Segunda-Feira</label>
 								</div>
 								<div
@@ -182,12 +182,12 @@
 								<label for="inputDelivery">O restaurante possui serviço
 									de entrega?</label>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryYes" name="delivery"
+									<input type="radio" id="customRadioDeliveryYes" name="delivery" value="SIM"
 										class="custom-control-input" /><label
 										class="custom-control-label" for="customRadioDeliveryYes">Sim</label>
 								</div>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryNo" name="delivery"
+									<input type="radio" id="customRadioDeliveryNo" name="delivery" value="NAO"
 										class="custom-control-input" checked="checked" /><label
 										class="custom-control-label" for="customRadioDeliveryNo">Não</label>
 								</div>

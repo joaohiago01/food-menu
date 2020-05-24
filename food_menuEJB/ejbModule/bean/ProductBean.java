@@ -7,7 +7,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import dao.ProductJPA_DAO;
-import entity.CategoryProduct;
+import entity.Menu;
 import entity.Product;
 
 @Stateless
@@ -31,28 +31,19 @@ public class ProductBean {
 		productJPA_DAO.removeById(id);
 	}
 
-	public List<Product> readAll() throws SQLException{
-
-		return productJPA_DAO.findAll();
-	}
-
-	public List<Product> readAllByCategory(CategoryProduct categoryProduct) throws SQLException{
-
-		return productJPA_DAO.findAllByCategory(categoryProduct);
-	}
-
-	public Product readByCategory(Product product, CategoryProduct categoryProduct) throws SQLException{
-
-		return productJPA_DAO.findOneByCategory(product, categoryProduct);
-	}
-
 	public Product readById(int id) throws SQLException{
 
 		return productJPA_DAO.getById(id);
 	}
 
+	public List<Product> readAllProducts(Menu menu) throws SQLException {
+		
+		return productJPA_DAO.findAllProducts(menu);
+	}
+	
 	public void update(Product product) throws SQLException{
 
 		productJPA_DAO.merge(product);
 	}
+
 }

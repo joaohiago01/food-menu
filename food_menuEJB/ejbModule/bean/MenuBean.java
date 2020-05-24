@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 
 import dao.MenuJPA_DAO;
 import entity.Menu;
-import entity.Product;
 
 @Stateless
 @Remote
@@ -36,11 +35,6 @@ public class MenuBean {
 		return menuJPA_DAO.findAll();
 	}
 
-	public List<Product> readAllProducts(Menu menu) throws SQLException{
-		
-		return menuJPA_DAO.findAllProducts(menu);
-	}
-
 	public Menu readById(int id) throws SQLException{
 		
 		return menuJPA_DAO.getById(id);
@@ -49,6 +43,10 @@ public class MenuBean {
 	public void update(Menu menu) throws SQLException{
 		
 		menuJPA_DAO.merge(menu);
+	}
+
+	public Menu findByRestaurant(int id) {
+		return menuJPA_DAO.findByRestaurant(id);
 	}
 }
 

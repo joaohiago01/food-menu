@@ -43,12 +43,12 @@
 
 		<div class="card card-group bg-danger">
 			<%@page
-				import="entity.Product, entity.CategoryProduct, java.util.List"
+				import="entity.Product,entity.Category,java.util.List"
 				language="java"%>
 
 			<%
 				Product product = (Product) request.getSession().getAttribute("product");
-			CategoryProduct categoryProduct = (CategoryProduct) request.getSession().getAttribute("category");
+				Category categoryProduct = (Category) request.getSession().getAttribute("category");
 			%>
 
 			<div class="card">
@@ -90,9 +90,9 @@
 									<option selected="selected"><%=categoryProduct.getName()%></option>
 									<%
 										@SuppressWarnings("unchecked")
-									List<CategoryProduct> listCategoryProducts = (List<CategoryProduct>) request.getSession().getAttribute("categories");
-									if (listCategoryProducts != null) {
-										for (CategoryProduct category : listCategoryProducts) {
+																List<Category> listCategoryProducts = (List<Category>) request.getSession().getAttribute("categories");
+																if (listCategoryProducts != null) {
+																	for (Category category : listCategoryProducts) {
 									%>
 									<option value="<%category.getName();%>"></option>
 									<%

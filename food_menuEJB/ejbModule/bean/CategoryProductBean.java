@@ -7,41 +7,47 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import dao.CategoryProductJPA_DAO;
-import entity.CategoryProduct;
+import entity.Category;
+import entity.Menu;
 
 @Stateless
 @Remote
 public class CategoryProductBean {
 
 	private CategoryProductJPA_DAO categoryProductJPA_DAO = CategoryProductJPA_DAO.getInstance();
-	
-	public void create(CategoryProduct categoryProduct) throws SQLException{
-		
+
+	public void create(Category categoryProduct) throws SQLException{
+
 		categoryProductJPA_DAO.persist(categoryProduct);
 	}
 
-	public void delete(CategoryProduct categoryProduct) throws SQLException{
-		
+	public void delete(Category categoryProduct) throws SQLException{
+
 		categoryProductJPA_DAO.remove(categoryProduct);
 	}
 
 	public void deleteById(int id) throws SQLException{
-		
+
 		categoryProductJPA_DAO.removeById(id);
 	}
 
-	public List<CategoryProduct> read() throws SQLException{
-		
+	public List<Category> read() throws SQLException{
+
 		return categoryProductJPA_DAO.findAll();
 	}
 
-	public CategoryProduct readById(int id) throws SQLException{
-		
+	public Category readById(int id) throws SQLException{
+
 		return categoryProductJPA_DAO.getById(id);
 	}
 
-	public void update(CategoryProduct categoryProduct) throws SQLException{
-		
+	public List<Category> readByMenu(Menu menu) throws SQLException{
+
+		return categoryProductJPA_DAO.findAllByMenu(menu);
+	}
+
+	public void update(Category categoryProduct) throws SQLException{
+
 		categoryProductJPA_DAO.merge(categoryProduct);
 	}
 }

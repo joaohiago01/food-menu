@@ -1,4 +1,4 @@
-<%@page import="entity.CategoryProduct"%>
+<%@page import="entity.Category"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -75,12 +75,12 @@
 		<br />
 
 		<div class="row">
-			<%@page import="entity.CategoryProduct, java.util.List"
+			<%@page import="entity.Category,java.util.List"
 				language="java"%>
 			<%
 				@SuppressWarnings("unchecked")
-			List<CategoryProduct> listCategoryProducts = (List<CategoryProduct>) request.getSession().getAttribute("listCategoryProducts");
-			if (listCategoryProducts == null || listCategoryProducts.isEmpty()) {
+				List<Category> listCategoryProducts = (List<Category>) request.getSession().getAttribute("listCategoryProducts");
+				if (listCategoryProducts == null || listCategoryProducts.isEmpty()) {
 			%>
 			<div class="col-sm-6">
 				<div class="card">
@@ -91,7 +91,7 @@
 			</div>
 			<%
 				} else {
-				for (CategoryProduct categoryProduct : listCategoryProducts) {
+					for (Category categoryProduct : listCategoryProducts) {
 			%>
 
 			<div class="col-sm-6">
