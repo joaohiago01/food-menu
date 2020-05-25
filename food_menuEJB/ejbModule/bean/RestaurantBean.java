@@ -4,13 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 import dao.RestaurantJPA_DAO;
 import entity.Client;
 import entity.Restaurant;
 
-@Stateless
+@Stateful
 @Remote
 public class RestaurantBean {
 

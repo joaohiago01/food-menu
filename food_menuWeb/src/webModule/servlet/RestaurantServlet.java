@@ -61,8 +61,11 @@ public class RestaurantServlet extends HttpServlet {
 				request.setAttribute("restaurant", restaurant);
 				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);	
 			} else {
+				String flagStartWebSite = "flagStartWebSite";
+				
 				List<Restaurant> restaurants = restaurantEJB.read();
 				request.setAttribute("restaurants", restaurants);
+				request.setAttribute("flagStartWebSite", flagStartWebSite);
 				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);				
 			}
 		} catch (SQLException e) {

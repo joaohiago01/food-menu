@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 import dao.MenuJPA_DAO;
 import entity.Menu;
 
-@Stateless
+@Stateful
 @Remote
 public class MenuBean {
 

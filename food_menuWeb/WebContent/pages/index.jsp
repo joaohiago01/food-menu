@@ -19,7 +19,10 @@
 <body>
 	<%@page import="java.util.List, entity.Restaurant"%>
 	<%
-		@SuppressWarnings("unchecked")
+		if (!request.getAttribute("flagStartWebSite").equals("flagStartWebSite")) {
+		request.getRequestDispatcher("../RestaurantServlet?pageURL=index.jsp");
+	}
+	@SuppressWarnings("unchecked")
 	List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaurants");
 	%>
 	<div class="card bg-danger mb-3">
@@ -61,7 +64,6 @@
 				for (Restaurant restaurant : restaurants) {
 			%>
 			<div class="col-sm-6">
-				<a href="#"></a>
 				<div class="card">
 					<form class="card-body" method="get"
 						action="../RestaurantServlet?restaurantID=${restaurant.getId()}">

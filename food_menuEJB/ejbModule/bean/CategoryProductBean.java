@@ -4,13 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 import dao.CategoryProductJPA_DAO;
 import entity.Category;
 import entity.Menu;
 
-@Stateless
+@Stateful
 @Remote
 public class CategoryProductBean {
 
