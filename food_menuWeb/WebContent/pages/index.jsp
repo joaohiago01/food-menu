@@ -71,9 +71,7 @@
 						<p class="card-text">
 							<%=restaurant.getDescription()%>
 						</p>
-						<p class="card-text">
-							<%=%>
-						</p>
+						<p class="card-text"></p>
 						<button type="submit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
 					</form>
