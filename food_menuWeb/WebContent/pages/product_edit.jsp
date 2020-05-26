@@ -21,30 +21,31 @@
 
 <title>Food Menu - Produtos</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
-	type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
 </head>
 
 <body>
-	<%@page import="entity.Product, entity.Category, entity.Client, entity.Category, java.util.List"
+	<%@page
+		import="entity.Product, entity.Category, entity.Client, entity.Category, java.util.List"
 		language="java"%>
 
 	<%
-	Client clientLogged = (Client) request.getAttribute("clientLogged");
+	HttpSession httpSession = request.getSession();
+		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) request.getAttribute("categories");
-		Product product = (Product) request.getAttribute("product");
-	Category categoryProduct = (Category) request.getAttribute("category");
+	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
+	Product product = (Product) httpSession.getAttribute("product");
+	Category categoryProduct = (Category) httpSession.getAttribute("category");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<div class="card card bg-danger">
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
+					href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
@@ -55,10 +56,10 @@
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
 					<form class="needs-validation" novalidate
-						action="../ProductServlet?productID=${product.getId()}" method="post">
-						<input type="hidden" name="_method" value="PUT" />
-						<input type="hidden" name="clientID"
-							value="${clientLogged.getId()}" />
+						action="../ProductServlet?productID=${product.getId()}"
+						method="post">
+						<input type="hidden" name="_method" value="PUT" /> <input
+							type="hidden" name="clientID" value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
@@ -88,12 +89,13 @@
 								<label for="inputEspeciality">Qual a categoria deste
 									produto?</label> <select class="custom-select" required="required"
 									name="category">
-									<option selected="selected" value="<%categoryProduct.getId();%>"><%=categoryProduct.getName()%></option>
+									<option selected="selected"
+										value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
 									<%
-									if (categories != null) {
+										if (categories != null) {
 										for (Category category : categories) {
 									%>
-									<option value="<%category.getId();%>"><%=category.getName()%></option>
+									<option value="<%=category.getId()%>"><%=category.getName()%></option>
 									<%
 										}
 									}

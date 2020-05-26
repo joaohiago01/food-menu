@@ -16,7 +16,7 @@ public class RestaurantJPA_DAO {
 	private static RestaurantJPA_DAO instance;
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+	
 	public static RestaurantJPA_DAO getInstance(){
 		if (instance == null){
 			instance = new RestaurantJPA_DAO();
@@ -45,7 +45,7 @@ public class RestaurantJPA_DAO {
 	@SuppressWarnings("unchecked")
 	public List<Restaurant> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
-				Restaurant.class.getName() + " R JOIN FETCH R.category C ORDER BY C.name, C.id ASC").getResultList();
+				Restaurant.class.getName()).getResultList();
 	}
 	
 	public Restaurant findByUser(Client client) throws SQLException{
@@ -54,9 +54,11 @@ public class RestaurantJPA_DAO {
 				" WHERE CLIENT_ID = :id").setParameter("id", client.getId()).getSingleResult();
 	}
 	
-	public Restaurant findByCnpj(String cnpj) {
-		return (Restaurant) entityManager.createQuery("FROM " + 
-				Restaurant.class.getName() + " WHERE CNPJ = :cnpj").setParameter("cnpj", cnpj).getSingleResult();
+	@SuppressWarnings("unchecked")
+	public List<Restaurant> findByName(String name) {
+		String nameLike = "%" + name + "%";
+		return entityManager.createQuery("FROM " + 
+				Restaurant.class.getName() + " WHERE name like :name").setParameter("name", nameLike).getResultList();
 	}
 
 	public void persist(Restaurant restaurant) throws SQLException{
@@ -70,15 +72,16 @@ public class RestaurantJPA_DAO {
 		}
 	}
 
-	public void merge(Restaurant restaurant) throws SQLException{
+	public Restaurant merge(Restaurant restaurant) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(restaurant);
+			restaurant = entityManager.merge(restaurant);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
+		return restaurant;
 	}
 
 	public void remove(Restaurant restaurant) throws SQLException{

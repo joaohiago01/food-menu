@@ -21,19 +21,20 @@
 
 <title>Food Menu - Produtos</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
-	type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
 </head>
 
 <body>
-	<%@page import="java.util.List, entity.Client, entity.Category"%>
+	<%@page import="java.util.List, entity.Client, entity.Category, entity.Menu"%>
 	<%
-		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	HttpSession httpSession = request.getSession();
+		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+	Menu menu = (Menu) httpSession.getAttribute("menu");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) request.getAttribute("categories");
+	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<div class="card card bg-danger">
@@ -41,7 +42,7 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
+					href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>
@@ -55,6 +56,8 @@
 						action="../ProductServlet" method="post">
 						<input type="hidden" name="clientID"
 							value="${clientLogged.getId()}" />
+							<input type="hidden" name="menuID"
+							value="${menu.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
@@ -85,7 +88,8 @@
 										if (categories != null) {
 										for (Category categoryProduct : categories) {
 									%>
-									<option value="<%categoryProduct.getId();%>"><%=categoryProduct.getName()%></option>
+									<option selected="selected"
+										value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
 									<%
 										}
 									} else {

@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,10 +26,10 @@ public class Menu implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(mappedBy = "menu", targetEntity = Product.class)
-	private List<Product> products;
+	@ManyToMany(mappedBy = "menu", targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Product> products = new ArrayList<Product>();
 	
-	@OneToOne(cascade = CascadeType.ALL,
+	@OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
 			fetch = FetchType.EAGER,
 			targetEntity = Restaurant.class,
 			optional = false)

@@ -41,9 +41,9 @@ public class ProductBean {
 		return productJPA_DAO.findAllProducts(menu);
 	}
 	
-	public void update(Product product) throws SQLException{
+	public Product update(Product product) throws SQLException{
 
-		productJPA_DAO.merge(product);
+		return productJPA_DAO.merge(product);
 	}
 
 }

@@ -9,14 +9,13 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import entity.Category;
-import entity.Menu;
 
 public class CategoryProductJPA_DAO {
 
 	private static CategoryProductJPA_DAO instance;
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+	
 	public static CategoryProductJPA_DAO getInstance(){
 		if (instance == null){
 			instance = new CategoryProductJPA_DAO();
@@ -46,13 +45,6 @@ public class CategoryProductJPA_DAO {
 	public List<Category> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
 				Category.class.getName()).getResultList();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Category> findAllByMenu(Menu menu) throws SQLException{
-		return entityManager.createQuery("FROM " + Category.class.getName()
-				+ " CP JOIN CP.products P JOIN P.menu M WHERE M.id = :menu").setParameter("menu", menu.getId())
-				.getResultList();
 	}
 
 	public void persist(Category categoryProduct) throws SQLException{

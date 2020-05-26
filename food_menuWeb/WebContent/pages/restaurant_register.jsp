@@ -25,7 +25,7 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./pages/user_register.jsp">Voltar</a></li>
+					href="user_register.jsp">Voltar</a></li>
 			</ul>
 		</div>
 
@@ -138,51 +138,51 @@
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck1')" id="customCheck1"
+										onclick="check('monday')" id="monday" value="off"
 										name="monday"> <label class="custom-control-label"
-										for="customCheck1">Segunda-Feira</label>
+										for="monday">Segunda-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck2')" id="customCheck2"
-										name="tuesday"> <label class="custom-control-label"
-										for="customCheck2">Terça-Feira</label>
+										name="tuesday" onclick="check('tuesday')" value="off"
+										id="tuesday"> <label
+										class="custom-control-label" for="tuesday">Terça-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck3')" id="customCheck3"
+										onclick="check('wednesday')" id="wednesday" value="off"
 										name="wednesday"> <label class="custom-control-label"
-										for="customCheck3">Quarta-Feira</label>
+										for="wednesday">Quarta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck4')" id="customCheck4"
+										onclick="check('thursday')" id="thursday" value="off"
 										name="thursday"> <label class="custom-control-label"
-										for="customCheck4">Quinta-Feira</label>
+										for="thursday">Quinta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck5')" id="customCheck5"
+										onclick="check('friday')" id="friday" value="off"
 										name="friday"> <label class="custom-control-label"
-										for="customCheck5">Sexta-Feira</label>
+										for="friday">Sexta-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck6')" id="customCheck6"
+										onclick="check('saturday')" id="saturday" value="off"
 										name="saturday"> <label class="custom-control-label"
-										for="customCheck6">Sabádo</label>
+										for="saturday">Sabádo</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
-										onclick="check('customCheck7')" id="customCheck7"
+										onclick="check('sunday')" id="sunday" value="off"
 										name="sunday"> <label class="custom-control-label"
-										for="customCheck7">Domingo</label>
+										for="sunday">Domingo</label>
 								</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
@@ -230,9 +230,9 @@
 		function check(checkID) {
 			var checkBox = document.getElementById(checkID);
 			if (checkBox.checked == true) {
-				checkBox.value = "on";
+				document.getElementById(checkID).value = "on";
 			} else {
-				checkBox.value = "off";
+				document.getElementById(checkID).value = "off";
 			}
 		}
 	</script>

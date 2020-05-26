@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
 import bean.ClientBean;
@@ -58,6 +59,7 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 			Client clientLogged = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
 			if (clientLogged != null) {
 				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
@@ -66,14 +68,14 @@ public class ProductServlet extends HttpServlet {
 				Menu menu = menuEJB.findByRestaurant(restaurant.getId());
 				List<Product> products = productEJB.readAllProducts(menu);
 				menu.setProducts(products);
-				List<Category> categoryProducts = categoryProductEJB.readByMenu(menu);
+				List<Category> categoryProducts = categoryProductEJB.read();
 				String pageURL = request.getParameter("pageURL");
 				
-				request.setAttribute("clientLogged", clientLogged);
-				request.setAttribute("category", categoryProduct);
-				request.setAttribute("categories", categoryProducts);
-				request.setAttribute("product", product);
-				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);
+				httpSession.setAttribute("clientLogged", clientLogged);
+				httpSession.setAttribute("category", categoryProduct);
+				httpSession.setAttribute("categories", categoryProducts);
+				httpSession.setAttribute("product", product);
+				response.sendRedirect("./pages/" + pageURL);
 				
 			} else {
 				response.sendRedirect("./pages/login.jsp");
@@ -95,12 +97,19 @@ public class ProductServlet extends HttpServlet {
 			product.setDescription(request.getParameter("description"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category")));
-			category.getProducts().add(product);
-			categoryProductEJB.update(category);
+			Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
+			product.getMenu().add(menu);
+			menu.getProducts().add(product);
+			product.setCategory(category);
+			productEJB.create(product);
+			menuEJB.update(menu);
 			
-			@SuppressWarnings("unused")
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=products.jsp?&clientID=${clientID}").forward(request, response);
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("pageURL", "products.jsp");
+			httpSession.setAttribute("clientID", clientID);
+			httpSession.setAttribute("menu", menu);
+			response.sendRedirect("./ClientServlet");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -120,12 +129,19 @@ public class ProductServlet extends HttpServlet {
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 
 			Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category")));
-			category.getProducts().add(product);
-			categoryProductEJB.update(category);
+			Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
+			product.getMenu().add(menu);
+			menu.getProducts().add(product);
+			product.setCategory(category);
+			productEJB.update(product);
+			menu = menuEJB.update(menu);
 			
-			@SuppressWarnings("unused")
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=products.jsp?&clientID=${clientID}").forward(request, response);
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("pageURL", "products.jsp");
+			httpSession.setAttribute("clientID", clientID);
+			httpSession.setAttribute("menu", menu);
+			response.sendRedirect("./ClientServlet");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -142,9 +158,13 @@ public class ProductServlet extends HttpServlet {
 			product = productEJB.readById(Integer.parseInt(request.getParameter("productID")));
 
 			productEJB.delete(product);
-			@SuppressWarnings("unused")
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=products.jsp?&clientID=${clientID}").forward(request, response);
+			Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("pageURL", "products.jsp");
+			httpSession.setAttribute("clientID", clientID);
+			httpSession.setAttribute("menu", menu);
+			response.sendRedirect("./ClientServlet");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

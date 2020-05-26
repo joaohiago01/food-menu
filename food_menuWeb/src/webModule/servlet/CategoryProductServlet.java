@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.CategoryProductBean;
 import bean.ClientBean;
@@ -42,14 +43,15 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 			Client clientLogged = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
 			if (clientLogged != null) {
 				Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
 				String pageURL = request.getParameter("pageURL");
 				
-				request.setAttribute("clientLogged", clientLogged);
-				request.setAttribute("category", categoryProduct);
-				request.getRequestDispatcher("./pages/" + pageURL).forward(request, response);
+				httpSession.setAttribute("clientLogged", clientLogged);
+				httpSession.setAttribute("category", categoryProduct);
+				response.sendRedirect("./pages/" + pageURL);
 				
 			} else {
 				response.sendRedirect("./pages/login.jsp");
@@ -66,13 +68,15 @@ public class CategoryProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 			Category categoryProduct = new Category();
 			categoryProduct.setName(request.getParameter("name"));
 
 			categoryProductEJB.create(categoryProduct);
-			@SuppressWarnings("unused")
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
+			httpSession.setAttribute("pageURL", "categories.jsp");
+			httpSession.setAttribute("clientID", clientID);
+			response.sendRedirect("./ClientServlet");
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
@@ -82,7 +86,7 @@ public class CategoryProductServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
 			Category categoryProduct;
@@ -97,12 +101,12 @@ public class CategoryProductServlet extends HttpServlet {
 
 			throw new ServletException(e);
 		}
-	}
+	}*/
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/*protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
 			Category categoryProduct;
@@ -116,6 +120,5 @@ public class CategoryProductServlet extends HttpServlet {
 
 			throw new ServletException(e);
 		}
-	}
-
+	}*/
 }

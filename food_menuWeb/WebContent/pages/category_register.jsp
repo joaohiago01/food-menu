@@ -1,3 +1,4 @@
+<%@page import="entity.Restaurant"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -18,24 +19,24 @@
 
 <title>Food Menu - Categoria</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
-	type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
 </head>
 
 <body>
 	<%@page import="java.util.List, entity.Client"%>
 	<%
-		Client clientLogged = (Client) request.getAttribute("clientLogged");
+	HttpSession httpSession = request.getSession();
+		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<div class="card card bg-danger">
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
+					href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
 				</li>
 			</ul>
 		</div>

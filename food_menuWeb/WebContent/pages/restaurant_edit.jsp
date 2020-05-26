@@ -17,23 +17,27 @@
 
 <title>Food Menu - Restaurante</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
-	type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
 </head>
 
 <body>
-	<%@page import="entity.Client, entity.Restaurant" %>
+	<%@page
+		import="entity.Client, entity.Restaurant, entity.Category, java.util.List"%>
 	<%
-		Client clientLogged = (Client) request.getAttribute("clientLogged");
-	Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
+	HttpSession httpSession = request.getSession();
+		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+	Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
+	@SuppressWarnings("unchecked")
+	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
-			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
+			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
+			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false">
@@ -43,11 +47,11 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
+					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -56,12 +60,13 @@
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
+							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./pages/login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="./login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -182,113 +187,117 @@
 								<%
 									if (restaurant.isMonday_open()) {
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck1" name="monday" checked="checked"
-									onclick="check('customCheck1')" />
+								<input type="checkbox" class="custom-control-input" id="monday"
+									name="monday" checked="checked" onclick="check('monday')" />
 								<%
 									}
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck1" name="monday" onclick="check('customCheck1')" />
-								<label class="custom-control-label" for="customCheck1">Segunda-Feira</label>
+								<input type="checkbox" class="custom-control-input" id="monday"
+									name="monday" onclick="check('monday')" /> <label
+									class="custom-control-label" for="monday">Segunda-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isTuesday_open()) {
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck2" name="tuesday" checked="checked"
-									onclick="check('customCheck2')" />
+								<input type="checkbox" class="custom-control-input" id="tuesday"
+									name="tuesday" checked="checked" onclick="check('tuesday')" />
 								<%
 									}
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck2" name="tuesday"
-									onclick="check('customCheck2')" /> <label
-									class="custom-control-label" for="customCheck2">Terça-Feira</label>
+								<input type="checkbox" class="custom-control-input" id="tuesday"
+									name="tuesday" onclick="check('tuesday')" /> <label
+									class="custom-control-label" for="tuesday">Terça-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isWednesday_open()) {
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck3" name="wednesday" checked="checked"
-									onclick="check('customCheck3')" />
+									id="wednesday" name="wednesday" checked="checked"
+									onclick="check('wednesday')" />
 								<%
 									}
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck3" name="wednesday"
-									onclick="check('customCheck3')" /> <label
-									class="custom-control-label" for="customCheck3">Quarta-Feira</label>
+									id="wednesday" name="wednesday" onclick="check('wednesday')" />
+								<label class="custom-control-label" for="wednesday">Quarta-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isThursday_open()) {
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck4" name="thursday" checked="checked"
-									onclick="check('customCheck4')" />
+									id="thursday" name="thursday" checked="checked"
+									onclick="check('thursday')" />
 								<%
 									}
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck4" name="thursday"
-									onclick="check('customCheck4')" /> <label
-									class="custom-control-label" for="customCheck4">Quinta-Feira</label>
+									id="thursday" name="thursday" onclick="check('thursday')" /> <label
+									class="custom-control-label" for="thursday">Quinta-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isFriday_open()) {
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck5" name="friday" checked="checked"
-									onclick="check('customCheck5')" />
+								<input type="checkbox" class="custom-control-input" id="friday"
+									name="friday" checked="checked" onclick="check('friday')" />
 								<%
 									}
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck5" name="friday" onclick="check('customCheck5')" />
-								<label class="custom-control-label" for="customCheck5">Sexta-Feira</label>
+								<input type="checkbox" class="custom-control-input" id="friday"
+									name="friday" onclick="check('friday')" /> <label
+									class="custom-control-label" for="friday">Sexta-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isSaturday_open()) {
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck6" name="saturday" checked="checked"
-									onclick="check('customCheck6')" />
+									id="saturday" name="saturday" checked="checked"
+									onclick="check('saturday')" />
 								<%
 									}
 								%>
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck6" name="saturday"
-									onclick="check('customCheck6')" /> <label
-									class="custom-control-label" for="customCheck6">Sabádo</label>
+									id="saturday" name="saturday" onclick="check('saturday')" /> <label
+									class="custom-control-label" for="saturday">Sabádo</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
 									if (restaurant.isSunday_open()) {
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck7" name="sunday" checked="checked"
-									onclick="check('customCheck7')" />
+								<input type="checkbox" class="custom-control-input" id="sunday"
+									name="sunday" checked="checked" onclick="check('sunday')" />
 								<%
 									}
 								%>
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck7" name="sunday" onclick="check('customCheck7')" />
-								<label class="custom-control-label" for="customCheck7">Domingo</label>
+								<input type="checkbox" class="custom-control-input" id="sunday"
+									name="sunday" onclick="check('sunday')" /> <label
+									class="custom-control-label" for="sunday">Domingo</label>
 							</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputEspeciality">Qual a especialidade
 								principal do restaurante?</label> <select class="custom-select">
-								<option selected="selected">
+								<option selected="selected"
+									value="<%if (restaurant.getCategory() != null)
+	restaurant.getCategory().getId();%>">
 									<%
-										
+										if (restaurant.getCategory() != null)
+										restaurant.getCategory().getName();
 									%>
 								</option>
+								<%
+									if (categories != null) {
+									for (Category category : categories) {
+								%>
+								<option value="<%category.getId();%>"><%=category.getName()%></option>
+								<%
+									}
+								}
+								%>
 							</select>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
@@ -337,9 +346,9 @@
 		function check(checkID) {
 			var checkBox = document.getElementById(checkID);
 			if (checkBox.checked == true) {
-				checkBox.value = "on";
+				document.getElementById(checkID).value = "on";
 			} else {
-				checkBox.value = "off";
+				document.getElementById(checkID).value = "off";
 			}
 		}
 	</script>

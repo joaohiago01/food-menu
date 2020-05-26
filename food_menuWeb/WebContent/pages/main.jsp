@@ -28,16 +28,17 @@
 	<%@page
 		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu"%>
 	<%
-		Client clientLogged = (Client) request.getAttribute("clientLogged");
-	Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
-	Menu menu = (Menu) request.getAttribute("menu");
+	HttpSession httpSession = request.getSession();
+		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+	Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
+	Menu menu = (Menu) httpSession.getAttribute("menu");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
-			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
+			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false">
@@ -47,11 +48,11 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
+					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -60,12 +61,12 @@
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
+							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./pages/login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -269,18 +270,18 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">
-								<%
-									product.getName();
+								<%=
+									product.getName()
 								%>
 							</h5>
 							<p class="card-text">
-								<%
-									product.getDescription();
+								<%=
+									product.getDescription()
 								%>
 							</p>
 							<p class="card-text">
-								<%
-									product.getPrice();
+								<%="R$ " +
+									product.getPrice()
 								%>
 							</p>
 						</div>

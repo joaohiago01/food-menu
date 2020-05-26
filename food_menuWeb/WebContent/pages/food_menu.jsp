@@ -23,20 +23,22 @@
 </head>
 
 <body>
-	<%@page import="entity.Restaurant, entity.Menu"%>
+	<%@page import="entity.Restaurant, entity.Menu, entity.Category"%>
 	<%
-		Restaurant restaurant = (Restaurant) request.getAttribute("restaurant");
-	Menu menu = (Menu) request.getAttribute("menu");
+	HttpSession httpSession = request.getSession();
+		Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
+	Menu menu = (Menu) httpSession.getAttribute("menu");
+	Category category = (Category) httpSession.getAttribute("category");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./pages/user_register.jsp">Cadastrar Restaurante</a></li>
+					href="user_register.jsp">Cadastrar Restaurante</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./pages/login.jsp">Entrar</a></li>
+					href="login.jsp">Entrar</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./RestaurantServlet?pageURL=index.jsp">Voltar</a></li>
+					href="../RestaurantServlet?pageURL=index.jsp">Voltar</a></li>
 			</ul>
 		</div>
 	</div>
@@ -49,6 +51,9 @@
 			</h1>
 
 			<label class="card-text" id="description"> <%=restaurant.getDescription()%>
+			</label> <br />
+			
+			<label class="card-text" id="category"> <%if (category != null) category.getName();%>
 			</label> <br />
 		</div>
 
@@ -240,18 +245,18 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">
-								<%
-									product.getName();
+								<%=
+									product.getName()
 								%>
 							</h5>
 							<p class="card-text">
-								<%
-									product.getDescription();
+								<%=
+									product.getDescription()
 								%>
 							</p>
 							<p class="card-text">
-								<%
-									product.getPrice();
+								<%="R$ " +
+									product.getPrice()
 								%>
 							</p>
 						</div>

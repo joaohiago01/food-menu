@@ -8,19 +8,19 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/FoodMenu</jta-data-source>
-		
+
 		<class>dao.RestaurantJPA_DAO</class>
 		<class>dao.ProductJPA_DAO</class>
 		<class>dao.MenuJPA_DAO</class>
 		<class>dao.ClientJPA_DAO</class>
 		<class>dao.CategoryProductJPA_DAO</class>
-		
+
 		<class>entity.Restaurant</class>
 		<class>entity.Product</class>
 		<class>entity.Menu</class>
 		<class>entity.Client</class>
 		<class>entity.Category</class>
-		
+
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" /> <!-- DB Driver -->
@@ -29,6 +29,11 @@
 			<property name="javax.persistence.jdbc.user"
 				value="postgres" /> <!-- DB User -->
 			<property name="javax.persistence.jdbc.password" value="ads" /> <!-- DB Password -->
+
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-171-31-33.compute-1.amazonaws.com:5432/d43keebrp12mbm" 
+				/> <property name="javax.persistence.jdbc.user" value="hzvpwqrmjlrbjq" /> 
+				<property name="javax.persistence.jdbc.password" value="39f183f71cc8258a4ac41622d4ab8e457c189f98f9a592802c66fed754772905" 
+				/> -->
 
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" /> <!-- DB Dialect -->

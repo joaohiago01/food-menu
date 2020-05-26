@@ -1,15 +1,19 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product implements Serializable {
@@ -29,11 +33,30 @@ public class Product implements Serializable {
 	
 	private String description;
 	
-	@ManyToMany(targetEntity = Menu.class)
-	@JoinTable(name = "Products_Menu", 
+	@ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "Products_Menu",
 			joinColumns={@JoinColumn(name = "product_id")},
             inverseJoinColumns={@JoinColumn(name = "menu_id")})
-	private List<Menu> menu;
+	private List<Menu> menu = new ArrayList<Menu>();
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
+	private Category category;
+
+	public List<Menu> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(List<Menu> menu) {
+		this.menu = menu;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public int getId() {
 		return id;
@@ -66,19 +89,12 @@ public class Product implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public List<Menu> getMenus() {
-		return menu;
-	}
-
-	public void setMenus(List<Menu> menu) {
-		this.menu = menu;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((menu == null) ? 0 : menu.hashCode());
@@ -98,6 +114,11 @@ public class Product implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;

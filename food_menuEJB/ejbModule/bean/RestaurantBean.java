@@ -46,13 +46,13 @@ public class RestaurantBean {
 		return restaurantJPA_DAO.getById(id);
 	}
 
-	public void update(Restaurant restaurant) throws SQLException{
+	public Restaurant update(Restaurant restaurant) throws SQLException{
 		
-		restaurantJPA_DAO.merge(restaurant);
+		return restaurantJPA_DAO.merge(restaurant);
 	}
 
-	public Restaurant findByCnpj(String cnpj) {
+	public List<Restaurant> findByName(String name) {
 		
-		return restaurantJPA_DAO.findByCnpj(cnpj);
+		return restaurantJPA_DAO.findByName(name);
 	}
 }

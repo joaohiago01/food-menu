@@ -16,7 +16,7 @@ public class ProductJPA_DAO {
 	private static ProductJPA_DAO instance;
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+	
 	public static ProductJPA_DAO getInstance(){
 		if (instance == null){
 			instance = new ProductJPA_DAO();
@@ -59,15 +59,16 @@ public class ProductJPA_DAO {
 		}
 	}
 
-	public void merge(Product product) throws SQLException{
+	public Product merge(Product product) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(product);
+			product = entityManager.merge(product);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
+		return product;
 	}
 
 	public void remove(Product product) throws SQLException{

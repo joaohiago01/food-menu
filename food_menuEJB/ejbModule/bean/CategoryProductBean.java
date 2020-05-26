@@ -8,7 +8,6 @@ import javax.ejb.Stateful;
 
 import dao.CategoryProductJPA_DAO;
 import entity.Category;
-import entity.Menu;
 
 @Stateful
 @Remote
@@ -39,11 +38,6 @@ public class CategoryProductBean {
 	public Category readById(int id) throws SQLException{
 
 		return categoryProductJPA_DAO.getById(id);
-	}
-
-	public List<Category> readByMenu(Menu menu) throws SQLException{
-
-		return categoryProductJPA_DAO.findAllByMenu(menu);
 	}
 
 	public void update(Category categoryProduct) throws SQLException{

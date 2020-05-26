@@ -18,7 +18,7 @@
 
 <title>Food Menu - Categoria</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
+<link rel="sortcut icon" href="./assets/favicon.ico"
 	type="image/x-icon" />
 
 </head>

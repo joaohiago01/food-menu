@@ -12,26 +12,28 @@
 
 <title>Food Menu</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico"
-	type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
 </head>
 <body>
 	<%@page import="java.util.List, entity.Restaurant"%>
 	<%
-		if (!request.getAttribute("flagStartWebSite").equals("flagStartWebSite")) {
-		request.getRequestDispatcher("../RestaurantServlet?pageURL=index.jsp");
+	HttpSession httpSession = request.getSession();
+		if (httpSession.getAttribute("flagStartWebSite") == null) {
+		response.sendRedirect("../RestaurantServlet?pageURL=index.jsp");
 	}
 	@SuppressWarnings("unchecked")
-	List<Restaurant> restaurants = (List<Restaurant>) request.getAttribute("restaurants");
+	List<Restaurant> restaurants = (List<Restaurant>) httpSession.getAttribute("restaurants");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
 			<ul class="nav justify-content-end">
+			<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+					href="user_register.jsp">Food Menu</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./pages/user_register.jsp">Restaurante</a></li>
+					href="../RestaurantServlet?pageURL=index.jsp">Restaurantes</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="./pages/login.jsp">Entrar</a></li>
+					href="login.jsp">Entrar</a></li>
 			</ul>
 		</div>
 	</div>
@@ -40,8 +42,8 @@
 		<h4 class="card-title font-weight-bold col-sm-2">Restaurantes</h4>
 		<br />
 		<nav class="navbar navbar-light bg-light">
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search"
+			<form class="form-inline" method="get" action="../RestaurantServlet">
+				<input class="form-control mr-sm-2" type="search" name="search"
 					placeholder="Pesquisar restaurante" aria-label="Pesquisar" />
 				<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Pesquisar</button>
 			</form>
@@ -65,15 +67,13 @@
 			%>
 			<div class="col-sm-6">
 				<div class="card">
-					<form class="card-body" method="get"
-						action="../RestaurantServlet?restaurantID=${restaurant.getId()}">
+					<form class="card-body" method="get" action="../RestaurantServlet">
+						<input type="hidden" name="restaurantID"
+							value="<%=restaurant.getId()%>" />
 						<h5 class="card-title">
 							<%=restaurant.getName()%>
 						</h5>
-						<p class="card-text">
-							<%=restaurant.getDescription()%>
-						</p>
-						<p class="card-text"></p>
+						<p><%if (restaurant.getCategory() != null) restaurant.getCategory().getName();%></p>
 						<button type="submit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
 					</form>

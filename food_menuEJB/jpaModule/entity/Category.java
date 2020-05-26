@@ -30,18 +30,6 @@ public class Category implements Serializable {
 	@JoinColumn(name = "category_id")
 	private List<Product> products;
 	
-	@OneToMany
-	@JoinColumn(name = "specialty_id", nullable = true)
-	private List<Restaurant> specialty;
-
-	public List<Restaurant> getSpecialty() {
-		return specialty;
-	}
-
-	public void setSpecialty(List<Restaurant> specialty) {
-		this.specialty = specialty;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -73,7 +61,6 @@ public class Category implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((products == null) ? 0 : products.hashCode());
-		result = prime * result + ((specialty == null) ? 0 : specialty.hashCode());
 		return result;
 	}
 
@@ -97,11 +84,6 @@ public class Category implements Serializable {
 			if (other.products != null)
 				return false;
 		} else if (!products.equals(other.products))
-			return false;
-		if (specialty == null) {
-			if (other.specialty != null)
-				return false;
-		} else if (!specialty.equals(other.specialty))
 			return false;
 		return true;
 	}

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -71,6 +72,17 @@ public class Restaurant implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "client_id")
 	private Client client;
+	
+	@ManyToOne(optional = true, fetch = FetchType.EAGER, targetEntity = Category.class)
+	private Category category;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public Client getClient() {
 		return client;
@@ -262,6 +274,7 @@ public class Restaurant implements Serializable {
 		int result = 1;
 		result = prime * result + ((addition == null) ? 0 : addition.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((client == null) ? 0 : client.hashCode());
@@ -304,6 +317,11 @@ public class Restaurant implements Serializable {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
 			return false;
 		if (cep == null) {
 			if (other.cep != null)

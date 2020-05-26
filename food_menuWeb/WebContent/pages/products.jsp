@@ -27,15 +27,16 @@
 	<%@page
 		import="java.util.List, entity.Client, entity.Menu, entity.Product"%>
 	<%
-		Client clientLogged = (Client) request.getAttribute("clientLogged");
-	Menu menu = (Menu) request.getAttribute("menu");
+		HttpSession httpSession = request.getSession();
+	Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+	Menu menu = (Menu) httpSession.getAttribute("menu");
 	if (clientLogged == null) {
-		response.sendRedirect("./pages/login.jsp");
+		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
-			href="./ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
+			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -46,11 +47,11 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
+					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
+					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
@@ -59,13 +60,12 @@
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
+							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
 						<a class="dropdown-item text-light font-weight-bold"
-							href="./ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
+							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
-					href="./pages/login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -73,7 +73,7 @@
 	<div class="card-body">
 		<div class="form-row col-sm-6 font-weight-bold">
 			<a
-				href="./ClientServlet?pageURL=product_register.jsp&?&clientID=${clientLogged.getId()}">
+				href="../ClientServlet?pageURL=product_register.jsp&?&clientID=${clientLogged.getId()}">
 				<button type="button" data-toggle="tooltip" data-placement="bottom"
 					title="Cadastrar novo produto">
 					<i data-feather="plus"></i>
@@ -102,28 +102,25 @@
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">
-							<%
-								product.getName();
-							%>
+							<%=product.getName()%>
 						</h5>
 						<p class="card-text">
-							<%
-								product.getDescription();
-							%>
+							<%=product.getDescription()%>
 						</p>
 						<p class="card-text">
-							<%
-								product.getPrice();
-							%>
+							<%=product.getPrice()%>
 						</p>
-						<form method="get"
-							action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}?&pageURL=product_edit.jsp">
+						<form method="get" action="../ProductServlet">
+							<input type="hidden" name="productID"
+								value="<%=product.getId()%>" /> <input type="hidden"
+								name="clientID" value="<%=clientLogged.getId()%>" /> <input
+								type="hidden" name="pageURL" value="product_edit.jsp" />
 							<button type="button" data-toggle="tooltip"
 								data-placement="bottom" title="Edite este produto">
 								<i data-feather="edit"></i>
 							</button>
-							<input type="submit" />
 						</form>
+						<br />
 						<button type="button" data-toggle="tooltip"
 							onclick="popup();return false;" data-placement="bottom"
 							title="Remova este produto" data-target="#modalExcluir">
@@ -140,7 +137,9 @@
 			<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog"
 				aria-labelledby="ModalExcluir" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
-					<form action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}" method="post">
+					<form
+						action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}"
+						method="post">
 						<input type="hidden" name="_method" value="DELETE" />
 						<div class="modal-content">
 							<div class="modal-header">

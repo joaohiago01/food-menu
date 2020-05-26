@@ -40,9 +40,9 @@ public class MenuBean {
 		return menuJPA_DAO.getById(id);
 	}
 
-	public void update(Menu menu) throws SQLException{
+	public Menu update(Menu menu) throws SQLException{
 		
-		menuJPA_DAO.merge(menu);
+		return menuJPA_DAO.merge(menu);
 	}
 
 	public Menu findByRestaurant(int id) {

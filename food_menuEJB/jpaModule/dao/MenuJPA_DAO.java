@@ -15,7 +15,7 @@ public class MenuJPA_DAO {
 	private static MenuJPA_DAO instance;
 	@PersistenceContext
 	protected EntityManager entityManager;
-
+	
 	public static MenuJPA_DAO getInstance(){
 		if (instance == null){
 			instance = new MenuJPA_DAO();
@@ -63,15 +63,16 @@ public class MenuJPA_DAO {
 		}
 	}
 
-	public void merge(Menu menu) throws SQLException{
+	public Menu merge(Menu menu) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(menu);
+			menu = entityManager.merge(menu);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
+		return menu;
 	}
 
 	public void remove(Menu menu) throws SQLException{
