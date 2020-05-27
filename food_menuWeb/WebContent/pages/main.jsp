@@ -28,17 +28,17 @@
 	<%@page
 		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
-	Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
-	Menu menu = (Menu) httpSession.getAttribute("menu");
+	Client clientLogged = (Client) session.getAttribute("clientLogged");
+	Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+	Menu menu = (Menu) session.getAttribute("menu");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
-			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
+			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
+			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false">
@@ -270,19 +270,13 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">
-								<%=
-									product.getName()
-								%>
+								<%=product.getName()%>
 							</h5>
 							<p class="card-text">
-								<%=
-									product.getDescription()
-								%>
+								<%=product.getDescription()%>
 							</p>
 							<p class="card-text">
-								<%="R$ " +
-									product.getPrice()
-								%>
+								<%="R$ " + product.getPrice()%>
 							</p>
 						</div>
 					</div>

@@ -51,19 +51,29 @@ public class ClientServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession httpSession = request.getSession();
 		try {
-			HttpSession httpSession = request.getSession();
-			String email = (String) request.getParameter("email");
-			String password = (String) request.getParameter("password");
-			if (email == null && request.getAttribute("email") != null) {
-				email = request.getAttribute("email").toString();
-				password = request.getAttribute("password").toString();
+			if (request.getParameter("pageURL") != null && request.getParameter("pageURL").equals("login.jsp")) {//LOGOUT
+				httpSession.removeAttribute("clientID");
+				httpSession.removeAttribute("clientLogged");
+				httpSession.removeAttribute("restaurant");
+				httpSession.removeAttribute("categories");
+				httpSession.removeAttribute("menu");
+				response.sendRedirect("./pages/login.jsp");
 			}
 
-			if (email != null && password != null) {//AUTHENTICATION
-				
+			String email = (String) request.getParameter("email");
+			String password = (String) request.getParameter("password");
+			if (email == null && httpSession.getAttribute("email") != null) {
+				email = httpSession.getAttribute("email").toString();
+				password = httpSession.getAttribute("password").toString();
+			}
+
+			if (email != null && password != null && httpSession.getAttribute("clientLogged") == null) {//AUTHENTICATION
+
 				Client client = clientEJB.signIn(email, password);
 				if (client != null) {
 					Restaurant restaurant = restaurantEJB.readByUser(client);
@@ -74,19 +84,21 @@ public class ClientServlet extends HttpServlet {
 					httpSession.setAttribute("restaurant", restaurant);
 					httpSession.setAttribute("menu", menu);
 					httpSession.setAttribute("categories", categoryProducts);
-					
+
 					response.sendRedirect("./pages/main.jsp");
 				} else {
 					response.sendRedirect("./pages/login.jsp");
 				}
 			} else {//AUTHORIZATION
-				
-				int clientID = Integer.parseInt(request.getParameter("clientID"));
+				int clientID;
 				String pageURL = request.getParameter("pageURL");
-				if (pageURL == null && httpSession.getAttribute("pageURL") != null) {
+				if (pageURL == null && httpSession.getAttribute("pageURL") != null && httpSession.getAttribute("clientID") != null) {
 					clientID = Integer.parseInt(httpSession.getAttribute("clientID").toString());
 					pageURL = httpSession.getAttribute("pageURL").toString();
+				} else {
+					clientID = Integer.parseInt(request.getParameter("clientID"));
 				}
+
 				Client clientLogged = clientEJB.readById(clientID);
 				if(clientLogged != null) {
 
@@ -99,14 +111,15 @@ public class ClientServlet extends HttpServlet {
 					httpSession.setAttribute("restaurant", restaurant);
 					httpSession.setAttribute("menu", menu);
 					httpSession.setAttribute("categories", categoryProducts);
-					
+
 					response.sendRedirect("./pages/" + pageURL);
 				} else {
 					response.sendRedirect("./pages/login.jsp");
 				}
 			}
-		} catch (SQLException e) {
 
+		} catch (SQLException e) {
+			
 			throw new ServletException(e);
 		}
 	}
@@ -114,22 +127,18 @@ public class ClientServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		if (request.getParameter("_method") != null && request.getParameter("_method").equalsIgnoreCase("put")) {
-			doPut(request, response);
-		} else {
+		Client client = new Client();
+		client.setCpf(request.getParameter("cpf"));
+		client.setName(request.getParameter("name"));
+		client.setEmail(request.getParameter("email"));
+		client.setPassword(request.getParameter("password"));
 
-			Client client = new Client();
-			client.setCpf(request.getParameter("cpf"));
-			client.setName(request.getParameter("name"));
-			client.setEmail(request.getParameter("email"));
-			client.setPassword(request.getParameter("password"));
-
-			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("client", client);
-			response.sendRedirect("./pages/restaurant_register.jsp");
-		}
+		HttpSession httpSession = request.getSession();
+		httpSession.setAttribute("client", client);
+		response.sendRedirect("./pages/restaurant_register.jsp");
 	}
 
 	/**
@@ -145,9 +154,10 @@ public class ClientServlet extends HttpServlet {
 			client.setEmail(request.getParameter("email"));
 			client.setPassword(request.getParameter("password"));
 			client = clientEJB.update(client);
-			
+
 			httpSession.setAttribute("clientID", client.getId());
 			httpSession.setAttribute("pageURL", "main.jsp");
+			httpSession.setAttribute("clientLogged", client);
 			response.sendRedirect("./ClientServlet");
 		} catch (SQLException e) {
 

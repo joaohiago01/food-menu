@@ -27,9 +27,8 @@
 	<%@page
 		import="java.util.List, entity.Client, entity.Menu, entity.Product"%>
 	<%
-		HttpSession httpSession = request.getSession();
-	Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
-	Menu menu = (Menu) httpSession.getAttribute("menu");
+	Client clientLogged = (Client) session.getAttribute("clientLogged");
+	Menu menu = (Menu) session.getAttribute("menu");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}
@@ -65,7 +64,8 @@
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="../ClientServlet?pageURL=login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -99,6 +99,7 @@
 				for (Product product : listProducts) {
 			%>
 			<div class="col-sm-6">
+				<br />
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">
@@ -108,7 +109,7 @@
 							<%=product.getDescription()%>
 						</p>
 						<p class="card-text">
-							<%=product.getPrice()%>
+							<%="R$ " + product.getPrice()%>
 						</p>
 						<form method="get" action="../ProductServlet">
 							<input type="hidden" name="productID"

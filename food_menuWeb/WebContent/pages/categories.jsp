@@ -20,24 +20,25 @@
 
 <title>Food Menu - Categorias</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
 <body>
 	<%@page import="java.util.List, entity.Client, entity.Category"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+	Client clientLogged = (Client) session.getAttribute("clientLogged");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
+	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
-			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food Menu</a>
+			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
+			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 			aria-expanded="false">
@@ -65,7 +66,8 @@
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="../ClientServlet?pageURL=login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -99,15 +101,13 @@
 			%>
 
 			<div class="col-sm-6">
+				<br />
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">
-							<%=
-								categoryProduct.getName()
-							%>
+							<%=categoryProduct.getName()%>
 						</h5>
-						<br />
-						<br />
+						<br /> <br />
 					</div>
 				</div>
 			</div>

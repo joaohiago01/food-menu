@@ -31,12 +31,11 @@
 		language="java"%>
 
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
-	Product product = (Product) httpSession.getAttribute("product");
-	Category categoryProduct = (Category) httpSession.getAttribute("category");
+	List<Category> categories = (List<Category>) session.getAttribute("categories");
+	Product product = (Product) session.getAttribute("product");
+	Category categoryProduct = (Category) session.getAttribute("category");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}

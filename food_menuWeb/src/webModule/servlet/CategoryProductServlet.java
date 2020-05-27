@@ -74,6 +74,7 @@ public class CategoryProductServlet extends HttpServlet {
 
 			categoryProductEJB.create(categoryProduct);
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
+			httpSession.setAttribute("categories", categoryProductEJB.read());
 			httpSession.setAttribute("pageURL", "categories.jsp");
 			httpSession.setAttribute("clientID", clientID);
 			response.sendRedirect("./ClientServlet");
@@ -82,43 +83,4 @@ public class CategoryProductServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
-	/*protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			Category categoryProduct;
-			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
-			categoryProduct.setName(request.getParameter("name"));
-
-			categoryProductEJB.update(categoryProduct);
-			@SuppressWarnings("unused")
-			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-	}*/
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	/*protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			Category categoryProduct;
-			categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
-
-			categoryProductEJB.delete(categoryProduct);
-			@SuppressWarnings("unused")
-			int clientID = Integer.parseInt(request.getParameter("clientID"));
-			request.getRequestDispatcher("./ClientServlet?pageURL=categories.jsp?&clientID=${clientID}").forward(request, response);
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
-		}
-	}*/
 }

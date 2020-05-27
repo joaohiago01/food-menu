@@ -19,15 +19,15 @@
 
 <title>Food Menu - Categoria</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
 <body>
 	<%@page import="java.util.List, entity.Client"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}

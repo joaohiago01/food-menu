@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +25,9 @@
 <body>
 	<%@page import="entity.Restaurant, entity.Menu, entity.Category"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
-	Menu menu = (Menu) httpSession.getAttribute("menu");
-	Category category = (Category) httpSession.getAttribute("category");
+		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+	Menu menu = (Menu) session.getAttribute("menu");
+	Category category = (Category) session.getAttribute("category");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
@@ -51,17 +50,15 @@
 			</h1>
 
 			<label class="card-text" id="description"> <%=restaurant.getDescription()%>
-			</label> <br />
-			
-			<label class="card-text" id="category"> <%if (category != null) category.getName();%>
+			</label> <br /> <label class="card-text" id="category"> <%if (category != null) category.getName();%>
 			</label> <br />
 		</div>
 
 		<div class="card-body">
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Horário de
+				<label class="form-col-1 font-weight-bold">Horï¿½rio de
 					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
-				</label> <label class="form-col-1">às</label> <label id="time_close"
+				</label> <label class="form-col-1">ï¿½s</label> <label id="time_close"
 					class="form-col-1"> <%=restaurant.getTime_close()%>
 				</label>
 			</div>
@@ -94,7 +91,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck2" name="tuesday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck2">Terça-Feira</label>
+						class="custom-control-label" for="customCheck2">Terï¿½a-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -150,7 +147,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck6" name="saturday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck6">Sabádo</label>
+						class="custom-control-label" for="customCheck6">Sabï¿½do</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -176,7 +173,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Localização</h4>
+			<h4 class="card-title font-weight-bold">Localizaï¿½ï¿½o</h4>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
@@ -186,7 +183,7 @@
 				</label>
 			</div>
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
+				<label class="form-col-1 font-weight-bold">Endereï¿½o: </label> <label
 					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
@@ -204,7 +201,7 @@
 		</div>
 
 		<div class="card-body form-group col-md-15 font-weight-bold">
-			<label for="inputDelivery">O restaurante possui serviço de
+			<label for="inputDelivery">O restaurante possui serviï¿½o de
 				entrega?</label> <br />
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioDeliveryYes" disabled="disabled"
@@ -216,12 +213,12 @@
 				<input type="radio" id="customRadioDeliveryNo" disabled="disabled"
 					name="customRadioDelivery" class="custom-control-input"
 					<%if (!restaurant.isDelivery())%> checked="checked" /><label
-					class="custom-control-label" for="customRadioDeliveryNo">Não</label>
+					class="custom-control-label" for="customRadioDeliveryNo">Nï¿½o</label>
 			</div>
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Cardápio</h4>
+			<h4 class="card-title font-weight-bold">Cardï¿½pio</h4>
 			<br />
 
 			<div class="row">

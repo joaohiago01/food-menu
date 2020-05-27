@@ -25,9 +25,8 @@
 <body>
 	<%@page import="entity.Client" language="java"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
-	request.setAttribute("clientLogged", httpSession.getAttribute("clientLogged"));
+	Client clientLogged = (Client) session.getAttribute("clientLogged");
+	request.setAttribute("clientLogged", session.getAttribute("clientLogged"));
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}
@@ -63,16 +62,17 @@
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="../ClientServlet?pageURL=login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="card-body">
-		<form class="needs-validation" novalidate method="post"
+		<form class="needs-validation" novalidate method="get"
 			action="../ClientSevlet">
-			<input type="hidden" name="_method" value="PUT" /> <input
-				type="hidden" name="clientID" value="${clientLogged.getId()}" />
+			<input type="hidden" name="clientID"
+				value="${clientLogged.getId()}" />
 			<div class="form-group">
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputName">Nome Completo</label> <input type="text"

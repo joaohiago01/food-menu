@@ -28,11 +28,10 @@
 <body>
 	<%@page import="java.util.List, entity.Client, entity.Category, entity.Menu"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
-	Menu menu = (Menu) httpSession.getAttribute("menu");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
+	Menu menu = (Menu) session.getAttribute("menu");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
+	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}

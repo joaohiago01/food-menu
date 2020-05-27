@@ -17,7 +17,8 @@
 
 <title>Food Menu - Restaurante</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
@@ -25,11 +26,10 @@
 	<%@page
 		import="entity.Client, entity.Restaurant, entity.Category, java.util.List"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		Client clientLogged = (Client) httpSession.getAttribute("clientLogged");
-	Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
+	Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) httpSession.getAttribute("categories");
+	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
 	}
@@ -66,7 +66,7 @@
 					</div></li>
 				<li class="nav-item"><a
 					class="nav-link text-light font-weight-bold"
-					href="./login.jsp">Sair</a></li>
+					href="../ClientServlet?pageURL=login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -76,7 +76,7 @@
 			<div class="card-body">
 				<h2 class="card-title font-weight-bold">Sobre o restaurante:</h2>
 				<br />
-				<form class="needs-validation" novalidate method="post"
+				<form class="needs-validation" novalidate method="get"
 					action="../RestaurantServlet">
 					<input type="hidden" name="_method" value="PUT" /> <input
 						type="hidden" name="clientID" value="${clientLogged.getId()}" />

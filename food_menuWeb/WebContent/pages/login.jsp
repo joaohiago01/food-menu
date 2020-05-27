@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html style="overflow: hidden;">
 <head>
@@ -11,12 +11,12 @@
 
 <title>Food Menu - Empresas</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
-<body>
-
+<body>	
 	<img class="card-img" src="../assets/restaurant_login.jpg" />
 	<div class="card-img-overlay">
 		<div class="card-header card bg-danger mb-3">
@@ -27,13 +27,14 @@
 			<br />
 			<div class="card col-sm-12 form-group-lg">
 				<br />
-				<form class="needs-validation" novalidate method="get" action="../ClientServlet">
+				<form class="needs-validation" novalidate method="get"
+					action="../ClientServlet">
 					<div class="form-group row">
 						<label for="inputEmail"
 							class="col-sm-2 col-form-label font-weight-bold"> E-mail:</label>
 						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail" name="email"
-								placeholder="Seu E-mail" required="required" />
+							<input type="email" class="form-control" id="inputEmail"
+								name="email" placeholder="Seu E-mail" required="required" />
 							<div class="invalid-feedback">Por favor, informe seu
 								e-mail.</div>
 						</div>
@@ -42,8 +43,8 @@
 						<label for="inputPassword"
 							class="col-sm-2 col-form-label font-weight-bold"> Senha:</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword" name="password"
-								placeholder="Sua Senha" required="required" />
+							<input type="password" class="form-control" id="inputPassword"
+								name="password" placeholder="Sua Senha" required="required" />
 							<div class="invalid-feedback">Por favor, informe sua senha.</div>
 						</div>
 					</div>

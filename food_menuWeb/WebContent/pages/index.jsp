@@ -12,23 +12,24 @@
 
 <title>Food Menu</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 <body>
+
 	<%@page import="java.util.List, entity.Restaurant"%>
 	<%
-	HttpSession httpSession = request.getSession();
-		if (httpSession.getAttribute("flagStartWebSite") == null) {
+	if (session.getAttribute("flagStartWebSite") == null) {
 		response.sendRedirect("../RestaurantServlet?pageURL=index.jsp");
 	}
 	@SuppressWarnings("unchecked")
-	List<Restaurant> restaurants = (List<Restaurant>) httpSession.getAttribute("restaurants");
+	List<Restaurant> restaurants = (List<Restaurant>) session.getAttribute("restaurants");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
 			<ul class="nav justify-content-end">
-			<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
+				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
 					href="user_register.jsp">Food Menu</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
 					href="../RestaurantServlet?pageURL=index.jsp">Restaurantes</a></li>
@@ -73,7 +74,12 @@
 						<h5 class="card-title">
 							<%=restaurant.getName()%>
 						</h5>
-						<p><%if (restaurant.getCategory() != null) restaurant.getCategory().getName();%></p>
+						<p>
+							<%
+								if (restaurant.getCategory() != null)
+								restaurant.getCategory().getName();
+							%>
+						</p>
 						<button type="submit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
 					</form>
