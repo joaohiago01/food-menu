@@ -21,12 +21,14 @@
 
 <title>Food Menu - Produtos</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
 <body>
-	<%@page import="java.util.List, entity.Client, entity.Category, entity.Menu"%>
+	<%@page
+		import="java.util.List, entity.Client, entity.Category, entity.Menu"%>
 	<%
 		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	Menu menu = (Menu) session.getAttribute("menu");
@@ -34,7 +36,7 @@
 	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<div class="card card bg-danger">
 
@@ -54,9 +56,8 @@
 					<form class="needs-validation" novalidate
 						action="../ProductServlet" method="post">
 						<input type="hidden" name="clientID"
-							value="${clientLogged.getId()}" />
-							<input type="hidden" name="menuID"
-							value="${menu.getId()}" />
+							value="${clientLogged.getId()}" /> <input type="hidden"
+							name="menuID" value="${menu.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
@@ -110,6 +111,9 @@
 			</div>
 		</div>
 	</div>
+	<%
+		}
+	%>
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

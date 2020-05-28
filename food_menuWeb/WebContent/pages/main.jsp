@@ -29,12 +29,15 @@
 	<%@page
 		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu"%>
 	<%
+		if (session.getAttribute("email") != null || session.getAttribute("password") != null) {
+		response.sendRedirect("../ClientServlet?pageURL=main.jsp");
+	} else {
 		Client clientLogged = (Client) session.getAttribute("clientLogged");
-	Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-	Menu menu = (Menu) session.getAttribute("menu");
-	if (clientLogged == null) {
-		response.sendRedirect("./login.jsp");
-	}
+		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+		Menu menu = (Menu) session.getAttribute("menu");
+		if (clientLogged == null) {
+			response.sendRedirect("./login.jsp");
+		} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
@@ -67,7 +70,8 @@
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" href="./login.jsp">Sair</a></li>
+					class="nav-link text-light font-weight-bold"
+					href="../ClientServlet?pageURL=login.jsp">Sair</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -82,8 +86,8 @@
 			<%
 				if (restaurant.getCategory() != null) {
 			%>
-			<label class="card-text" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
-			<br />
+			<label class="form-col-1 font-weight-bold" id="category">Especialidade:
+				<%=restaurant.getCategory().getName()%></label> <br />
 			<%
 				}
 			%>
@@ -292,6 +296,8 @@
 				</div>
 				<%
 					}
+				}
+				}
 				}
 				%>
 			</div>

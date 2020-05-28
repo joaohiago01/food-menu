@@ -34,7 +34,7 @@
 	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
@@ -82,8 +82,9 @@
 					action="../RestaurantServlet">
 					<input type="hidden" name="restaurantID"
 						value="${restaurant.getId()}" /> <input type="hidden"
-						name="clientID" value="${clientLogged.getId()}" /> <input
-						type=hidden name=_method value=PUT />
+						name="pageURL" value="restaurant_edit.jsp" /> <input
+						type="hidden" name="clientID" value="${clientLogged.getId()}" />
+					<input type=hidden name=_method value=PUT />
 					<div class="form-group">
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputCnpj">CNPJ</label> <input type="text"
@@ -321,12 +322,10 @@
 								<option selected="selected"></option>
 								<%
 									}
-								%>
-								<%
-									if (categories != null) {
+								if (categories != null) {
 									for (Category categoryProduct : categories) {
 								%>
-								<option selected="selected" value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
+								<option value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
 								<%
 									}
 								}
@@ -383,6 +382,9 @@
 			</div>
 		</div>
 	</div>
+	<%
+		}
+	%>
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

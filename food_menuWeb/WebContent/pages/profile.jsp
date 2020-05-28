@@ -31,7 +31,7 @@
 	request.setAttribute("clientLogged", session.getAttribute("clientLogged"));
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
@@ -115,6 +115,9 @@
 				Mudanças</button>
 		</form>
 	</div>
+	<%
+		}
+	%>
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

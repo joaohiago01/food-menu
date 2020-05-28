@@ -37,16 +37,16 @@
 	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	Product product = (Product) session.getAttribute("product");
 	Category categoryProduct = (Category) session.getAttribute("category");
+	
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<div class="card card bg-danger">
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Voltar</a>
-				</li>
+					href="products.jsp">Voltar</a></li>
 			</ul>
 		</div>
 
@@ -56,13 +56,14 @@
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
 					<form class="needs-validation" novalidate
-						action="../ProductServlet" method="get">
-						<input type="hidden" name="clientID"
-							value="${clientLogged.getId()}" /> <input type="hidden"
-							name="menuID" value="${menu.getId()}" /> <input type="hidden"
-							name="catgoryID" value="${categoryProduct.getId()}" /> <input
-							type="hidden" name="productID" value="${product.getId()}" />
-							<input type=hidden name=_method value=PUT />
+						action="../ProductServlet" method="post">
+						<input type="hidden" name="pageURL" value="product_edit.jsp" /> <input
+							type="hidden" name="clientID" value="${clientLogged.getId()}" />
+						<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
+							type="hidden" name="categoryID"
+							value="${categoryProduct.getId()}" /> <input type="hidden"
+							name="productID" value="${product.getId()}" /> <input
+							type=hidden name=_method value=PUT />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"
@@ -117,6 +118,9 @@
 			</div>
 		</div>
 	</div>
+	<%
+		}
+	%>
 
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

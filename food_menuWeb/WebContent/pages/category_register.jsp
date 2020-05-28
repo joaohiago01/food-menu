@@ -30,7 +30,7 @@
 		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<div class="card card bg-danger">
 		<div class="card-header card bg-danger mb-3">
@@ -67,7 +67,9 @@
 			</div>
 		</div>
 	</div>
-
+	<%
+		}
+	%>
 	<script type="text/javascript">
 		
 	</script>

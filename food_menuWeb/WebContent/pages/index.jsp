@@ -22,9 +22,9 @@
 	<%
 		if (session.getAttribute("flagStartWebSite") == null) {
 		response.sendRedirect("../RestaurantServlet?pageURL=index.jsp");
-	}
-	@SuppressWarnings("unchecked")
-	List<Restaurant> restaurants = (List<Restaurant>) session.getAttribute("restaurants");
+	} else {
+		@SuppressWarnings("unchecked")
+		List<Restaurant> restaurants = (List<Restaurant>) session.getAttribute("restaurants");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
@@ -70,7 +70,8 @@
 				<div class="card">
 					<form class="card-body" method="get" action="../RestaurantServlet">
 						<input type="hidden" name="restaurantID"
-							value="<%=restaurant.getId()%>" />
+							value="<%=restaurant.getId()%>" /> <input type="hidden"
+							name="pageURL" value="food_menu.jsp" />
 						<h5 class="card-title">
 							<%=restaurant.getName()%>
 						</h5>
@@ -88,6 +89,7 @@
 			</div>
 			<%
 				}
+			}
 			}
 			%>
 		</div>

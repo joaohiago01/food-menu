@@ -50,7 +50,7 @@ public class ClientServlet extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		super.service(request, response);
 		if(request.getParameter("_method") != null) {
 			doPost(request, response);
@@ -73,58 +73,62 @@ public class ClientServlet extends HttpServlet {
 				httpSession.removeAttribute("categories");
 				httpSession.removeAttribute("menu");
 				response.sendRedirect("./pages/login.jsp");
-			}
+			} else {
 
-
-			String email = (String) request.getParameter("email");
-			String password = (String) request.getParameter("password");
-			if (email == null && httpSession.getAttribute("email") != null) {//SIGN IN
-				email = httpSession.getAttribute("email").toString();
-				password = httpSession.getAttribute("password").toString();
-			}
-			if (email != null && password != null && httpSession.getAttribute("clientLogged") == null) {//AUTHENTICATION
-
-				Client client = clientEJB.signIn(email, password);
-				if (client != null) {
-					Restaurant restaurant = restaurantEJB.readByUser(client);
-					Menu menu = menuEJB.findByRestaurant(restaurant.getId());
-					List<Category> categoryProducts = categoryProductEJB.read();
-
-					httpSession.setAttribute("clientLogged", client);
-					httpSession.setAttribute("restaurant", restaurant);
-					httpSession.setAttribute("menu", menu);
-					httpSession.setAttribute("categories", categoryProducts);
-
-					response.sendRedirect("./pages/main.jsp");
-				} else {
-					response.sendRedirect("./pages/login.jsp");
+				String email = (String) request.getParameter("email");
+				String password = (String) request.getParameter("password");
+				if (email == null && httpSession.getAttribute("email") != null) {//SIGN IN
+					email = httpSession.getAttribute("email").toString();
+					password = httpSession.getAttribute("password").toString();
+					httpSession.removeAttribute("email");
+					httpSession.removeAttribute("password");
 				}
-			} else {//AUTHORIZATION
-				int clientID;
-				String pageURL = request.getParameter("pageURL");
-				if (pageURL == null && httpSession.getAttribute("pageURL") != null && httpSession.getAttribute("clientID") != null) {
-					clientID = Integer.parseInt(httpSession.getAttribute("clientID").toString());
-					pageURL = httpSession.getAttribute("pageURL").toString();
-				} else {
-					clientID = Integer.parseInt(request.getParameter("clientID"));
-				}
+				
+				if (email != null && password != null && httpSession.getAttribute("clientLogged") == null) {//AUTHENTICATION
 
-				Client clientLogged = clientEJB.readById(clientID);
-				if(clientLogged != null) {
+					Client client = clientEJB.signIn(email, password);
+					if (client != null) {
+						Restaurant restaurant = restaurantEJB.readByUser(client);
+						Menu menu = menuEJB.findByRestaurant(restaurant.getId());
+						List<Category> categoryProducts = categoryProductEJB.read();
 
-					Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
-					Menu menu = (Menu) httpSession.getAttribute("menu");
-					@SuppressWarnings("unchecked")
-					List<Category> categoryProducts = (List<Category>) httpSession.getAttribute("categories");
+						httpSession.setAttribute("clientLogged", client);
+						httpSession.setAttribute("restaurant", restaurant);
+						httpSession.setAttribute("menu", menu);
+						httpSession.setAttribute("categories", categoryProducts);
 
-					httpSession.setAttribute("clientLogged", clientLogged);
-					httpSession.setAttribute("restaurant", restaurant);
-					httpSession.setAttribute("menu", menu);
-					httpSession.setAttribute("categories", categoryProducts);
+						response.sendRedirect("./pages/main.jsp");
+					} else {
+						response.sendRedirect("./pages/login.jsp");
+					}
+					
+				} else {//AUTHORIZATION
+					int clientID;
+					String pageURL = request.getParameter("pageURL");
+					if (pageURL == null && httpSession.getAttribute("pageURL") != null) {
+						clientID = Integer.parseInt(httpSession.getAttribute("clientID").toString());
+						pageURL = httpSession.getAttribute("pageURL").toString();
+					} else {
+						clientID = Integer.parseInt(request.getParameter("clientID"));
+					}
 
-					response.sendRedirect("./pages/" + pageURL);
-				} else {
-					response.sendRedirect("./pages/login.jsp");
+					Client clientLogged = clientEJB.readById(clientID);
+					if(clientLogged != null) {
+
+						Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
+						Menu menu = (Menu) httpSession.getAttribute("menu");
+						@SuppressWarnings("unchecked")
+						List<Category> categoryProducts = (List<Category>) httpSession.getAttribute("categories");
+
+						httpSession.setAttribute("clientLogged", clientLogged);
+						httpSession.setAttribute("restaurant", restaurant);
+						httpSession.setAttribute("menu", menu);
+						httpSession.setAttribute("categories", categoryProducts);
+
+						response.sendRedirect("./pages/" + pageURL);
+					} else {
+						response.sendRedirect("./pages/login.jsp");
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -139,7 +143,7 @@ public class ClientServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+
 		if (request.getParameter("_method") != null) {//PUT METHOD
 			doPut(request, response);
 		} else {
@@ -162,7 +166,7 @@ public class ClientServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			
+
 			HttpSession httpSession = request.getSession();
 			Client client = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));
 			client.setCpf(request.getParameter("cpf"));

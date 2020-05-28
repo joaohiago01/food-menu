@@ -69,7 +69,7 @@ public class RestaurantServlet extends HttpServlet {
 		try {
 			HttpSession httpSession = request.getSession();
 			String pageURL = request.getParameter("pageURL");
-
+			
 			if (pageURL != null) {
 				if (pageURL.equals("index.jsp")) {
 					String flagStartWebSite = "flagStartWebSite";
@@ -77,16 +77,7 @@ public class RestaurantServlet extends HttpServlet {
 					List<Restaurant> restaurants = restaurantEJB.read();
 					httpSession.setAttribute("restaurants", restaurants);
 					httpSession.setAttribute("flagStartWebSite", flagStartWebSite);
-					response.sendRedirect("./pages/" + pageURL);
-				} 
-			} else {
-
-				if (request.getParameter("search") != null) {
-					String flagStartWebSite = "flagStartWebSite";
-					List<Restaurant> restaurants = restaurantEJB.findByName(request.getParameter("search"));
-					httpSession.setAttribute("restaurants", restaurants);
-					httpSession.setAttribute("flagStartWebSite", flagStartWebSite);
-					response.sendRedirect("./pages/index.jsp");
+					response.sendRedirect("./pages/" + pageURL); 
 				} else {
 					Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("restaurantID")));
 					if (restaurant != null) {
@@ -94,7 +85,8 @@ public class RestaurantServlet extends HttpServlet {
 						httpSession.setAttribute("menu", menu);
 						httpSession.setAttribute("restaurant", restaurant);
 						httpSession.setAttribute("category", restaurant.getCategory());
-						response.sendRedirect("./pages/food_menu.jsp");
+						
+						response.sendRedirect("./pages/" + pageURL);
 					} 
 				}
 			}
@@ -231,24 +223,24 @@ public class RestaurantServlet extends HttpServlet {
 			restaurant.setTime_close(request.getParameter("time_close"));
 
 			HttpSession httpSession = request.getSession();
-			
+
 			Menu menu = (Menu) httpSession.getAttribute("menu");
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
 			Client client = clientEJB.readById(clientID);
 			Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category")));
-			
+
 			restaurant.setCategory(category);
 			menu.setRestaurant(restaurant);
 			restaurant.setClient(client);
-			
+
 			restaurant = restaurantEJB.update(restaurant);
 			menu = menuEJB.update(menu);
-			
+
 			httpSession.setAttribute("pageURL", "main.jsp");
 			httpSession.setAttribute("clientID", clientID);
 			httpSession.setAttribute("restaurant", restaurant);
 			httpSession.setAttribute("menu", menu);
-			
+
 		} catch (SQLException e) {
 
 			throw new ServletException(e);

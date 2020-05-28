@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="Content-Language" content="pt-br">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -53,7 +54,7 @@
 			<%
 				if (restaurant.getCategory() != null) {
 			%>
-			<label class="card-text" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
+			<label class="form-col-1 font-weight-bold" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
 			<br />
 			<%
 				}
@@ -68,7 +69,7 @@
 
 		<div class="card-body">
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">HorÃ¡rio de
+				<label class="form-col-1 font-weight-bold">Horário de
 					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
 				</label> <label class="form-col-1"></label> <label id="time_close"
 					class="form-col-1"> <%=restaurant.getTime_close()%>
@@ -103,7 +104,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck2" name="tuesday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck2">TerÃ§a-Feira</label>
+						class="custom-control-label" for="customCheck2">Terça-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -159,7 +160,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck6" name="saturday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck6">SabÃ¡do</label>
+						class="custom-control-label" for="customCheck6">Sabádo</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -185,7 +186,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">LocalizaÃ§Ã£o</h4>
+			<h4 class="card-title font-weight-bold">Localização</h4>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
@@ -195,7 +196,7 @@
 				</label>
 			</div>
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">EndereÃ§o: </label> <label
+				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
 					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
@@ -213,7 +214,7 @@
 		</div>
 
 		<div class="card-body form-group col-md-15 font-weight-bold">
-			<label for="inputDelivery">O restaurante possui serviÃ§o de
+			<label for="inputDelivery">O restaurante possui serviço de
 				entrega?</label> <br />
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioDeliveryYes" disabled="disabled"
@@ -225,12 +226,12 @@
 				<input type="radio" id="customRadioDeliveryNo" disabled="disabled"
 					name="customRadioDelivery" class="custom-control-input"
 					<%if (!restaurant.isDelivery())%> checked="checked" /><label
-					class="custom-control-label" for="customRadioDeliveryNo">Nï¿½o</label>
+					class="custom-control-label" for="customRadioDeliveryNo">Não</label>
 			</div>
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">CardÃ¡pio</h4>
+			<h4 class="card-title font-weight-bold">Cardápio</h4>
 			<br />
 
 			<div class="row">

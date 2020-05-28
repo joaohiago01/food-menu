@@ -198,7 +198,7 @@
 								<div class="custom-control custom-radio custom-control-inline">
 									<input type="radio" id="customRadioDeliveryNo"
 										onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
-										name="delivery" class="custom-control-input" checked="checked" /><label
+										name="delivery" class="custom-control-input" checked="checked" value="offYes"/><label
 										class="custom-control-label" for="customRadioDeliveryNo">Não</label>
 								</div>
 							</div>

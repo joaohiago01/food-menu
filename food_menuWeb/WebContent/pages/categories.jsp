@@ -29,12 +29,12 @@
 <body>
 	<%@page import="java.util.List, entity.Client, entity.Category"%>
 	<%
-	Client clientLogged = (Client) session.getAttribute("clientLogged");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	@SuppressWarnings("unchecked")
 	List<Category> categories = (List<Category>) session.getAttribute("categories");
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
 		<a class="navbar-brand text-light font-weight-bold"
@@ -114,6 +114,7 @@
 			</div>
 			<%
 				}
+			}
 			}
 			%>
 		</div>
