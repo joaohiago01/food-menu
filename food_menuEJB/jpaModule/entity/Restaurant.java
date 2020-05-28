@@ -73,7 +73,7 @@ public class Restaurant implements Serializable {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	
-	@ManyToOne(optional = true, fetch = FetchType.EAGER, targetEntity = Category.class)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER, targetEntity = Category.class, cascade = {CascadeType.MERGE})
 	private Category category;
 
 	public Category getCategory() {

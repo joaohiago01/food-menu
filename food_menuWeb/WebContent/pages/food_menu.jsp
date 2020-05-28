@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -48,17 +49,28 @@
 			<h1 class="card-title" id="restaurant">
 				<%=restaurant.getName()%>
 			</h1>
-
+			<br />
+			<%
+				if (restaurant.getCategory() != null) {
+			%>
+			<label class="card-text" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
+			<br />
+			<%
+				}
+			%>
 			<label class="card-text" id="description"> <%=restaurant.getDescription()%>
-			</label> <br /> <label class="card-text" id="category"> <%if (category != null) category.getName();%>
+			</label> <br /> <label class="card-text" id="category"> <%
+ 	if (category != null)
+ 	category.getName();
+ %>
 			</label> <br />
 		</div>
 
 		<div class="card-body">
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Hor�rio de
+				<label class="form-col-1 font-weight-bold">Horário de
 					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
-				</label> <label class="form-col-1">�s</label> <label id="time_close"
+				</label> <label class="form-col-1"></label> <label id="time_close"
 					class="form-col-1"> <%=restaurant.getTime_close()%>
 				</label>
 			</div>
@@ -91,7 +103,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck2" name="tuesday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck2">Ter�a-Feira</label>
+						class="custom-control-label" for="customCheck2">Terça-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -147,7 +159,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck6" name="saturday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck6">Sab�do</label>
+						class="custom-control-label" for="customCheck6">Sabádo</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -173,7 +185,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Localiza��o</h4>
+			<h4 class="card-title font-weight-bold">Localização</h4>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
@@ -183,7 +195,7 @@
 				</label>
 			</div>
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Endere�o: </label> <label
+				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
 					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
@@ -201,7 +213,7 @@
 		</div>
 
 		<div class="card-body form-group col-md-15 font-weight-bold">
-			<label for="inputDelivery">O restaurante possui servi�o de
+			<label for="inputDelivery">O restaurante possui serviço de
 				entrega?</label> <br />
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioDeliveryYes" disabled="disabled"
@@ -218,7 +230,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Card�pio</h4>
+			<h4 class="card-title font-weight-bold">Cardápio</h4>
 			<br />
 
 			<div class="row">
@@ -242,19 +254,13 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">
-								<%=
-									product.getName()
-								%>
+								<%=product.getName()%>
 							</h5>
 							<p class="card-text">
-								<%=
-									product.getDescription()
-								%>
+								<%=product.getDescription()%>
 							</p>
 							<p class="card-text">
-								<%="R$ " +
-									product.getPrice()
-								%>
+								<%="R$ " + product.getPrice()%>
 							</p>
 						</div>
 					</div>

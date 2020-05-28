@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -25,7 +27,7 @@
 <body>
 	<%@page import="entity.Client" language="java"%>
 	<%
-	Client clientLogged = (Client) session.getAttribute("clientLogged");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	request.setAttribute("clientLogged", session.getAttribute("clientLogged"));
 	if (clientLogged == null) {
 		response.sendRedirect("./login.jsp");
@@ -70,9 +72,9 @@
 
 	<div class="card-body">
 		<form class="needs-validation" novalidate method="get"
-			action="../ClientSevlet">
-			<input type="hidden" name="clientID"
-				value="${clientLogged.getId()}" />
+			action="../ClientServlet">
+			<input type="hidden" name="clientID" value="${clientLogged.getId()}" />
+			<input type=hidden name=_method value=PUT />
 			<div class="form-group">
 				<div class="form-group col-md-15 font-weight-bold">
 					<label for="inputName">Nome Completo</label> <input type="text"
@@ -108,7 +110,7 @@
 				</div>
 			</div>
 
-			<button type="submit"
+			<button type="submit" value="put"
 				class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar
 				Mudanças</button>
 		</form>

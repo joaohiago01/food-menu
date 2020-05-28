@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 
 <link rel="stylesheet"
@@ -21,7 +21,8 @@
 
 <title>Food Menu - Produtos</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
@@ -55,10 +56,13 @@
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
 					<form class="needs-validation" novalidate
-						action="../ProductServlet?productID=${product.getId()}"
-						method="post">
-						<input type="hidden" name="_method" value="PUT" /> <input
-							type="hidden" name="clientID" value="${clientLogged.getId()}" />
+						action="../ProductServlet" method="get">
+						<input type="hidden" name="clientID"
+							value="${clientLogged.getId()}" /> <input type="hidden"
+							name="menuID" value="${menu.getId()}" /> <input type="hidden"
+							name="catgoryID" value="${categoryProduct.getId()}" /> <input
+							type="hidden" name="productID" value="${product.getId()}" />
+							<input type=hidden name=_method value=PUT />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputNameProduct">Nome</label> <input type="text"

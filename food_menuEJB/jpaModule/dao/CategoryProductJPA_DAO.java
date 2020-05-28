@@ -44,7 +44,7 @@ public class CategoryProductJPA_DAO {
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() throws SQLException{
 		return entityManager.createQuery("FROM " + 
-				Category.class.getName()).getResultList();
+				Category.class.getName() + " ORDER BY NAME ASC").getResultList();
 	}
 
 	public void persist(Category categoryProduct) throws SQLException{

@@ -56,9 +56,10 @@ public class RestaurantJPA_DAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Restaurant> findByName(String name) {
-		String nameLike = "%" + name + "%";
+		String nameLike = "'%'" + name + "'%'";
+		name = nameLike;
 		return entityManager.createQuery("FROM " + 
-				Restaurant.class.getName() + " WHERE name like :name").setParameter("name", nameLike).getResultList();
+				Restaurant.class.getName() + " WHERE name LIKE :name").setParameter("name", name).getResultList();
 	}
 
 	public void persist(Restaurant restaurant) throws SQLException{

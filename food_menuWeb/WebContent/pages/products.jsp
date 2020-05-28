@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -113,10 +114,12 @@
 						</p>
 						<form method="get" action="../ProductServlet">
 							<input type="hidden" name="productID"
-								value="<%=product.getId()%>" /> <input type="hidden"
+								value="<%=product.getId()%>" />
+								<input type="hidden" name="categoryID"
+								value="<%=product.getCategory().getId()%>" /> <input type="hidden"
 								name="clientID" value="<%=clientLogged.getId()%>" /> <input
 								type="hidden" name="pageURL" value="product_edit.jsp" />
-							<button type="button" data-toggle="tooltip"
+							<button type="submit" data-toggle="tooltip"
 								data-placement="bottom" title="Edite este produto">
 								<i data-feather="edit"></i>
 							</button>
@@ -140,7 +143,7 @@
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<form
 						action="../ProductServlet?productID=${product.getId()}?&clientID=${clientLogged.getId()}"
-						method="post">
+						method="get">
 						<input type="hidden" name="_method" value="DELETE" />
 						<div class="modal-content">
 							<div class="modal-header">

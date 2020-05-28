@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -20,7 +20,7 @@
 
 	<%@page import="java.util.List, entity.Restaurant"%>
 	<%
-	if (session.getAttribute("flagStartWebSite") == null) {
+		if (session.getAttribute("flagStartWebSite") == null) {
 		response.sendRedirect("../RestaurantServlet?pageURL=index.jsp");
 	}
 	@SuppressWarnings("unchecked")
@@ -42,13 +42,13 @@
 	<div class="card-body">
 		<h4 class="card-title font-weight-bold col-sm-2">Restaurantes</h4>
 		<br />
-		<nav class="navbar navbar-light bg-light">
+		<!-- <nav class="navbar navbar-light bg-light">
 			<form class="form-inline" method="get" action="../RestaurantServlet">
 				<input class="form-control mr-sm-2" type="search" name="search"
 					placeholder="Pesquisar restaurante" aria-label="Pesquisar" />
 				<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Pesquisar</button>
 			</form>
-		</nav>
+		</nav>  -->
 		<br />
 
 		<div class="row">
@@ -74,12 +74,13 @@
 						<h5 class="card-title">
 							<%=restaurant.getName()%>
 						</h5>
-						<p>
-							<%
-								if (restaurant.getCategory() != null)
-								restaurant.getCategory().getName();
-							%>
-						</p>
+						<%
+							if (restaurant.getCategory() != null) {
+						%>
+						<p><%=restaurant.getCategory().getName()%></p>
+						<%
+							}
+						%>
 						<button type="submit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
 					</form>

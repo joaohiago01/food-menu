@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -146,8 +147,8 @@
 									class="custom-control custom-checkbox custom-control-inline">
 									<input type="checkbox" class="custom-control-input"
 										name="tuesday" onclick="check('tuesday')" value="off"
-										id="tuesday"> <label
-										class="custom-control-label" for="tuesday">Terça-Feira</label>
+										id="tuesday"> <label class="custom-control-label"
+										for="tuesday">Terça-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
@@ -189,13 +190,15 @@
 								<label for="inputDelivery">O restaurante possui serviço
 									de entrega?</label>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryYes" name="delivery"
-										value="SIM" class="custom-control-input" /><label
+									<input type="radio" id="customRadioDeliveryYes"
+										onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
+										name="delivery" class="custom-control-input" /><label
 										class="custom-control-label" for="customRadioDeliveryYes">Sim</label>
 								</div>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" id="customRadioDeliveryNo" name="delivery"
-										value="NAO" class="custom-control-input" checked="checked" /><label
+									<input type="radio" id="customRadioDeliveryNo"
+										onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
+										name="delivery" class="custom-control-input" checked="checked" /><label
 										class="custom-control-label" for="customRadioDeliveryNo">Não</label>
 								</div>
 							</div>
@@ -233,6 +236,18 @@
 				document.getElementById(checkID).value = "on";
 			} else {
 				document.getElementById(checkID).value = "off";
+			}
+		}
+
+		function radio(radioIDY, radioIDN) {
+			var radioY = document.getElementById(radioIDY);
+			var radioN = document.getElementById(radioIDN);
+			if (radioY.checked == true) {
+				document.getElementById(radioIDY).value = "onYes";
+				document.getElementById(radioIDN).value = "offNo";
+			} else {
+				document.getElementById(radioIDY).value = "offYes";
+				document.getElementById(radioIDN).value = "onNo";
 			}
 		}
 	</script>

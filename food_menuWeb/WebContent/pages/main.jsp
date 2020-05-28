@@ -1,9 +1,10 @@
 <%@page import="entity.Client"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -28,7 +29,7 @@
 	<%@page
 		import="java.util.List, entity.Restaurant, entity.Client, entity.Menu"%>
 	<%
-	Client clientLogged = (Client) session.getAttribute("clientLogged");
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 	Menu menu = (Menu) session.getAttribute("menu");
 	if (clientLogged == null) {
@@ -77,8 +78,16 @@
 			<h1 class="card-title" id="restaurant">
 				<%=restaurant.getName()%>
 			</h1>
-
-			<label class="card-text" id="description"> <%=restaurant.getDescription()%>
+			<br />
+			<%
+				if (restaurant.getCategory() != null) {
+			%>
+			<label class="card-text" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
+			<br />
+			<%
+				}
+			%>
+			<label class="card-text" id="description"><%=restaurant.getDescription()%>
 			</label> <br />
 		</div>
 
