@@ -49,19 +49,24 @@ public class ClientServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) {
 
-		super.service(request, response);
-		if(request.getParameter("_method") != null) {
-			doPost(request, response);
+		try {
+			super.service(request, response);
+			if(request.getParameter("_method") != null) {
+				doPost(request, response);
+			}
+		} catch (Exception e1) {
+			request.getRequestDispatcher("./pages/error_page.jsp");
 		}
+
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
 		HttpSession httpSession = request.getSession();
 		try {
@@ -83,7 +88,7 @@ public class ClientServlet extends HttpServlet {
 					httpSession.removeAttribute("email");
 					httpSession.removeAttribute("password");
 				}
-				
+
 				if (email != null && password != null && httpSession.getAttribute("clientLogged") == null) {//AUTHENTICATION
 
 					Client client = clientEJB.signIn(email, password);
@@ -101,7 +106,7 @@ public class ClientServlet extends HttpServlet {
 					} else {
 						response.sendRedirect("./pages/login.jsp");
 					}
-					
+
 				} else {//AUTHORIZATION
 					int clientID;
 					String pageURL = request.getParameter("pageURL");
@@ -131,9 +136,8 @@ public class ClientServlet extends HttpServlet {
 					}
 				}
 			}
-		} catch (SQLException e) {
-
-			throw new ServletException(e);
+		} catch (Exception e) {
+			request.getRequestDispatcher("./pages/error_page.jsp");
 		}
 	}
 

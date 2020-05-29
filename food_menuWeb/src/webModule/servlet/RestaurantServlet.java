@@ -71,14 +71,14 @@ public class RestaurantServlet extends HttpServlet {
 			String pageURL = request.getParameter("pageURL");
 			
 			if (pageURL != null) {
-				if (pageURL.equals("index.jsp")) {
+				if (pageURL.equals("index.jsp")) {//OPEN SITE
 					String flagStartWebSite = "flagStartWebSite";
 
 					List<Restaurant> restaurants = restaurantEJB.read();
 					httpSession.setAttribute("restaurants", restaurants);
 					httpSession.setAttribute("flagStartWebSite", flagStartWebSite);
 					response.sendRedirect("./pages/" + pageURL); 
-				} else {
+				} else {//PAGE FOOD_MENU OR RESTAURANT_EDIT
 					Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("restaurantID")));
 					if (restaurant != null) {
 						Menu menu = menuEJB.findByRestaurant(restaurant.getId());

@@ -26,19 +26,19 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
-	private double price;
-	
+
+	private String price;
+
 	private String description;
-	
+
 	@ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "Products_Menu",
-			joinColumns={@JoinColumn(name = "product_id")},
-            inverseJoinColumns={@JoinColumn(name = "menu_id")})
+	joinColumns={@JoinColumn(name = "product_id")},
+	inverseJoinColumns={@JoinColumn(name = "menu_id")})
 	private List<Menu> menu = new ArrayList<Menu>();
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
 	private Category category;
 
@@ -74,11 +74,11 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
@@ -99,9 +99,7 @@ public class Product implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((menu == null) ? 0 : menu.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(price);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		return result;
 	}
 
@@ -136,7 +134,10 @@ public class Product implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
 			return false;
 		return true;
 	}

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +13,13 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+<script src="https://unpkg.com/feather-icons"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <title>Food Menu - Produtos</title>
 
@@ -32,15 +34,16 @@
 		language="java"%>
 
 	<%
-		Client clientLogged = (Client) session.getAttribute("clientLogged");
-	@SuppressWarnings("unchecked")
-	List<Category> categories = (List<Category>) session.getAttribute("categories");
-	Product product = (Product) session.getAttribute("product");
-	Category categoryProduct = (Category) session.getAttribute("category");
-	
-	if (clientLogged == null) {
-		response.sendRedirect("./login.jsp");
+		Product product = (Product) session.getAttribute("product");
+	if (product == null) {
+		response.sendRedirect("./products.jsp");
 	} else {
+		Client clientLogged = (Client) session.getAttribute("clientLogged");
+		@SuppressWarnings("unchecked")
+		List<Category> categories = (List<Category>) session.getAttribute("categories");
+		if (clientLogged == null) {
+			response.sendRedirect("./login.jsp");
+		} else {
 	%>
 	<div class="card card bg-danger">
 		<div class="card-header card bg-danger mb-3">
@@ -55,13 +58,49 @@
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Sobre o produto:</h2>
 					<br />
+					<div class="form-group col-md-15 font-weight-bold">
+						<button type="button" data-toggle="tooltip"
+							onclick="popup();return false;" data-placement="bottom"
+							title="Remova este produto" data-target="#modalExcluir">
+							<i data-feather="trash-2"></i>
+						</button>
+					</div>
+
+					<div class="modal fade" id="modalExcluir" tabindex="-1"
+						role="dialog" aria-labelledby="ModalExcluir" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<form action="../ProductServlet" method="get">
+								<input type="hidden" name="pageURL" value="products.jsp" />
+								<input type="hidden" name="_method" value="delete" /> <input
+									type="hidden" name="clientID" value="${clientLogged.getId()}" />
+								<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
+									type="hidden" name="productID" value="${product.getId()}" />
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="ModalExcluir">Deseja
+											realmente excluir o produto?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Fechar">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Fechar</button>
+										<button type="submit" class="btn btn-danger">Excluir</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
 					<form class="needs-validation" novalidate
-						action="../ProductServlet" method="post">
+						action="../ProductServlet" method="get">
 						<input type="hidden" name="pageURL" value="product_edit.jsp" /> <input
 							type="hidden" name="clientID" value="${clientLogged.getId()}" />
 						<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
 							type="hidden" name="categoryID"
-							value="${categoryProduct.getId()}" /> <input type="hidden"
+							value="${product.getCategory().getId()}" /> <input type="hidden"
 							name="productID" value="${product.getId()}" /> <input
 							type=hidden name=_method value=PUT />
 						<div class="form-group">
@@ -93,10 +132,18 @@
 								<label for="inputEspeciality">Qual a categoria deste
 									produto?</label> <select class="custom-select" required="required"
 									name="category">
-									<option selected="selected"
-										value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
 									<%
-										if (categories != null) {
+										if (product.getCategory() != null) {
+									%>
+									<option selected="selected"
+										value="<%=product.getCategory().getId()%>"><%=product.getCategory().getName()%></option>
+									<%
+										} else {
+									%>
+									<option selected="selected"></option>
+									<%
+										}
+									if (categories != null) {
 										for (Category category : categories) {
 									%>
 									<option value="<%=category.getId()%>"><%=category.getName()%></option>
@@ -120,6 +167,7 @@
 	</div>
 	<%
 		}
+	}
 	%>
 
 	<script type="text/javascript"
@@ -128,6 +176,17 @@
 		$(document).ready(function() {
 			$("#inputPriceProduct").mask("99.99");
 		});
+	</script>
+	<script>
+		feather.replace()
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("[rel='tooltip']").tooltip('show');
+		});
+		function popup() {
+			$('[id*="modalExcluir"]').modal('show');
+		}
 	</script>
 	<script>
 		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.

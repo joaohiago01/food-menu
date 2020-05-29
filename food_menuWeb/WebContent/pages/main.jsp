@@ -279,6 +279,7 @@
 					} else {
 					for (Product product : listProducts) {
 				%>
+				
 				<div class="col-sm-6">
 					<div class="card">
 						<div class="card-body">

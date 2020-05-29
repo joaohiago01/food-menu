@@ -78,7 +78,7 @@
 						<%
 							if (restaurant.getCategory() != null) {
 						%>
-						<p><%=restaurant.getCategory().getName()%></p>
+						<p class="card-text"><%=restaurant.getCategory().getName()%></p>
 						<%
 							}
 						%>

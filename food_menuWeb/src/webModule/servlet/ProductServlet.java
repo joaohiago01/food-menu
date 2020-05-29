@@ -24,7 +24,7 @@ import entity.Product;
 /**
  * Servlet implementation class ProductServlet
  */
-@WebServlet("/ProductServlet")
+@WebServlet(name = "ProductServlet", urlPatterns = "/ProductServlet")
 public class ProductServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -55,7 +55,6 @@ public class ProductServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.service(request, response);
-		System.out.println("Categoria:" + request.getParameter("categoryID"));
 		if(request.getParameter("_method") != null) {
 			doPost(request, response);
 		}
@@ -77,19 +76,30 @@ public class ProductServlet extends HttpServlet {
 				clientLogged = clientEJB.readById(Integer.parseInt(request.getParameter("clientID")));	
 				pageURL = request.getParameter("pageURL");
 			}
+
 			if (clientLogged != null) {
+
 				if (httpSession.getAttribute("pageURL") != null) {//PUT
+					httpSession.removeAttribute("pageURL");
 					response.sendRedirect("./pages/" + pageURL);
 				} else {//READ
-					Category categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
-					Product product = productEJB.readById(Integer.parseInt(request.getParameter("productID")));
+					Category categoryProduct = new Category();
+					Product product;
+					if (request.getParameter("categoryID") != null) {
+						categoryProduct = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
+					}
+					product = productEJB.readById(Integer.parseInt(request.getParameter("productID")));
+					product.setCategory(categoryProduct);
 					Menu menu = (Menu) httpSession.getAttribute("menu");
 
 					httpSession.setAttribute("category", categoryProduct);
 					httpSession.setAttribute("product", product);
 					httpSession.setAttribute("menu", menu);
+
 					response.sendRedirect("./pages/" + pageURL);
+
 				}
+
 			} else {
 				response.sendRedirect("./pages/login.jsp");
 			}
@@ -117,21 +127,21 @@ public class ProductServlet extends HttpServlet {
 				Product product = new Product();
 				product.setName(request.getParameter("name"));
 				product.setDescription(request.getParameter("description"));
-				product.setPrice(Double.parseDouble(request.getParameter("price")));
+				product.setPrice(request.getParameter("price"));
 				Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category")));
 				Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
 				product.getMenu().add(menu);
 				menu.getProducts().add(product);
 				product.setCategory(category);
 				productEJB.create(product);
-				menuEJB.update(menu);
+				menu = menuEJB.update(menu);
 
 				int clientID = Integer.parseInt(request.getParameter("clientID"));
 				HttpSession httpSession = request.getSession();
-				httpSession.setAttribute("pageURL", "products.jsp");
 				httpSession.setAttribute("clientID", clientID);
 				httpSession.setAttribute("menu", menu);
-				response.sendRedirect("./ClientServlet");
+				httpSession.setAttribute("pageURL", "products.jsp");
+				response.sendRedirect("./ProductServlet");
 			}
 		} catch (SQLException e) {
 
@@ -145,23 +155,26 @@ public class ProductServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession httpSession = request.getSession();
 
-			Product product;
+			Product product = (Product) httpSession.getAttribute("product");
+			Category category = product.getCategory();
 			product = productEJB.readById(Integer.parseInt(request.getParameter("productID")));
 			product.setName(request.getParameter("name"));
 			product.setDescription(request.getParameter("description"));
-			product.setPrice(Double.parseDouble(request.getParameter("price")));
-
-			HttpSession httpSession = request.getSession();
-			Category category = (Category) httpSession.getAttribute("categoryProduct");
+			product.setPrice(request.getParameter("price"));
 
 			product.setCategory(category);
 			productEJB.update(product);
 
-			int clientID = Integer.parseInt(request.getParameter("clientID"));
+			Menu menu = (Menu) httpSession.getAttribute("menu");
+			httpSession.removeAttribute("menu");
+			menu = menuEJB.update(menu);
 
-			httpSession.setAttribute("pageURL", "products.jsp");
+			int clientID = Integer.parseInt(request.getParameter("clientID"));
 			httpSession.setAttribute("clientID", clientID);
+			httpSession.removeAttribute("product");
+			httpSession.setAttribute("menu", menu);
 
 		} catch (SQLException e) {
 
@@ -183,8 +196,8 @@ public class ProductServlet extends HttpServlet {
 			productEJB.delete(product);
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
 			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute("pageURL", "products.jsp");
 			httpSession.setAttribute("clientID", clientID);
+			httpSession.removeAttribute("product");
 			httpSession.setAttribute("menu", menu);
 
 		} catch (SQLException e) {

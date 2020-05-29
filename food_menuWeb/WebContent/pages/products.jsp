@@ -100,7 +100,6 @@
 				for (Product product : listProducts) {
 			%>
 			<div class="col-sm-6">
-				<br />
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">
@@ -113,9 +112,9 @@
 							<%="R$ " + product.getPrice()%>
 						</p>
 						<form method="get" action="../ProductServlet">
-							<input type="hidden" name="productID"
+							<input type="hidden" name="productID" id="product"
 								value="<%=product.getId()%>" /> <input type="hidden"
-								name="categoryID" value="<%=product.getCategory().getId()%>"/>
+								name="categoryID" value="<%=product.getCategory().getId()%>" />
 							<input type="hidden" name="clientID"
 								value="<%=clientLogged.getId()%>" /> <input type="hidden"
 								name="pageURL" value="product_edit.jsp" />
@@ -124,51 +123,26 @@
 								<i data-feather="edit"></i>
 							</button>
 						</form>
-						<br />
-						<button type="button" data-toggle="tooltip"
-							onclick="popup();return false;" data-placement="bottom"
-							title="Remova este produto" data-target="#modalExcluir">
-							<i data-feather="delete"></i>
-						</button>
 					</div>
 				</div>
 			</div>
+			<%
+				}
+			%>
 		</div>
 	</div>
-	<%
-		}
-	%>
 
-	<div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog"
-		aria-labelledby="ModalExcluir" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<form action="../ProductServlet" method="get">
-				<input type="hidden" name="_method" value="DELETE" /> <input
-					type="hidden" name="clientID" value="${clientLogged.getId()}" /> <input
-					type="hidden" name="productID" value="${product.getId()}" />
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="ModalExcluir">Deseja realmente
-							excluir o produto?</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Fechar">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Fechar</button>
-						<button type="submit" class="btn btn-danger">Excluir</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
 	<%
 		}
 	}
 	%>
 
+	<script type="text/javascript">
+		function productDelete(productID, inputProduct) {
+			var id = document.getElementById(productID).value;
+			document.getElementById(inputProduct).value = id;
+		}
+	</script>
 	<script>
 		feather.replace()
 	</script>

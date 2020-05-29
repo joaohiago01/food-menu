@@ -74,7 +74,7 @@ public class ProductJPA_DAO {
 	public void remove(Product product) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			product = entityManager.find(Product.class, product.getId());
+			entityManager.find(Product.class, product.getId());
 			entityManager.remove(product);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {

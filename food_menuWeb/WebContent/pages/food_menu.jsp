@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<meta http-equiv="Content-Language" content="pt-br">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -28,8 +27,11 @@
 	<%@page import="entity.Restaurant, entity.Menu, entity.Category"%>
 	<%
 		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-	Menu menu = (Menu) session.getAttribute("menu");
-	Category category = (Category) session.getAttribute("category");
+	if (restaurant == null) {
+		response.sendRedirect("./index.jsp");
+	} else {
+		Menu menu = (Menu) session.getAttribute("menu");
+		Category category = (Category) session.getAttribute("category");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">
@@ -54,8 +56,8 @@
 			<%
 				if (restaurant.getCategory() != null) {
 			%>
-			<label class="form-col-1 font-weight-bold" id="category">Especialidade: <%=restaurant.getCategory().getName()%></label>
-			<br />
+			<label class="form-col-1 font-weight-bold" id="category">Especialidade:
+				<%=restaurant.getCategory().getName()%></label> <br />
 			<%
 				}
 			%>
@@ -268,6 +270,7 @@
 				</div>
 				<%
 					}
+				}
 				}
 				%>
 			</div>
