@@ -58,15 +58,16 @@ public class CategoryProductJPA_DAO {
 		}
 	}
 
-	public void merge(Category categoryProduct) throws SQLException{
+	public Category merge(Category categoryProduct) throws SQLException{
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.merge(categoryProduct);
+			categoryProduct = entityManager.merge(categoryProduct);
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
+		return categoryProduct;
 	}
 
 	public void remove(Category categoryProduct) throws SQLException{

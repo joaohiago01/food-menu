@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
 </head>
 
 <body>
-	<%@page import="entity.Restaurant, entity.Menu, entity.Category"%>
+	<%@page import="entity.Restaurant, entity.Menu, entity.Category, java.util.List"%>
 	<%
 		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 	if (restaurant == null) {

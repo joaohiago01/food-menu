@@ -40,8 +40,8 @@ public class CategoryProductBean {
 		return categoryProductJPA_DAO.getById(id);
 	}
 
-	public void update(Category categoryProduct) throws SQLException{
+	public Category update(Category categoryProduct) throws SQLException{
 
-		categoryProductJPA_DAO.merge(categoryProduct);
+		return categoryProductJPA_DAO.merge(categoryProduct);
 	}
 }

@@ -203,7 +203,7 @@ public class RestaurantServlet extends HttpServlet {
 				monday = false;
 			} if (request.getParameter("tuesday") == null || request.getParameter("tuesday").equals("off")) {
 				tuesday = false;
-			} if (request.getParameter("thurday") == null || request.getParameter("thurday").equals("off")) {
+			} if (request.getParameter("thursday") == null || request.getParameter("thursday").equals("off")) {
 				thursday = false;
 			} if (request.getParameter("wednesday") == null || request.getParameter("wednesday").equals("off")) {
 				wednesday = false;

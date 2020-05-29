@@ -26,9 +26,9 @@ public class Menu implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(mappedBy = "menu", targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(mappedBy = "menu", targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Product> products = new ArrayList<Product>();
-	
+
 	@OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
 			fetch = FetchType.EAGER,
 			targetEntity = Restaurant.class,

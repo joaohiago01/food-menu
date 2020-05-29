@@ -63,6 +63,7 @@ public class ProductJPA_DAO {
 		try {
 			entityManager.getTransaction().begin();
 			product = entityManager.merge(product);
+			entityManager.flush();
 			entityManager.getTransaction().commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();

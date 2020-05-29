@@ -70,8 +70,8 @@
 						role="dialog" aria-labelledby="ModalExcluir" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<form action="../ProductServlet" method="get">
-								<input type="hidden" name="pageURL" value="products.jsp" />
-								<input type="hidden" name="_method" value="delete" /> <input
+								<input type="hidden" name="pageURL" value="products.jsp" /> <input
+									type="hidden" name="_method" value="delete" /> <input
 									type="hidden" name="clientID" value="${clientLogged.getId()}" />
 								<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
 									type="hidden" name="productID" value="${product.getId()}" />
@@ -96,7 +96,7 @@
 
 					<form class="needs-validation" novalidate
 						action="../ProductServlet" method="get">
-						<input type="hidden" name="pageURL" value="product_edit.jsp" /> <input
+						<input type="hidden" name="pageURL" value="products.jsp" /> <input
 							type="hidden" name="clientID" value="${clientLogged.getId()}" />
 						<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
 							type="hidden" name="categoryID"

@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 
 <body>
 	<%@page
-		import="java.util.List, entity.Client, entity.Menu, entity.Product"%>
+		import="entity.Client, entity.Menu, entity.Product, java.util.List"%>
 	<%
 		Client clientLogged = (Client) session.getAttribute("clientLogged");
 	Menu menu = (Menu) session.getAttribute("menu");
@@ -137,12 +138,6 @@
 	}
 	%>
 
-	<script type="text/javascript">
-		function productDelete(productID, inputProduct) {
-			var id = document.getElementById(productID).value;
-			document.getElementById(inputProduct).value = id;
-		}
-	</script>
 	<script>
 		feather.replace()
 	</script>

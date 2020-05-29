@@ -49,34 +49,27 @@ public class ClientServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		try {
-			super.service(request, response);
-			if(request.getParameter("_method") != null) {
-				doPost(request, response);
-			}
-		} catch (Exception e1) {
-			request.getRequestDispatcher("./pages/error_page.jsp");
+		super.service(request, response);
+		if(request.getParameter("_method") != null) {
+			doPost(request, response);
 		}
-
 	}
 
 	/**
+	 * @throws IOException 
+	 * @throws ServletException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession httpSession = request.getSession();
 		try {
 
 			if (request.getParameter("pageURL") != null && request.getParameter("pageURL").equals("login.jsp")) {//SIGN OUT
-				httpSession.removeAttribute("clientID");
-				httpSession.removeAttribute("clientLogged");
-				httpSession.removeAttribute("restaurant");
-				httpSession.removeAttribute("categories");
-				httpSession.removeAttribute("menu");
+				httpSession.invalidate();
 				response.sendRedirect("./pages/login.jsp");
 			} else {
 
@@ -136,8 +129,10 @@ public class ClientServlet extends HttpServlet {
 					}
 				}
 			}
-		} catch (Exception e) {
-			request.getRequestDispatcher("./pages/error_page.jsp");
+		} catch (SQLException e) {
+			
+			throw new ServletException(e);
+			
 		}
 	}
 
