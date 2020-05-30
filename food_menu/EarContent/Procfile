@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS <$JBOSS_HOME>/bin/standalone.bat $PORT target/*.war
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
