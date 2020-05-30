@@ -73,8 +73,8 @@ public class ClientServlet extends HttpServlet {
 				response.sendRedirect("./pages/login.jsp");
 			} else {
 
-				String email = (String) request.getParameter("email");
-				String password = (String) request.getParameter("password");
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
 				if (email == null && httpSession.getAttribute("email") != null) {//SIGN IN
 					email = httpSession.getAttribute("email").toString();
 					password = httpSession.getAttribute("password").toString();
@@ -84,8 +84,14 @@ public class ClientServlet extends HttpServlet {
 
 				if (email != null && password != null && httpSession.getAttribute("clientLogged") == null) {//AUTHENTICATION
 
+//					BASE64Encoder encoder = new BASE64Encoder();
+//					String passwordEncrypt = encoder.encode(password.getBytes());
+//					Client client = clientEJB.signIn(email, passwordEncrypt);
 					Client client = clientEJB.signIn(email, password);
 					if (client != null) {
+//						BASE64Decoder decoder = new BASE64Decoder();
+//						password = new String(decoder.decodeBuffer(client.getPassword()));
+//						client.setPassword(password);
 						Restaurant restaurant = restaurantEJB.readByUser(client);
 						Menu menu = menuEJB.findByRestaurant(restaurant.getId());
 						List<Category> categoryProducts = categoryProductEJB.read();
@@ -113,6 +119,9 @@ public class ClientServlet extends HttpServlet {
 					Client clientLogged = clientEJB.readById(clientID);
 					if(clientLogged != null) {
 
+//						BASE64Decoder decoder = new BASE64Decoder();
+//						password = new String(decoder.decodeBuffer(clientLogged.getPassword()));
+//						clientLogged.setPassword(password);
 						Restaurant restaurant = (Restaurant) httpSession.getAttribute("restaurant");
 						Menu menu = (Menu) httpSession.getAttribute("menu");
 						@SuppressWarnings("unchecked")
@@ -152,6 +161,9 @@ public class ClientServlet extends HttpServlet {
 			client.setName(request.getParameter("name"));
 			client.setEmail(request.getParameter("email"));
 			client.setPassword(request.getParameter("password"));
+//			BASE64Encoder encoder = new BASE64Encoder();
+//			String passwordEncrypt = encoder.encode(request.getParameter("password").getBytes());
+//			client.setPassword(passwordEncrypt);
 
 			HttpSession httpSession = request.getSession();
 			httpSession.setAttribute("client", client);
@@ -172,6 +184,10 @@ public class ClientServlet extends HttpServlet {
 			client.setName(request.getParameter("name"));
 			client.setEmail(request.getParameter("email"));
 			client.setPassword(request.getParameter("password"));
+//			BASE64Encoder encoder = new BASE64Encoder();
+//			String passwordEncrypt = encoder.encode(request.getParameter("password").getBytes());
+//			client.setPassword(passwordEncrypt);
+			
 			client = clientEJB.update(client);
 
 			httpSession.setAttribute("clientID", client.getId());

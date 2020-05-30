@@ -27,8 +27,10 @@ public class Restaurant implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+//	@CNPJ(message = "CNPJ inválido.")
 	private String cnpj;
 	
+//	@Size(min = 3, max = 40, message = "Por favor, insira um nome de restaurante entre 3 e 40 caracteres.")
 	private String name;
 	
 	private String description;

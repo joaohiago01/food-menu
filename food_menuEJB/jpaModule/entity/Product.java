@@ -27,6 +27,7 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+//	@Size(min = 3, max = 40, message = "Por favor, insira um nome de produto entre 3 e 40 caracteres.")
 	private String name;
 
 	private String price;
