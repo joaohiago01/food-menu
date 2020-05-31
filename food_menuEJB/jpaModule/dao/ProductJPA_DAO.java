@@ -63,8 +63,9 @@ public class ProductJPA_DAO {
 		try {
 			entityManager.getTransaction().begin();
 			product = entityManager.merge(product);
-			entityManager.flush();
 			entityManager.getTransaction().commit();
+			entityManager.flush();
+			entityManager.refresh(product);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();
@@ -78,6 +79,7 @@ public class ProductJPA_DAO {
 			entityManager.find(Product.class, product.getId());
 			entityManager.remove(product);
 			entityManager.getTransaction().commit();
+			entityManager.flush();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();

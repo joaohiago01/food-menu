@@ -2,6 +2,7 @@ package webModule.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -124,12 +125,13 @@ public class ProductServlet extends HttpServlet {
 				}
 			}
 			else {
+				HttpSession httpSession = request.getSession();
 				Product product = new Product();
 				product.setName(request.getParameter("name"));
 				product.setDescription(request.getParameter("description"));
 				product.setPrice(request.getParameter("price"));
 				Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("category")));
-				Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
+				Menu menu = (Menu) httpSession.getAttribute("menu");
 				product.getMenu().add(menu);
 				menu.getProducts().add(product);
 				product.setCategory(category);
@@ -137,7 +139,7 @@ public class ProductServlet extends HttpServlet {
 				menu = menuEJB.update(menu);
 
 				int clientID = Integer.parseInt(request.getParameter("clientID"));
-				HttpSession httpSession = request.getSession();
+				
 				httpSession.setAttribute("clientID", clientID);
 				httpSession.setAttribute("menu", menu);
 				httpSession.setAttribute("pageURL", "products.jsp");
@@ -164,9 +166,9 @@ public class ProductServlet extends HttpServlet {
 			product.setName(request.getParameter("name"));
 			product.setDescription(request.getParameter("description"));
 			product.setPrice(request.getParameter("price"));
-
 			product.setCategory(category);
-			productEJB.update(product);
+			
+			product = productEJB.update(product);
 			menu = menuEJB.update(menu);
 			
 			httpSession.removeAttribute("menu");
@@ -188,16 +190,17 @@ public class ProductServlet extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			Product product;
-			Menu menu = menuEJB.readById(Integer.parseInt(request.getParameter("menuID")));
-//			Category category = categoryProductEJB.readById(Integer.parseInt(httpSession.getAttribute("categoryIDForDelete").toString()));
+			HttpSession httpSession = request.getSession();
+			Product product = new Product();
+			Menu menu = (Menu) httpSession.getAttribute("menu");
+			Category category = categoryProductEJB.readById(Integer.parseInt(request.getParameter("categoryID")));
+			product.setCategory(category);
 			product = productEJB.readById(Integer.parseInt(request.getParameter("productID")));
-//			product.setCategory(category);
 			menu.getProducts().remove(product);
-			menu = menuEJB.update(menu);
 			productEJB.delete(product);
 			
-			HttpSession httpSession = request.getSession();
+			List<Product> products = productEJB.readAllProducts(menu);
+			menu.setProducts(products);
 			int clientID = Integer.parseInt(request.getParameter("clientID"));
 			
 			httpSession.setAttribute("clientID", clientID);
@@ -207,6 +210,7 @@ public class ProductServlet extends HttpServlet {
 		} catch (SQLException e) {
 
 			throw new ServletException(e);
+			
 		}
 	}
 

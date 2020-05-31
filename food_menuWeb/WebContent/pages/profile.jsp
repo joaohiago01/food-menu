@@ -17,7 +17,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-<title>Food Menu</title>
+<title>Food Menu - Perfil</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />

@@ -20,6 +20,7 @@ import bean.RestaurantBean;
 import entity.Category;
 import entity.Client;
 import entity.Menu;
+import entity.Product;
 import entity.Restaurant;
 
 /**
@@ -82,6 +83,8 @@ public class RestaurantServlet extends HttpServlet {
 					Restaurant restaurant = restaurantEJB.readById(Integer.parseInt(request.getParameter("restaurantID")));
 					if (restaurant != null) {
 						Menu menu = menuEJB.findByRestaurant(restaurant.getId());
+						List<Product> products = productEJB.readAllProducts(menu);
+						menu.setProducts(products);
 						httpSession.setAttribute("menu", menu);
 						httpSession.setAttribute("restaurant", restaurant);
 						httpSession.setAttribute("category", restaurant.getCategory());

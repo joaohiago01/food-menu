@@ -74,7 +74,9 @@
 									type="hidden" name="_method" value="delete" /> <input
 									type="hidden" name="clientID" value="${clientLogged.getId()}" />
 								<input type="hidden" name="menuID" value="${menu.getId()}" /> <input
-									type="hidden" name="productID" value="${product.getId()}" />
+									type="hidden" name="productID" value="${product.getId()}" /> <input
+									type="hidden" name="categoryID"
+									value="${product.getCategory().getId()}" />
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="ModalExcluir">Deseja

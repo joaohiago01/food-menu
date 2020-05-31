@@ -68,6 +68,7 @@ public class MenuJPA_DAO {
 			entityManager.getTransaction().begin();
 			menu = entityManager.merge(menu);
 			entityManager.getTransaction().commit();
+			entityManager.flush();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			entityManager.getTransaction().rollback();

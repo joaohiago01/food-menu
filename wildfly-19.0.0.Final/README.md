@@ -1,0 +1,1 @@
+Server Wildfly configured for the application.

@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS <$JBOSS_HOME>/bin/standalone.bat $PORT target/*.war

@@ -33,6 +33,7 @@
 	} else {
 		Menu menu = (Menu) session.getAttribute("menu");
 		Category category = (Category) session.getAttribute("category");
+		session.removeAttribute("menu");
 	%>
 	<div class="card bg-danger mb-3">
 		<div class="card-header">

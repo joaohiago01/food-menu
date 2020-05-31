@@ -113,7 +113,7 @@
 							<%="R$ " + product.getPrice()%>
 						</p>
 						<form method="get" action="../ProductServlet">
-							<input type="hidden" name="productID" id="product"
+							<input type="hidden" name="productID"
 								value="<%=product.getId()%>" /> <input type="hidden"
 								name="categoryID" value="<%=product.getCategory().getId()%>" />
 							<input type="hidden" name="clientID"

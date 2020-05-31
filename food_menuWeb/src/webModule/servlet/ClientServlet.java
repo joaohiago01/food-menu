@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import bean.CategoryProductBean;
 import bean.ClientBean;
 import bean.MenuBean;
+import bean.ProductBean;
 import bean.RestaurantBean;
 import entity.Category;
 import entity.Client;
 import entity.Menu;
+import entity.Product;
 import entity.Restaurant;
 
 /**
@@ -40,6 +42,9 @@ public class ClientServlet extends HttpServlet {
 
 	@EJB
 	CategoryProductBean categoryProductEJB;
+	
+	@EJB
+	ProductBean productEJB;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -94,6 +99,8 @@ public class ClientServlet extends HttpServlet {
 //						client.setPassword(password);
 						Restaurant restaurant = restaurantEJB.readByUser(client);
 						Menu menu = menuEJB.findByRestaurant(restaurant.getId());
+						List<Product> products = productEJB.readAllProducts(menu);
+						menu.setProducts(products);
 						List<Category> categoryProducts = categoryProductEJB.read();
 
 						httpSession.setAttribute("clientLogged", client);
