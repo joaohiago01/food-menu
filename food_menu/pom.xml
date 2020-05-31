@@ -5,57 +5,20 @@
 	<groupId>food_menu</groupId>
 	<artifactId>food_menu</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>ear</packaging>
 
 	<build>
 
 		<plugins>
-
-			<!-- <plugin> <artifactId>maven-ear-plugin</artifactId> <version>3.0.2</version> 
-				<configuration> <earSourceDirectory>EarContent</earSourceDirectory> <version>7</version> 
-				<defaultLibBundleDir>lib</defaultLibBundleDir> </configuration> </plugin> -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.github.jsimone</groupId>
-									<artifactId>webapp-runner</artifactId>
-									<version>8.5.5.0</version>
-									<destFileName>webapp-runner.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
+				<artifactId>maven-ear-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>
-					<web>java $JAVA_OPTS -cp target/classes:target/dependency/*war</web>
+					<earSourceDirectory>EarContent</earSourceDirectory>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
