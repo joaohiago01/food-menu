@@ -2,5 +2,14 @@
 	<wb-module deploy-name="food_menu-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
 		<wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="postgresql-9.4-1201-jdbc4.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/postgresql/postgresql/9.4-1201-jdbc4/postgresql-9.4-1201-jdbc4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="weld-servlet-2.4.1.Final.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jboss/weld/servlet/weld-servlet/2.4.1.Final/weld-servlet-2.4.1.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.faces-2.2.14.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/glassfish/javax.faces/2.2.14/javax.faces-2.2.14.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
 	</wb-module>
 </project-modules>
