@@ -11,11 +11,9 @@
 
 		<plugins>
 
-<!-- 
-			<plugin> <artifactId>maven-ear-plugin</artifactId> <version>3.0.2</version> 
+			<!-- <plugin> <artifactId>maven-ear-plugin</artifactId> <version>3.0.2</version> 
 				<configuration> <earSourceDirectory>EarContent</earSourceDirectory> <version>7</version> 
-				<defaultLibBundleDir>lib</defaultLibBundleDir> </configuration> </plugin> 
--->
+				<defaultLibBundleDir>lib</defaultLibBundleDir> </configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
