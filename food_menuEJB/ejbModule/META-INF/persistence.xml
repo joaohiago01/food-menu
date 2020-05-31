@@ -30,6 +30,7 @@
 				value="postgres" /> <!-- DB User -->
 			<property name="javax.persistence.jdbc.password" value="ads" /> <!-- DB Password -->
 
+			<!-- BD HEROKU -->
 			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-171-31-33.compute-1.amazonaws.com:5432/d43keebrp12mbm" 
 				/> <property name="javax.persistence.jdbc.user" value="hzvpwqrmjlrbjq" /> 
 				<property name="javax.persistence.jdbc.password" value="39f183f71cc8258a4ac41622d4ab8e457c189f98f9a592802c66fed754772905" 
