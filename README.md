@@ -19,7 +19,7 @@ With the information of the establishments now fully filled in, customers will b
    * [Description](#pizza-description)
    * [Product Overview](#bento-product-overview)
    * [Features](#key-features)
-   * [Pre-Requisites](#scrool-pre-requisites)
+   * [Pre-Requisites](#scroll-pre-requisites)
    * [Running the server](#-running-the-server)
    * [Technologies](#computer-technologies)
 <!--te-->
@@ -43,7 +43,7 @@ With the information of the establishments now fully filled in, customers will b
 - [x] Read Restaurant
 - [x] List Restaurants
 
-### ⚠️  Food Menu 🚧 Concluído 🏁
+⚠️  Food Menu 🚧 Concluído 🏁
 
 ## :scroll: Pre-Requisites
 
