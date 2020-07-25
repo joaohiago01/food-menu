@@ -16,19 +16,15 @@ With the information of the establishments now fully filled in, customers will b
 ## :pushpin: Table of Contents
 
 <!--ts-->
-   * [Description](#Description)
-   * [Product Overview](#ProductOverview)
-   * [Features](#Features)
-   * [Pre-Requisites](#Pre-Requisites)
-   * [Running the server](#Runningtheserver)
-   * [Technologies](#Technologies)
+   * [Description](#pizza-description)
+   * [Product Overview](#bento-product-overview)
+   * [Features](#key-features)
+   * [Pre-Requisites](#scrool-pre-requisites)
+   * [Running the server](#-running-the-server)
+   * [Technologies](#computer-technologies)
 <!--te-->
 
-<h4 align="center"> 
-	🚧  Food Menu 🚧 Concluído 🏁
-</h4>
-
-## Features
+## :key: Features
 
 - [x] Sign In
 - [x] Authentication
@@ -47,7 +43,9 @@ With the information of the establishments now fully filled in, customers will b
 - [x] Read Restaurant
 - [x] List Restaurants
 
-## Pre-Requisites
+### ⚠️  Food Menu 🚧 Concluído 🏁
+
+## :scroll: Pre-Requisites
 
 Before you begin, you will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/javase-downloads.html).
