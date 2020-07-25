@@ -17,6 +17,17 @@ With the information of the establishments now fully filled in, customers will b
 	🚧  Food Menu 🚧 Concluído 🏁
 </h4>
 
+### :pushpin: Table of Contents
+=================
+<!--ts-->
+   * [Description](#Description)
+   * [Product Overview](#Product Overview)
+   * [Features](#Features)
+   * [Pre-Requisites](#Pre-Requisites)
+   * [Running the server](#Running the server)
+   * [Technologies](#Technologies)
+<!--te-->
+
 ### Features
 
 - [x] Sign In
@@ -39,18 +50,19 @@ With the information of the establishments now fully filled in, customers will b
 ### Pre-Requisites
 
 Before you begin, you will need to have the following tools installed on your machine:
-[Git] (https://git-scm.com), [Java] (https://www.oracle.com/java/technologies/javase-downloads.html).
-In addition, it is good to have an editor to work with the code like [Eclipse] (https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-enterprise-java-developers)
+[Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/javase-downloads.html).
+In addition, it is good to have an editor to work with the code like [Eclipse](https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-enterprise-java-developers)
 
-### 🎲 Running the Server
+### 🎲 Running the server
 
 ```bash
 # Clone this repository
-$ git clone <https://github.com/joaohiago01/food-menu.git>
+$ git clone https://github.com/joaohiago01/food-menu.git
 
 # Add your project to Eclipse
 
-# Create a new server in Eclipse and choose the [WildFly] folder (https://github.com/joaohiago01/food-menu/tree/master/wildfly-19.0.0.Final) that is in the project as the server folder
+# Create a new server in Eclipse and choose the folder [WildFly](https://github.com/joaohiago01/food-menu/tree/master/wildfly-19.0.0.Final) that is in the project as the server folder
+
 # Run the server
 ```
 
@@ -67,11 +79,5 @@ The following tools were used in the construction of the project:
 This project is under the MIT license. See the [LICENSE](https://github.com/joaohiago01/food-menu/blob/master/LICENSE) for more information.
 
 ### :rocket: Author
----
-
-<a href="https://www.linkedin.com/in/joaohiago/">
- <img style="border-radius: 50%;" src="https://avatars3.githubusercontent.com/u/47699280?s=400&u=95a29f9e9b0fe118385c6923df534624be6fb749&v=4" width="100px;" alt=""/>
- <br />
-
 
 Make with dedication and ❤️ by [João Hiago](https://github.com/joaohiago01) 👋🏽 [Get it touch!](https://www.linkedin.com/in/joaohiago/)
