@@ -13,22 +13,22 @@ The owners of the establishments can start their registration in the system stat
 After finalizing their registrations in the system, the owners of establishments can start the creation of their menus, creating the categories of products that their establishments offer and associating them with their respective products.
 With the information of the establishments now fully filled in, customers will be able to access the website and search for the establishment to access the information and the menu of the same.
 
+## :pushpin: Table of Contents
+
+<!--ts-->
+   * [Description](#Description)
+   * [Product Overview](#ProductOverview)
+   * [Features](#Features)
+   * [Pre-Requisites](#Pre-Requisites)
+   * [Running the server](#Runningtheserver)
+   * [Technologies](#Technologies)
+<!--te-->
+
 <h4 align="center"> 
 	🚧  Food Menu 🚧 Concluído 🏁
 </h4>
 
-### :pushpin: Table of Contents
-=================
-<!--ts-->
-   * [Description](#Description)
-   * [Product Overview](#Product Overview)
-   * [Features](#Features)
-   * [Pre-Requisites](#Pre-Requisites)
-   * [Running the server](#Running the server)
-   * [Technologies](#Technologies)
-<!--te-->
-
-### Features
+## Features
 
 - [x] Sign In
 - [x] Authentication
@@ -47,13 +47,13 @@ With the information of the establishments now fully filled in, customers will b
 - [x] Read Restaurant
 - [x] List Restaurants
 
-### Pre-Requisites
+## Pre-Requisites
 
 Before you begin, you will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Java](https://www.oracle.com/java/technologies/javase-downloads.html).
 In addition, it is good to have an editor to work with the code like [Eclipse](https://www.eclipse.org/downloads/packages/release/2020-06/r/eclipse-ide-enterprise-java-developers)
 
-### 🎲 Running the server
+## 🎲 Running the server
 
 ```bash
 # Clone this repository
@@ -66,7 +66,7 @@ $ git clone https://github.com/joaohiago01/food-menu.git
 # Run the server
 ```
 
-### :computer: Technologies
+## :computer: Technologies
 
 The following tools were used in the construction of the project:
 
@@ -74,10 +74,10 @@ The following tools were used in the construction of the project:
 - [Bootstrap](https://getbootstrap.com/)
 - [Hibernate](https://hibernate.org/)
 
-### :closed_book: License
+## :closed_book: License
 
 This project is under the MIT license. See the [LICENSE](https://github.com/joaohiago01/food-menu/blob/master/LICENSE) for more information.
 
-### :rocket: Author
+## :rocket: Author
 
 Make with dedication and ❤️ by [João Hiago](https://github.com/joaohiago01) 👋🏽 [Get it touch!](https://www.linkedin.com/in/joaohiago/)
