@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>food_menuWeb</name>
+	<name>food-menu-web</name>
 	<comment></comment>
 	<projects>
-		<project>food_menuEJB</project>
+		<project>food-menu-server</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

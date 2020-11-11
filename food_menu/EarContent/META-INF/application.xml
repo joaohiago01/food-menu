@@ -12,9 +12,8 @@
   </module>
   <module>
     <web>
-      <web-uri>food_menuWeb.war</web-uri>
-      <context-root>food_menuWeb</context-root>
+      <web-uri>food-menu-web.war</web-uri>
+      <context-root>food-menu-web</context-root>
     </web>
   </module>
-  <library-directory>lib</library-directory>
 </application>
