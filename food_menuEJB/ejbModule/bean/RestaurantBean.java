@@ -3,7 +3,7 @@ package bean;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 
 import dao.RestaurantJPA_DAO;
@@ -11,7 +11,7 @@ import entity.Client;
 import entity.Restaurant;
 
 @Stateful
-@Remote
+@Local
 public class RestaurantBean {
 
 	private RestaurantJPA_DAO restaurantJPA_DAO = RestaurantJPA_DAO.getInstance();

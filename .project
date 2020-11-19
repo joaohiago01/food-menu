@@ -3,6 +3,9 @@
 	<name>food-menu</name>
 	<comment></comment>
 	<projects>
+		<project>food_menu</project>
+		<project>food-menu-server</project>
+		<project>food-menu-web</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>

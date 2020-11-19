@@ -12,7 +12,7 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 
-<title>Food Menu - Restaurantes</title>
+<title>Food Menu - Cadastro Restaurante</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />

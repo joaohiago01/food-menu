@@ -30,7 +30,7 @@ public class RestaurantJPA_DAO {
 	}
 
 	private EntityManager getEntityManager() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("FoodMenu");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("food-menu");
 		if (entityManager == null) {
 			entityManager = factory.createEntityManager();
 		}

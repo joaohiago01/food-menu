@@ -4,17 +4,16 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<persistence-unit name="FoodMenu"
+	<persistence-unit name="food-menu"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/FoodMenu</jta-data-source>
+		<jta-data-source>java:/food-menu</jta-data-source>
 
 		<class>dao.RestaurantJPA_DAO</class>
 		<class>dao.ProductJPA_DAO</class>
 		<class>dao.MenuJPA_DAO</class>
 		<class>dao.ClientJPA_DAO</class>
 		<class>dao.CategoryProductJPA_DAO</class>
-
 		<class>entity.Restaurant</class>
 		<class>entity.Product</class>
 		<class>entity.Menu</class>
@@ -22,14 +21,6 @@
 		<class>entity.Category</class>
 
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="org.postgresql.Driver" /> <!-- DB Driver -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/FoodMenu" /> <!-- BD Mane -->
-			<property name="javax.persistence.jdbc.user"
-				value="postgres" /> <!-- DB User -->
-			<property name="javax.persistence.jdbc.password" value="ads" /> <!-- DB Password -->
-
 			<!-- BD HEROKU -->
 			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-171-31-33.compute-1.amazonaws.com:5432/d43keebrp12mbm" 
 				/> <property name="javax.persistence.jdbc.user" value="hzvpwqrmjlrbjq" /> 

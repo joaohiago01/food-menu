@@ -3,14 +3,14 @@ package bean;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import dao.CategoryProductJPA_DAO;
 import entity.Category;
 
 @Stateless
-@Remote
+@Local
 public class CategoryProductBean {
 
 	private CategoryProductJPA_DAO categoryProductJPA_DAO = CategoryProductJPA_DAO.getInstance();

@@ -3,7 +3,7 @@ package bean;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import dao.ProductJPA_DAO;
@@ -11,7 +11,7 @@ import entity.Menu;
 import entity.Product;
 
 @Stateless
-@Remote
+@Local
 public class ProductBean {
 
 	private ProductJPA_DAO productJPA_DAO = ProductJPA_DAO.getInstance();

@@ -3,14 +3,14 @@ package bean;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 
 import dao.ClientJPA_DAO;
 import entity.Client;
 
 @Stateful
-@Remote
+@Local
 public class ClientBean {
 	
 	private ClientJPA_DAO clientJPA_DAO = ClientJPA_DAO.getInstance();

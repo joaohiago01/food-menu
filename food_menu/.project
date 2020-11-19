@@ -3,10 +3,8 @@
 	<name>food_menu</name>
 	<comment></comment>
 	<projects>
-		<project>food_menuConnector</project>
-		<project>food_menuClient</project>
-		<project>food-menu-web</project>
 		<project>food-menu-server</project>
+		<project>food-menu-web</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

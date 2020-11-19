@@ -3,14 +3,14 @@ package bean;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 
 import dao.MenuJPA_DAO;
 import entity.Menu;
 
 @Stateful
-@Remote
+@Local
 public class MenuBean {
 
 	private MenuJPA_DAO menuJPA_DAO = MenuJPA_DAO.getInstance();
