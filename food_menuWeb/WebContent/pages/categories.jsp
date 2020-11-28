@@ -1,7 +1,6 @@
 <%@page import="entity.Category"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +36,7 @@
 	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold"
+		<a class="navbar-brand text-light font-weight-bold" id="linkMain"
 			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,22 +47,22 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkUserProfile"
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Card·pio </a>
+						Card√°pio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -77,7 +76,7 @@
 		<div class="form-row col-sm-6 font-weight-bold">
 			<a
 				href="../ClientServlet?pageURL=category_register.jsp?&clientID=${clientLogged.getId()}">
-				<button type="button" data-toggle="tooltip" data-placement="bottom"
+				<button type="button" data-toggle="tooltip" data-placement="bottom" id="buttonAddCategory"
 					title="Adicionar nova categoria">
 					<i data-feather="plus"></i>
 				</button>

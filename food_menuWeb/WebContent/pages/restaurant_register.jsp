@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -54,15 +52,15 @@
 									restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputDescription">DescriÁ„o (Opcional)</label> <input
+								<label for="inputDescription">Descri√ß√£o (Opcional)</label> <input
 									type="text" class="form-control" id="inputDescription"
 									name="description"
-									placeholder="FaÁa uma descriÁ„o do seu restaurante" />
+									placeholder="Fa√ßa uma descri√ß√£o do seu restaurante" />
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputPhone">Telefone</label> <input type="text"
 									class="form-control" id="inputPhone" name="phone"
-									placeholder="Qual È o telefone do restaurante?"
+									placeholder="Qual √© o telefone do restaurante?"
 									required="required" />
 								<div class="invalid-feedback">Por favor, informe o
 									telefone do restaurante.</div>
@@ -96,41 +94,41 @@
 									do restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputAddress">EndereÁo</label> <input type="text"
+								<label for="inputAddress">Endere√ßo</label> <input type="text"
 									class="form-control" id="inputAdress" name="address"
-									placeholder="Qual o endereÁo do restaurante?"
+									placeholder="Qual o endere√ßo do restaurante?"
 									required="required" />
 								<div class="invalid-feedback">Por favor, informe o
-									endereÁo do restaurante.</div>
+									endere√ßo do restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputNumber">N˙mero</label> <input type="number"
+								<label for="inputNumber">N√∫mero</label> <input type="number"
 									class="form-control" id="inputNumber" name="number"
-									placeholder="N˙mero do endereÁo" required="required" />
-								<div class="invalid-feedback">Por favor, informe o n˙mero
-									do endereÁo do restaurante.</div>
+									placeholder="N√∫mero do endere√ßo" required="required" />
+								<div class="invalid-feedback">Por favor, informe o n√∫mero
+									do endere√ßo do restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputAddtion">Complemento (Opcional)</label> <input
 									type="text" class="form-control" id="inputAddtion"
-									name="addition" placeholder="Complemento do endereÁo" />
+									name="addition" placeholder="Complemento do endere√ßo" />
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputTimeBegin">Hor·rio de Abertura</label> <input
+								<label for="inputTimeBegin">Hor√°rio de Abertura</label> <input
 									type="text" class="form-control" id="inputTimeBegin"
 									name="time_open"
-									placeholder="Qual hor·rio seu estabelecimento abre?"
+									placeholder="Qual hor√°rio seu estabelecimento abre?"
 									required="required" />
-								<div class="invalid-feedback">Por favor, informe o hor·rio
+								<div class="invalid-feedback">Por favor, informe o hor√°rio
 									de abertura do restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputTimeEnd">Hor·rio de Encerramento</label> <input
+								<label for="inputTimeEnd">Hor√°rio de Encerramento</label> <input
 									type="text" class="form-control" id="inputTimeEnd"
 									name="time_close"
-									placeholder="Qual hor·rio seu estabelecimento fecha?"
+									placeholder="Qual hor√°rio seu estabelecimento fecha?"
 									required="required" />
-								<div class="invalid-feedback">Por favor, informe o hor·rio
+								<div class="invalid-feedback">Por favor, informe o hor√°rio
 									de encerramento do restaurante.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
@@ -148,7 +146,7 @@
 									<input type="checkbox" class="custom-control-input"
 										name="tuesday" onclick="check('tuesday')" value="off"
 										id="tuesday"> <label class="custom-control-label"
-										for="tuesday">TerÁa-Feira</label>
+										for="tuesday">Ter√ßa-Feira</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
@@ -176,7 +174,7 @@
 									<input type="checkbox" class="custom-control-input"
 										onclick="check('saturday')" id="saturday" value="off"
 										name="saturday"> <label class="custom-control-label"
-										for="saturday">Sab·do</label>
+										for="saturday">Sab√°do</label>
 								</div>
 								<div
 									class="custom-control custom-checkbox custom-control-inline">
@@ -187,7 +185,7 @@
 								</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputDelivery">O restaurante possui serviÁo
+								<label for="inputDelivery">O restaurante possui servi√ßo
 									de entrega?</label>
 								<div class="custom-control custom-radio custom-control-inline">
 									<input type="radio" id="customRadioDeliveryYes"
@@ -199,12 +197,12 @@
 									<input type="radio" id="customRadioDeliveryNo"
 										onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
 										name="delivery" class="custom-control-input" checked="checked" value="offYes"/><label
-										class="custom-control-label" for="customRadioDeliveryNo">N„o</label>
+										class="custom-control-label" for="customRadioDeliveryNo">N√£o</label>
 								</div>
 							</div>
 						</div>
 
-						<button type="submit"
+						<button type="submit" id="buttonSubmit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">
 							Confirmar</button>
 					</form>
@@ -252,12 +250,12 @@
 		}
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formul·rio, se houver campos inv·lidos.
+		// Exemplo de JavaScript inicial para desativar envios de formul√°rio, se houver campos inv√°lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formul·rios que nÛs queremos aplicar estilos de validaÁ„o Bootstrap personalizados.
+						// Pega todos os formul√°rios que n√≥s queremos aplicar estilos de valida√ß√£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

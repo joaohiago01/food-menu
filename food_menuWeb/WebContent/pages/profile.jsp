@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +33,7 @@
 	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold"
+		<a class="navbar-brand text-light font-weight-bold" id="linkMain"
 			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -45,22 +44,22 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkUserProfile"
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Cardápio </a>
+						CardÃ¡pio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -110,9 +109,9 @@
 				</div>
 			</div>
 
-			<button type="submit" value="put"
+			<button type="submit" value="put" id="buttonSubmit"
 				class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar
-				Mudanças</button>
+				MudanÃ§as</button>
 		</form>
 	</div>
 	<%
@@ -127,12 +126,12 @@
 		});
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

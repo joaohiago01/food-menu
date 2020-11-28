@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +18,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<title>Food Menu - Produtos</title>
+<title>Food Menu - Produto</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />
@@ -67,22 +66,22 @@
 									produto.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputPriceProduct">Preço</label> <input type="text"
+								<label for="inputPriceProduct">PreÃ§o</label> <input type="text"
 									class="form-control" id="inputPriceProduct" name="price"
-									placeholder="Qual o preço deste produto?" required="required" />
-								<div class="invalid-feedback">Por favor, informe o preço
+									placeholder="Qual o preÃ§o deste produto?" required="required" />
+								<div class="invalid-feedback">Por favor, informe o preÃ§o
 									do produto.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputDescription">Descrição (Opcional)</label> <input
+								<label for="inputDescription">DescriÃ§Ã£o (Opcional)</label> <input
 									type="text" class="form-control" id="inputDescription"
 									name="description"
-									placeholder="Faça uma descrição deste produto" />
+									placeholder="FaÃ§a uma descriÃ§Ã£o deste produto" />
 							</div>
 
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputEspeciality">Qual a categoria deste
-									produto?</label> <select class="custom-select" required="required"
+									produto?</label> <select class="custom-select" required="required" id="inputEspecialitySelect"
 									name="category">
 									<%
 										if (categories != null) {
@@ -104,7 +103,7 @@
 							</div>
 						</div>
 
-						<button type="submit"
+						<button type="submit" id="buttonSubmit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Cadastrar</button>
 					</form>
 				</div>
@@ -123,12 +122,12 @@
 		});
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

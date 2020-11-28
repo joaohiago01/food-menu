@@ -1,6 +1,5 @@
 <%@page import="entity.Restaurant"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,15 +51,15 @@
 							value="${clientLogged.getId()}" />
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputNameProduct">Nome</label> <input type="text"
-									class="form-control" id="inputNameProduct" name="name"
+								<label for="inputNameCategory">Nome</label> <input type="text"
+									class="form-control" id="inputNameCategory" name="name"
 									placeholder="Qual o nome desta categoria?" required="required" />
 								<div class="invalid-feedback">Por favor, informe o nome da
 									categoria.</div>
 							</div>
 						</div>
 
-						<button type="submit"
+						<button type="submit" id="buttonSubmit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Cadastrar</button>
 					</form>
 				</div>
@@ -74,12 +73,12 @@
 		
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

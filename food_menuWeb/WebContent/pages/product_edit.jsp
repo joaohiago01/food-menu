@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +20,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-<title>Food Menu - Produtos</title>
+<title>Food Menu - Editar Produto</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />
@@ -60,7 +59,7 @@
 					<br />
 					<div class="form-group col-md-15 font-weight-bold">
 						<button type="button" data-toggle="tooltip"
-							onclick="popup();return false;" data-placement="bottom"
+							onclick="popup();return false;" data-placement="bottom" id="buttonDelete"
 							title="Remova este produto" data-target="#modalExcluir">
 							<i data-feather="trash-2"></i>
 						</button>
@@ -81,15 +80,15 @@
 									<div class="modal-header">
 										<h5 class="modal-title" id="ModalExcluir">Deseja
 											realmente excluir o produto?</h5>
-										<button type="button" class="close" data-dismiss="modal"
+										<button type="button" class="close" data-dismiss="modal" id="buttonCloseDelete"
 											aria-label="Fechar">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
+										<button type="button" class="btn btn-secondary" id="buttonCancelDelete"
 											data-dismiss="modal">Fechar</button>
-										<button type="submit" class="btn btn-danger">Excluir</button>
+										<button type="submit" id="buttonConfirmDelete" class="btn btn-danger">Excluir</button>
 									</div>
 								</div>
 							</form>
@@ -115,18 +114,18 @@
 									produto.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputPriceProduct">Preço</label> <input type="text"
+								<label for="inputPriceProduct">PreÃ§o</label> <input type="text"
 									class="form-control" id="inputPriceProduct" name="price"
-									placeholder="Qual o preço deste produto?" required="required"
+									placeholder="Qual o preÃ§o deste produto?" required="required"
 									value="<%=product.getPrice()%>" />
-								<div class="invalid-feedback">Por favor, informe o preço
+								<div class="invalid-feedback">Por favor, informe o preÃ§o
 									do produto.</div>
 							</div>
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputDescription">Descrição (Opcional)</label> <input
+								<label for="inputDescription">DescriÃ§Ã£o (Opcional)</label> <input
 									type="text" class="form-control" id="inputDescription"
 									name="description"
-									placeholder="Faça uma descrição deste produto"
+									placeholder="FaÃ§a uma descriÃ§Ã£o deste produto"
 									value="<%=product.getDescription()%>" />
 							</div>
 
@@ -159,9 +158,9 @@
 							</div>
 						</div>
 
-						<button type="submit"
+						<button type="submit" id="buttonSubmit"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Salvar
-							Mudanças</button>
+							MudanÃ§as</button>
 					</form>
 				</div>
 			</div>
@@ -191,12 +190,12 @@
 		}
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

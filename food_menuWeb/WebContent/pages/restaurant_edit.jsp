@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-<title>Food Menu - Restaurante</title>
+<title>Food Menu - Editar Restaurante</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />
@@ -37,7 +36,7 @@
 	} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold"
+		<a class="navbar-brand text-light font-weight-bold" id="linkMain"
 			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,22 +47,22 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkUserProfile"
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Card·pio </a>
+						Card√°pio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -104,15 +103,15 @@
 								restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
-							<label for="inputDescription">DescriÁ„o (Opcional)</label> <input
+							<label for="inputDescription">Descri√ß√£o (Opcional)</label> <input
 								type="text" class="form-control" id="inputDescription"
 								name="description" value="<%=restaurant.getDescription()%>"
-								placeholder="FaÁa uma descriÁ„o do seu restaurante" />
+								placeholder="Fa√ßa uma descri√ß√£o do seu restaurante" />
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputPhone">Telefone</label> <input type="text"
 								class="form-control" id="inputPhone" name="phone"
-								placeholder="Qual È o telefone do restaurante?"
+								placeholder="Qual √© o telefone do restaurante?"
 								required="required" value="<%=restaurant.getPhone()%>" />
 							<div class="invalid-feedback">Por favor, informe o telefone
 								do restaurante.</div>
@@ -150,43 +149,43 @@
 								do restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
-							<label for="inputAddress">EndereÁo</label> <input type="text"
+							<label for="inputAddress">Endere√ßo</label> <input type="text"
 								class="form-control" id="inputAdress" name="address"
-								placeholder="Qual o endereÁo do restaurante?"
+								placeholder="Qual o endere√ßo do restaurante?"
 								required="required" value="<%=restaurant.getAddress()%>" />
-							<div class="invalid-feedback">Por favor, informe o endereÁo
+							<div class="invalid-feedback">Por favor, informe o endere√ßo
 								do restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
-							<label for="inputNumber">N˙mero</label> <input type="number"
+							<label for="inputNumber">N√∫mero</label> <input type="number"
 								class="form-control" id="inputNumber" name="number"
-								placeholder="N˙mero do endereÁo" required="required"
+								placeholder="N√∫mero do endere√ßo" required="required"
 								value="<%=restaurant.getNumber()%>" />
-							<div class="invalid-feedback">Por favor, informe o n˙mero
-								do endereÁo do restaurante.</div>
+							<div class="invalid-feedback">Por favor, informe o n√∫mero
+								do endere√ßo do restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputAddtion">Complemento (Opcional)</label> <input
 								type="text" class="form-control" id="inputAddtion"
 								name="addition" value="<%=restaurant.getAddition()%>"
-								placeholder="Complemento do endereÁo" />
+								placeholder="Complemento do endere√ßo" />
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
-							<label for="inputTimeBegin">Hor·rio de Abertura</label> <input
+							<label for="inputTimeBegin">Hor√°rio de Abertura</label> <input
 								type="text" class="form-control" id="inputTimeBegin"
 								name="time_open"
-								placeholder="Qual hor·rio seu estabelecimento abre?"
+								placeholder="Qual hor√°rio seu estabelecimento abre?"
 								required="required" value="<%=restaurant.getTime_open()%>" />
-							<div class="invalid-feedback">Por favor, informe o hor·rio
+							<div class="invalid-feedback">Por favor, informe o hor√°rio
 								de abertura do restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
-							<label for="inputTimeEnd">Hor·rio de Encerramento</label> <input
+							<label for="inputTimeEnd">Hor√°rio de Encerramento</label> <input
 								type="text" class="form-control" id="inputTimeEnd"
 								name="time_close"
-								placeholder="Qual hor·rio seu estabelecimento fecha?"
+								placeholder="Qual hor√°rio seu estabelecimento fecha?"
 								required="required" value="<%=restaurant.getTime_close()%>" />
-							<div class="invalid-feedback">Por favor, informe o hor·rio
+							<div class="invalid-feedback">Por favor, informe o hor√°rio
 								de encerramento do restaurante.</div>
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
@@ -221,7 +220,7 @@
 								<%
 									}
 								%>
-								<label class="custom-control-label" for="tuesday">TerÁa-Feira</label>
+								<label class="custom-control-label" for="tuesday">Ter√ßa-Feira</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
@@ -288,7 +287,7 @@
 								<%
 									}
 								%>
-								<label class="custom-control-label" for="saturday">Sab·do</label>
+								<label class="custom-control-label" for="saturday">Sab√°do</label>
 							</div>
 							<div class="custom-control custom-checkbox custom-control-inline">
 								<%
@@ -309,17 +308,17 @@
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputEspeciality">Qual a categoria principal
-								do restaurante?</label> <select class="custom-select"
+								do restaurante?</label> <select class="custom-select" id="inputEspecialitySelect"
 								required="required" name="category">
 								<%
 									if (restaurant.getCategory() != null) {
 								%>
-								<option selected="selected"
+								<option selected="selected" id="inputEspecialitySelected"
 									value="<%=restaurant.getCategory().getId()%>"><%=restaurant.getCategory().getName()%></option>
 								<%
 									} else {
 								%>
-								<option selected="selected"></option>
+								<option selected="selected" id="inputEspecialitySelected"></option>
 								<%
 									}
 								if (categories != null) {
@@ -332,12 +331,12 @@
 								%>
 							</select>
 							<div class="invalid-feedback">Por favor, informe a
-								categoria principal do restaurante. Caso n„o encontre uma
-								categoria apropriada, v· em: Card·pio => Categorias. Para criar
+								categoria principal do restaurante. Caso n√£o encontre uma
+								categoria apropriada, v√° em: Card√°pio => Categorias. Para criar
 								uma nova categoria.</div>
 						</div>
 						<div class="card-body form-group col-md-15 font-weight-bold">
-							<label for="inputDelivery">O restaurante possui serviÁo
+							<label for="inputDelivery">O restaurante possui servi√ßo
 								de entrega?</label> <br />
 							<%
 								if (restaurant.isDelivery()) {
@@ -352,7 +351,7 @@
 								<input type="radio" id="customRadioDeliveryNo"
 									onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
 									name="delivery" class="custom-control-input" /><label
-									class="custom-control-label" for="customRadioDeliveryNo">N„o</label>
+									class="custom-control-label" for="customRadioDeliveryNo">N√£o</label>
 							</div>
 							<%
 								} else {
@@ -367,7 +366,7 @@
 								<input type="radio" id="customRadioDeliveryNo"
 									onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
 									name="delivery" class="custom-control-input" checked="checked" /><label
-									class="custom-control-label" for="customRadioDeliveryNo">N„o</label>
+									class="custom-control-label" for="customRadioDeliveryNo">N√£o</label>
 							</div>
 							<%
 								}
@@ -375,9 +374,9 @@
 						</div>
 					</div>
 
-					<button type="submit"
+					<button type="submit" id="buttonSubmitRestaurantEdit"
 						class="btn btn-danger btn-lg btn-block font-weight-bold">
-						Salvar MudanÁas</button>
+						Salvar Mudan√ßas</button>
 				</form>
 			</div>
 		</div>
@@ -425,12 +424,12 @@
 		}
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formul·rio, se houver campos inv·lidos.
+		// Exemplo de JavaScript inicial para desativar envios de formul√°rio, se houver campos inv√°lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formul·rios que nÛs queremos aplicar estilos de validaÁ„o Bootstrap personalizados.
+						// Pega todos os formul√°rios que n√≥s queremos aplicar estilos de valida√ß√£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

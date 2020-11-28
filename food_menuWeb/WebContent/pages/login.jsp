@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html style="overflow: hidden;">
 <head>
@@ -10,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-<title>Food Menu</title>
+<title>Food Menu - Login</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />
@@ -50,7 +49,7 @@
 						</div>
 					</div>
 
-					<button type="submit"
+					<button type="submit" id="buttonLogin"
 						class="btn btn-danger btn-lg btn-block font-weight-bold">
 						Entrar</button>
 				</form>
@@ -60,12 +59,12 @@
 	</div>
 
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

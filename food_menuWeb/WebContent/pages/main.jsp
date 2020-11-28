@@ -1,6 +1,5 @@
 <%@page import="entity.Client"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +39,7 @@
 		} else {
 	%>
 	<nav class="navbar navbar-expand-lg navbar-danger bg-danger">
-		<a class="navbar-brand text-light font-weight-bold"
+		<a class="navbar-brand text-light font-weight-bold" id="linkMain"
 			href="../ClientServlet?pageURL=main.jsp?&clientID=${clientLogged.getId()}">Food
 			Menu</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -51,22 +50,22 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkUserProfile"
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold"
+					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
 					href="#" id="navbarDropdownMenuLink" role="button"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Cardápio </a>
+						CardÃ¡pio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold"
+						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -97,9 +96,9 @@
 
 		<div class="card-body">
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Horário de
+				<label class="form-col-1 font-weight-bold">HorÃ¡rio de
 					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
-				</label> <label class="form-col-1">às</label> <label id="time_close"
+				</label> <label class="form-col-1">Ã s</label> <label id="time_close"
 					class="form-col-1"> <%=restaurant.getTime_close()%>
 				</label>
 			</div>
@@ -132,7 +131,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck2" name="tuesday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck2">Terça-Feira</label>
+						class="custom-control-label" for="customCheck2">TerÃ§a-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -188,7 +187,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck6" name="saturday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck6">Sabádo</label>
+						class="custom-control-label" for="customCheck6">SabÃ¡do</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -214,7 +213,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Localização</h4>
+			<h4 class="card-title font-weight-bold">LocalizaÃ§Ã£o</h4>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
@@ -224,7 +223,7 @@
 				</label>
 			</div>
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Endereço: </label> <label
+				<label class="form-col-1 font-weight-bold">EndereÃ§o: </label> <label
 					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
@@ -242,7 +241,7 @@
 		</div>
 
 		<div class="card-body form-group col-md-15 font-weight-bold">
-			<label for="inputDelivery">O restaurante possui serviço de
+			<label for="inputDelivery">O restaurante possui serviÃ§o de
 				entrega?</label> <br />
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioDeliveryYes" disabled="disabled"
@@ -254,12 +253,12 @@
 				<input type="radio" id="customRadioDeliveryNo" disabled="disabled"
 					name="customRadioDelivery" class="custom-control-input"
 					<%if (!restaurant.isDelivery())%> checked="checked" /><label
-					class="custom-control-label" for="customRadioDeliveryNo">Não</label>
+					class="custom-control-label" for="customRadioDeliveryNo">NÃ£o</label>
 			</div>
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Cardápio</h4>
+			<h4 class="card-title font-weight-bold">CardÃ¡pio</h4>
 			<br />
 
 			<div class="row">

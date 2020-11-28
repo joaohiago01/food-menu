@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -12,7 +10,7 @@
 
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 
-<title>Food Menu - Faça Parte</title>
+<title>Food Menu - FaÃ§a Parte</title>
 
 <link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
 
@@ -24,7 +22,7 @@
 		<div class="card-header card bg-danger mb-3">
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
-					href="../RestaurantServlet?pageURL=index.jsp">Início</a></li>
+					href="../RestaurantServlet?pageURL=index.jsp">InÃ­cio</a></li>
 				<li class="nav-item"><a class="nav-link btn btn-danger btn-lg"
 					href="login.jsp">Entrar</a></li>
 			</ul>
@@ -40,7 +38,7 @@
 				<div class="card-body">
 					<h2 class="card-title font-weight-bold">Cadastre seu
 						restaurante</h2>
-					<h5 class="card-subtitle mb-2 text-muted">Faça parte do Food
+					<h5 class="card-subtitle mb-2 text-muted">FaÃ§a parte do Food
 						Menu!</h5>
 					<br />
 					<form class="needs-validation" novalidate method="post" action="../ClientServlet">
@@ -78,8 +76,8 @@
 							</div>
 						</div> 
 
-							<button type="submit"
-								class="btn btn-danger btn-lg btn-block font-weight-bold">Começar
+							<button type="submit" id="buttonSubmit"
+								class="btn btn-danger btn-lg btn-block font-weight-bold">ComeÃ§ar
 								Cadastro</button>
 					</form>
 				</div>
@@ -96,12 +94,12 @@
 		});
 	</script>
 	<script>
-		// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+		// Exemplo de JavaScript inicial para desativar envios de formulÃ¡rio, se houver campos invÃ¡lidos.
 		(function() {
 			'use strict';
 			window.addEventListener('load',
 					function() {
-						// Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+						// Pega todos os formulÃ¡rios que nÃ³s queremos aplicar estilos de validaÃ§Ã£o Bootstrap personalizados.
 						var forms = document
 								.getElementsByClassName('needs-validation');
 						// Faz um loop neles e evita o envio

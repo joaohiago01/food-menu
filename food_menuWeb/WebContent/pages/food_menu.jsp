@@ -1,6 +1,5 @@
 <%@page import="java.util.Set"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +72,7 @@
 
 		<div class="card-body">
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">Hor·rio de
+				<label class="form-col-1 font-weight-bold">Hor√°rio de
 					Funcionamento:</label> <label id="time_open" class="form-col-1"> <%=restaurant.getTime_open()%>
 				</label> <label class="form-col-1"></label> <label id="time_close"
 					class="form-col-1"> <%=restaurant.getTime_close()%>
@@ -108,7 +107,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck2" name="tuesday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck2">TerÁa-Feira</label>
+						class="custom-control-label" for="customCheck2">Ter√ßa-Feira</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -164,7 +163,7 @@
 					%>
 					<input type="checkbox" class="custom-control-input"
 						id="customCheck6" name="saturday" disabled="disabled" /> <label
-						class="custom-control-label" for="customCheck6">Sab·do</label>
+						class="custom-control-label" for="customCheck6">Sab√°do</label>
 				</div>
 				<div class="custom-control custom-checkbox custom-control-inline">
 					<%
@@ -190,7 +189,7 @@
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">LocalizaÁ„o</h4>
+			<h4 class="card-title font-weight-bold">Localiza√ß√£o</h4>
 
 			<div class="form-row">
 				<label class="form-col-1 font-weight-bold">Cidade:</label> <label
@@ -200,7 +199,7 @@
 				</label>
 			</div>
 			<div class="form-row">
-				<label class="form-col-1 font-weight-bold">EndereÁo: </label> <label
+				<label class="form-col-1 font-weight-bold">Endere√ßo: </label> <label
 					class="form-col-1" id="address"> <%=restaurant.getAddress()%>
 				</label>
 			</div>
@@ -218,7 +217,7 @@
 		</div>
 
 		<div class="card-body form-group col-md-15 font-weight-bold">
-			<label for="inputDelivery">O restaurante possui serviÁo de
+			<label for="inputDelivery">O restaurante possui servi√ßo de
 				entrega?</label> <br />
 			<div class="custom-control custom-radio custom-control-inline">
 				<input type="radio" id="customRadioDeliveryYes" disabled="disabled"
@@ -230,12 +229,12 @@
 				<input type="radio" id="customRadioDeliveryNo" disabled="disabled"
 					name="customRadioDelivery" class="custom-control-input"
 					<%if (!restaurant.isDelivery())%> checked="checked" /><label
-					class="custom-control-label" for="customRadioDeliveryNo">N„o</label>
+					class="custom-control-label" for="customRadioDeliveryNo">N√£o</label>
 			</div>
 		</div>
 
 		<div class="card-body">
-			<h4 class="card-title font-weight-bold">Card·pio</h4>
+			<h4 class="card-title font-weight-bold">Card√°pio</h4>
 			<br />
 
 			<div class="row">
