@@ -132,7 +132,7 @@
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputEspeciality">Qual a categoria deste
 									produto?</label> <select class="custom-select" required="required"
-									name="category">
+									id="inputCategory" name="category">
 									<%
 										if (product.getCategory() != null) {
 									%>
