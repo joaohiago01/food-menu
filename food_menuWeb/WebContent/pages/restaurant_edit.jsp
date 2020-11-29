@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -51,7 +51,8 @@
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
+					class="nav-link text-light font-weight-bold"
+					id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
@@ -60,9 +61,11 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
+						<a class="dropdown-item text-light font-weight-bold"
+							id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
+						<a class="dropdown-item text-light font-weight-bold"
+							id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -308,8 +311,8 @@
 						</div>
 						<div class="form-group col-md-15 font-weight-bold">
 							<label for="inputEspeciality">Qual a categoria principal
-								do restaurante?</label> <select class="custom-select" id="inputEspecialitySelect"
-								required="required" name="category">
+								do restaurante?</label> <select class="custom-select"
+								id="inputEspecialitySelect" required="required" name="category">
 								<%
 									if (restaurant.getCategory() != null) {
 								%>
@@ -322,7 +325,7 @@
 								<%
 									}
 								if (categories != null) {
-									for (Category categoryProduct : categories) {
+								for (Category categoryProduct : categories) {
 								%>
 								<option value="<%=categoryProduct.getId()%>"><%=categoryProduct.getName()%></option>
 								<%

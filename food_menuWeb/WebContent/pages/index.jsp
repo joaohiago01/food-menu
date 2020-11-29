@@ -81,7 +81,7 @@
 						<%
 							}
 						%>
-						<button type="submit"
+						<button type="submit" id="acessFoodMenu"
 							class="btn btn-danger btn-lg btn-block font-weight-bold">Acessar</button>
 					</form>
 				</div>

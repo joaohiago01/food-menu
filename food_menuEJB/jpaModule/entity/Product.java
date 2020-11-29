@@ -34,7 +34,7 @@ public class Product implements Serializable {
 
 	private String description;
 
-	@ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.MERGE})
 	@JoinTable(name = "Products_Menu",
 	joinColumns={@JoinColumn(name = "product_id")},
 	inverseJoinColumns={@JoinColumn(name = "menu_id")})

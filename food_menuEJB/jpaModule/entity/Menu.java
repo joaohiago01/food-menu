@@ -25,10 +25,10 @@ public class Menu implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToMany(mappedBy = "menu", targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(mappedBy = "menu", targetEntity = Product.class, cascade = {CascadeType.MERGE})
 	private List<Product> products = new ArrayList<Product>();
 
-	@OneToOne(cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
+	@OneToOne(cascade = {CascadeType.ALL, CascadeType.MERGE},
 			targetEntity = Restaurant.class,
 			optional = false)
 	@JoinColumn(unique = true)

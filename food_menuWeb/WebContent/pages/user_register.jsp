@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -12,7 +13,8 @@
 
 <title>Food Menu - Faça Parte</title>
 
-<link rel="sortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+<link rel="sortcut icon" href="../assets/favicon.ico"
+	type="image/x-icon" />
 
 </head>
 
@@ -41,13 +43,14 @@
 					<h5 class="card-subtitle mb-2 text-muted">Faça parte do Food
 						Menu!</h5>
 					<br />
-					<form class="needs-validation" novalidate method="post" action="../ClientServlet">
+					<form class="needs-validation" novalidate method="post"
+						action="../ClientServlet">
 						<div class="form-group">
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputName">Nome Completo</label> <input type="text"
 									class="form-control" id="inputName" name="name"
 									placeholder="Qual o nome do dono do restaurante?"
-									required="required" min="5" max="60"/>
+									required="required" min="5" max="60" />
 								<div class="invalid-feedback">Por favor, informe o nome do
 									dono do restaurante.</div>
 							</div>
@@ -70,15 +73,16 @@
 							<div class="form-group col-md-15 font-weight-bold">
 								<label for="inputPassword">Senha</label> <input type="password"
 									class="form-control" id="inputPassword" name="password"
-									placeholder="Digite uma senha" required="required" min="5" max="20"/>
+									placeholder="Digite uma senha" required="required" min="5"
+									max="20" />
 								<div class="invalid-feedback">Por favor, informe a senha
 									do dono do restaurante.</div>
 							</div>
-						</div> 
+						</div>
 
-							<button type="submit" id="buttonSubmit"
-								class="btn btn-danger btn-lg btn-block font-weight-bold">Começar
-								Cadastro</button>
+						<button type="submit" id="buttonSubmit"
+							class="btn btn-danger btn-lg btn-block font-weight-bold">Começar
+							Cadastro</button>
 					</form>
 				</div>
 			</div>

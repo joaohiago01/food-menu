@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -196,8 +197,9 @@
 								<div class="custom-control custom-radio custom-control-inline">
 									<input type="radio" id="customRadioDeliveryNo"
 										onclick="radio('customRadioDeliveryYes', 'customRadioDeliveryNo')"
-										name="delivery" class="custom-control-input" checked="checked" value="offYes"/><label
-										class="custom-control-label" for="customRadioDeliveryNo">Não</label>
+										name="delivery" class="custom-control-input" checked="checked"
+										value="offYes" /><label class="custom-control-label"
+										for="customRadioDeliveryNo">Não</label>
 								</div>
 							</div>
 						</div>
