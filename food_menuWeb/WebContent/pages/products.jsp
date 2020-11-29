@@ -50,7 +50,8 @@
 					href="../ClientServlet?pageURL=profile.jsp?&clientID=${clientLogged.getId()}">Perfil
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold" id="linkRestaurantEdit"
+					class="nav-link text-light font-weight-bold"
+					id="linkRestaurantEdit"
 					href="../ClientServlet?pageURL=restaurant_edit.jsp?&clientID=${clientLogged.getId()}">Restaurante</a></li>
 				<li class="nav-item dropdown text-light"><a
 					class="nav-link dropdown-toggle text-light font-weight-bold"
@@ -59,9 +60,11 @@
 						Cardápio </a>
 					<div class="dropdown-menu bg-danger"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-light font-weight-bold" id="linkCategories"
+						<a class="dropdown-item text-light font-weight-bold"
+							id="linkCategories"
 							href="../ClientServlet?pageURL=categories.jsp?&clientID=${clientLogged.getId()}">Categorias</a>
-						<a class="dropdown-item text-light font-weight-bold" id="linkProducts"
+						<a class="dropdown-item text-light font-weight-bold"
+							id="linkProducts"
 							href="../ClientServlet?pageURL=products.jsp?&clientID=${clientLogged.getId()}">Produtos</a>
 					</div></li>
 				<li class="nav-item"><a
@@ -75,8 +78,8 @@
 		<div class="form-row col-sm-6 font-weight-bold">
 			<a
 				href="../ClientServlet?pageURL=product_register.jsp&?&clientID=${clientLogged.getId()}">
-				<button type="button" data-toggle="tooltip" data-placement="bottom" id="buttonAddProduct"
-					title="Cadastrar novo produto">
+				<button type="button" data-toggle="tooltip" data-placement="bottom"
+					id="buttonAddProduct" title="Cadastrar novo produto">
 					<i data-feather="plus"></i>
 				</button>
 			</a>
@@ -97,7 +100,7 @@
 			</div>
 			<%
 				} else {
-				for (Product product : listProducts) {
+			for (Product product : listProducts) {
 			%>
 			<div class="col-sm-6">
 				<div class="card">
@@ -118,8 +121,9 @@
 							<input type="hidden" name="clientID"
 								value="<%=clientLogged.getId()%>" /> <input type="hidden"
 								name="pageURL" value="product_edit.jsp" />
-							<button type="submit" data-toggle="tooltip" id="buttonEditProduct"
-								data-placement="bottom" title="Edite este produto">
+							<button type="submit" data-toggle="tooltip"
+								id="buttonEditProduct" data-placement="bottom"
+								title="Edite este produto">
 								<i data-feather="edit"></i>
 							</button>
 						</form>
