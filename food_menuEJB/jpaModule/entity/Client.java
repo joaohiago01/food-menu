@@ -22,10 +22,8 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-//	@CPF(message = "CPF inválido.")
 	private String cpf;
 	
-//	@Size(min = 3, max = 40, message = "Por favor, insira um nome entre 3 e 40 caracteres.")
 	private String name;
 	
 	private String email;

@@ -174,7 +174,6 @@ public class ClientServlet extends HttpServlet {
 
 			HttpSession httpSession = request.getSession();
 			httpSession.setAttribute("client", client);
-			System.out.println(client.getName());
 			response.sendRedirect("./pages/restaurant_register.jsp");
 		}
 	}

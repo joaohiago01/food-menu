@@ -24,7 +24,6 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-//	@Size(min = 3, max = 40, message = "Por favor, insira um nome de categoria com no minímo 3 caracteres.")
 	private String name;
 	
 	@OneToMany

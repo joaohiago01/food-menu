@@ -6,9 +6,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
-
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -25,6 +22,8 @@
 <link rel="sortcut icon" href="../assets/favicon.ico"
 	type="image/x-icon" />
 
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
 
 <body>
@@ -130,18 +129,18 @@
 							</div>
 
 							<div class="form-group col-md-15 font-weight-bold">
-								<label for="inputEspeciality">Qual a categoria deste
+								<label for="inputCategory">Qual a categoria deste
 									produto?</label> <select class="custom-select" required="required"
 									id="inputCategory" name="category">
 									<%
 										if (product.getCategory() != null) {
 									%>
-									<option selected="selected"
+									<option selected="selected" id="inputCategorySelected"
 										value="<%=product.getCategory().getId()%>"><%=product.getCategory().getName()%></option>
 									<%
 										} else {
 									%>
-									<option selected="selected"></option>
+									<option selected="selected" id="inputCategorySelected"></option>
 									<%
 										}
 									if (categories != null) {
